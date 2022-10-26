@@ -58,7 +58,8 @@ architecture rtl of toplevel is
   KeyxD <= to_unsigned(0,4) when Push0xSI='1' else
            to_unsigned(1,4) when Push1xSI='1' else
            to_unsigned(2,4) when Push2xSI='1' else
-           to_unsigned(3,4) when Push3xSI='1';
+           to_unsigned(3,4) when Push3xSI='1' else
+           TO_UNSIGNED(0,4);
 
   key_lock : KeyLock
   PORT MAP(

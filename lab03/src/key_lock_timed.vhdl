@@ -46,112 +46,107 @@ architecture rtl of KeyLock is
                                 ok2wait,
                                 ok3,
                                 unlocked);
-    signal KeyLockState : KeyLockState_type;
-    signal CountEnxS : std_logic;
-    signal CountValxD : unsigned(32 downto 0);
+    signal KeyLockStatexN : KeyLockState_type;
+    signal CountEnxSN : std_logic;
+    signal CountValxDN : unsigned(32 downto 0);
+    signal KeyLockStatexP : KeyLockState_type;
+    signal CountEnxSP : std_logic;
+    signal CountValxDP : unsigned(32 downto 0);
 
     begin
-        FSM_PROC : process(CLKxCI,RSTxRI)
+        FSM_PROC : process(all)
         begin
             --DEFAULT
-            KeyLockState <= KeyLockState;
-            CountEnxS <= CountEnxS;
-            CountValxD <= CountValxD;
+            KeyLockStatexN <= KeyLockStatexP;
+            CountEnxSN <= CountEnxSP;
+            CountValxDN <= CountValxDP;
 
-            --PROCESS
-
-            --RST
-            if RSTxRI = '1' then
-                KeyLockState <= locked;
-                CountEnxS <= '0';
-                CountValxD <= (others => '0');
-            elsif (CLKxCI'EVENT AND CLKxCI = '1') then
-                case KeyLockState is
+                case KeyLockStatexP is
                     --LOCKED
                     when locked =>
                         if(KeyValidxSI='1') then
                             if(KeyxDI=0) then
-                                KeyLockState <= ok1;
+                                KeyLockStatexN <= ok1;
                             else
-                                KeyLockState <= wrong1;
+                                KeyLockStatexN <= wrong1;
                             end if;
                         end if;
                     --Oks
                     when ok1 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= ok1wait;
+                            KeyLockStatexN <= ok1wait;
                         end if;
                     when ok2 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= ok2wait;
+                            KeyLockStatexN <= ok2wait;
                         end if;
                     when ok3 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= unlocked;
-                            CountEnxS <='1';
-                            CountValxD <= (others => '0');
+                            KeyLockStatexN <= unlocked;
+                            CountEnxSN <='1';
+                            CountValxDN <= (others => '0');
                         end if;
                     --WRONGS
                     when wrong1 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= wrong1wait;
+                            KeyLockStatexN <= wrong1wait;
                         end if;
                     when wrong2 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= wrong2wait;
+                            KeyLockStatexN <= wrong2wait;
                         end if;
                     when wrong3 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= wrong3wait;
+                            KeyLockStatexN <= wrong3wait;
                         end if;
                     --wgong-wait
                     when wrong1wait =>
                         if(KeyValidxSI='1') then
-                            KeyLockState <= wrong2;
+                            KeyLockStatexN <= wrong2;
                         end if;
                     when wrong2wait =>
                         if(KeyValidxSI='1') then
-                            KeyLockState <= wrong3;
+                            KeyLockStatexN <= wrong3;
                         end if;
                     when wrong3wait =>
                         if(KeyValidxSI='1') then
-                            KeyLockState <= locked;
+                            KeyLockStatexN <= locked;
                         end if;
                     --ok-wait
                     when ok1wait =>
                         if(KeyValidxSI='1') then
                             if(KeyxDI=2) then
-                                KeyLockState <= ok2;
+                                KeyLockStatexN <= ok2;
                             else
-                                KeyLockState <= wrong2;
+                                KeyLockStatexN <= wrong2;
                             end if;
                         end if;
                     when ok2wait =>
                         if(KeyValidxSI='1') then
                             if(KeyxDI=1) then
-                                KeyLockState <= ok3;
+                                KeyLockStatexN <= ok3;
                             else
-                                KeyLockState <= wrong3;
+                                KeyLockStatexN <= wrong3;
                             end if;
                         end if;
                     --open
                     when unlocked =>
-                        if(CountValxD>=100000000) then
-                            KeyLockState <= locked;
-                            CountEnxS <='0';
+                        if(CountValxDN>=100000000) then
+                            KeyLockStatexN <= locked;
+                            CountEnxSN <='0';
                         end if;
                     when others =>
-                        CountEnxS <='0';
-                        KeyLockState <= locked;
+                        CountEnxSN <='0';
+                        KeyLockStatexN <= locked;
                 end case;
 
                 --Counter:
-                if(CountEnxS = '1') then
-                    CountValxD <= CountValxD + 1;
+                if(CountEnxSN = '1') then
+                    CountValxDN <= CountValxDP + 1;
                 end if;
 
                 --output
-                case KeyLockState is
+                case KeyLockStatexP is
                 
                     when locked =>
                         RLEDxSO <= '1';
@@ -164,7 +159,23 @@ architecture rtl of KeyLock is
                         GLEDxSO <= '0';
                 end case;
 
+        end process;
 
+        registers : process(RSTxRI,CLKxCI)
+        begin
+            --default
+            KeyLockStatexP <= KeyLockStatexP;
+            CountEnxSP <= CountEnxSP;
+            CountValxDP <= CountValxDP;
+            if RSTxRI = '1' then
+                KeyLockStatexP <= locked;
+                CountEnxSP <= '0';
+                CountValxDP <= (others => '0');
+            elsif (CLKxCI'EVENT AND CLKxCI = '1') then
+                
+            KeyLockStatexP <= KeyLockStatexN;
+            CountEnxSP <= CountEnxSN;
+            CountValxDP <= CountValxDN;
             end if;
         end process;
 
