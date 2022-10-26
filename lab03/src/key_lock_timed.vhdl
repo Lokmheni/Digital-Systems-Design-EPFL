@@ -45,7 +45,6 @@ architecture rtl of KeyLock is
                                 ok2,
                                 ok2wait,
                                 ok3,
-                                ok3wait,
                                 unlocked);
     signal KeyLockState : KeyLockState_type;
     signal CountEnxS : std_logic;
@@ -88,7 +87,9 @@ architecture rtl of KeyLock is
                         end if;
                     when ok3 =>
                         if(KeyValidxSI='0') then
-                            KeyLockState <= ok3wait;
+                            KeyLockState <= unlocked;
+                            CountEnxS <='1';
+                            CountValxD <= (others => '0');
                         end if;
                     --WRONGS
                     when wrong1 =>
@@ -119,7 +120,7 @@ architecture rtl of KeyLock is
                     --ok-wait
                     when ok1wait =>
                         if(KeyValidxSI='1') then
-                            if(Key=2) then
+                            if(KeyxDI=2) then
                                 KeyLockState <= ok2;
                             else
                                 KeyLockState <= wrong2;
@@ -127,16 +128,11 @@ architecture rtl of KeyLock is
                         end if;
                     when ok2wait =>
                         if(KeyValidxSI='1') then
-                            if(KeyxDI=2) then
+                            if(KeyxDI=1) then
                                 KeyLockState <= ok3;
                             else
                                 KeyLockState <= wrong3;
                             end if;
-                        end if;
-                    when ok3wait =>
-                        if(KeyValidxSI='1') then
-                            CountEnxS <='1';
-                            CountValxD <= (others => 0);
                         end if;
                     --open
                     when unlocked =>
