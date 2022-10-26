@@ -1,0 +1,35 @@
+
+*** Running vivado
+    with args -log toplevel.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source toplevel.tcl
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source toplevel.tcl -notrace
+Command: synth_design -top toplevel -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 5296
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 999.094 ; gain = 0.000
+---------------------------------------------------------------------------------
+ERROR: [Synth 8-1031] key is not declared [C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/lab03/src/key_lock_timed.vhdl:122]
+ERROR: [Synth 8-2774] type std_ulogic does not match with the integer literal [C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/lab03/src/key_lock_timed.vhdl:139]
+INFO: [Synth 8-2810] unit rtl ignored due to previous errors [C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/lab03/src/key_lock_timed.vhdl:35]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 999.094 ; gain = 0.000
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+INFO: [Common 17-83] Releasing license: Synthesis
+7 Infos, 0 Warnings, 0 Critical Warnings and 3 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+INFO: [Common 17-206] Exiting Vivado at Wed Oct 26 10:53:56 2022...
