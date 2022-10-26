@@ -1,5 +1,5 @@
 --=============================================================================
--- @file toplevel.vhdl
+-- @file pwm.vhdl
 --=============================================================================
 -- Standard library
 library ieee;
@@ -19,28 +19,59 @@ entity pwm is
     CLKxCI : in std_logic;
     RSTxRI : in std_logic;
 
-    PushxSI : in std_logic;
+    BtnPressxSI : in std_logic;
     LedxSO  : out std_logic
   );
-end pwm;
+END pwm;
 
 
 architecture rtl of pwm is
 
-  -- TODO: define the needed signals
+  constant CounterAdd                           : natural := 131072;
+  signal EdgexS                                 : std_logic;
+  signal BtnPressxSN, BtnPressxSP               : std_logic;
+  signal CounterOverflowxDN, CounterOverflowxDP : unsigned(19 downto 0);
+  signal PWMcountxDN, PWMcountxDP               : unsigned(19 downto 0); 
+  signal PWMxS       
 
-begin
-
-  -- TODO: Edge detection
-  PushxSN <= PushxSI;  -- input push botton
-
-
-  -- TODO: Threshold generation
-
-
-  -- TODO: PWM pulse
+BEGIN
 
 
-  LedxSO <= PWMxS; -- assign to output
+  PROCESS(CLKxCI, RSTxRI)
+  BEGIN
+    IF (RSTxRI = '1') THEN
+      BtnPressxSP <= '0';
+    ELSIF (CLKxCI'EVENT AND CLKxCI = '1') THEN
+      BtnPressxSP <= BtnPressxSN;
+    END IF;
+  END PROCESS;
+  EdgexS  <= BtnPressxSN AND (not BtnPressxSP);
 
-end rtl;
+  BtnPressxSN <= BtnPressxSI;
+  PROCESS(CLKxCI, RSTxRI)
+  BEGIN
+    IF (RSTxRI = '1') THEN
+      CounterOverflowxDP <= (OTHERS => '0');
+    ELSIF (CLKxCI'EVENT AND CLKxCI = '1') THEN
+      CounterOverflowxDP <= CounterOverflowxDN;
+    END IF;
+  END PROCESS;
+
+  CounterOverflowxDN <=  CounterAdd + CounterOverflowxDP WHEN EdgexS = '1' ELSE CounterOverflowxDP;
+
+
+-- PWM 
+  PROCESS(CLKxCI, RSTxRI)
+  BEGIN
+    IF (RSTxRI = '1') THEN
+      PWMcountxDP <= (OTHERS => '0');
+    ELSIF (CLKxCI'EVENT AND CLKxCI = '1') THEN
+      PWMcountxDP <= PWMcountxDN;
+    END IF;
+  END PROCESS;
+
+  PWMcountxDN <= PWMcountxDP + 1;
+  PWMxS <= '1' WHEN (PWMcountxDP < CounterOverflowxDP) ELSE '0';
+  LedxSO <= PWMxS;
+
+END rtl;

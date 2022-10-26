@@ -14,7 +14,7 @@ use ieee.std_logic_1164.all;
 --
 --=============================================================================
 entity toplevel is
-  port (
+  PORT (
     CLKxCI : in std_logic;
     RSTxRI : in std_logic;
 
@@ -26,23 +26,41 @@ entity toplevel is
     LedGreenxSO : out std_logic;
     LedBluexSO  : out std_logic
   );
-end toplevel;
+END toplevel;
 
 
 architecture rtl of toplevel is
 
-  component pwm
-    port (
+  COMPONENT pwm
+    PORT (
       CLKxCI : in std_logic;
       RSTxRI : in std_logic;
 
       PushxSI : in std_logic;
       LedxSO  : out std_logic
     );
-  end component;
+  END COMPONENT;
 
-begin
-
-  -- TODO: instantiate the pwm module for each color
-
-end rtl;
+BEGIN
+  pwm_r : pwm
+    PORT MAP (
+      CLKxCI  => CLKxCI,
+      RSTxRI  => RSTxRI,
+      PushxSI => PushRedxSI,
+      LedxSO  => LedRedxSO
+    );
+  pwm_gen : pwm
+    PORT MAP (
+      CLKxCI  => CLKxCI,
+      RSTxRI  => RSTxRI,
+      PushxSI => PushGreenxSI,
+      LedxSO  => LedGreenxSO
+    );
+  pwm_be : pwm
+    PORT MAP (
+      CLKxCI  => CLKxCI,
+      RSTxRI  => RSTxRI,
+      PushxSI => PushBluexSI,
+      LedxSO  => LedBluexSO
+    );
+END rtl;
