@@ -49,7 +49,7 @@ architecture rtl of KeyLock is
                                 unlocked);
     signal KeyLockState : KeyLockState_type;
     signal CountEnxS : std_logic;
-    signal CountValxD : unsigned(7 downto 0);
+    signal CountValxD : unsigned(32 downto 0);
 
     begin
         FSM_PROC : process(CLKxCI,RSTxRI)

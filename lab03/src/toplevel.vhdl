@@ -6,6 +6,7 @@
 library ieee;
 -- Standard packages
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 --=============================================================================
 --
@@ -44,20 +45,32 @@ architecture rtl of toplevel is
     );
   END COMPONENT;
 
-  
+  signal KeyValidxS : std_logic;
+  signal KeyxD : unsigned(3 downto 0);
   
   BEGIN
+
+  KeyValidxS <= '1' when Push0xSI='1' and Push1xSI = '0'and Push2xSI = '0'and Push3xSI = '0' else
+                '1' when Push0xSI='0' and Push1xSI = '1'and Push2xSI = '0'and Push3xSI = '0' else
+                '1' when Push0xSI='0' and Push1xSI = '0'and Push2xSI = '1'and Push3xSI = '0' else
+                '1' when Push0xSI='0' and Push1xSI = '0'and Push2xSI = '0'and Push3xSI = '1' else
+                '0';
+  KeyxD <= to_unsigned(0,4) when Push0xSI='1' else
+           to_unsigned(1,4) when Push1xSI='1' else
+           to_unsigned(2,4) when Push2xSI='1' else
+           to_unsigned(3,4) when Push3xSI='1';
+
   key_lock : KeyLock
   PORT MAP(
       CLKxCI => CLKxCI,
       RSTxRI => RSTxRI,
-      
-      KeyValidxSI => KeyValidxSI,
-      KeyxDI  => KeyxDI ,
-      
+      --in
+      KeyValidxSI => KeyValidxS,
+      KeyxDI  => KeyxD ,
+      --out
       GLEDxSO => GLEDxSO,
-      RLEDxSO => RLEDxSO,
-      )
+      RLEDxSO => RLEDxSO
+      );
 
 
 end rtl;
