@@ -14,4 +14,3 @@ use ieee.std_logic_1164.all;
 -- @brief This file specifies the toplevel for the the keylock (lab 3)
 --
 --=============================================================================
-entity toplevel is

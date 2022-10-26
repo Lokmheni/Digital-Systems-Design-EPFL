@@ -15,3 +15,158 @@ use ieee.numeric_std.all;
 -- @brief Keylock circuit for Lab3
 
 -- =============================================================================
+
+
+
+
+entity KeyLock is
+    port (
+    CLKxCI : in std_logic;
+    RSTxRI : in std_logic;
+
+    KeyValidxSI : in std_logic;
+    KeyxDI  : in unsigned(3 downto 0)
+
+    GLEDxSO : out std_logic;
+    RLEDxSO : out std_logic
+    );
+end KeyLock;
+
+architecture rtl of KeyLock is
+    type KeyLockState_type is ( locked,
+                                wrong1,
+                                wrong1wait,
+                                wrong2,
+                                wrong2wait,
+                                wrong3,
+                                wrong3wait,
+                                ok1,
+                                ok1wait,
+                                ok2,
+                                ok2wait,
+                                ok3,
+                                ok3wait,
+                                unlocked);
+    signal KeyLockState : KeyLockState_type;
+    signal CountEnxS : std_logic;
+    signal CountValxD : unsigned(7 downto 0);
+
+    begin
+        FSM_PROC : process(CLKxCI,RSTxRI)
+        begin
+            --DEFAULT
+            KeyLockState <= KeyLockState;
+            CountEnxS <= CountEnxS;
+            CountValxD <= CountValxD;
+
+            --PROCESS
+
+            --RST
+            if RSTxRI = '1' then
+                KeyLockState <= locked;
+                CountEnxS <= '0';
+                CountValxD <= 0;
+            else if rising_edge(CLKxCI) then
+                case KeyLockState is
+                    --LOCKED
+                    when locked =>
+                        if(KeyValidxSI='1') then
+                            if(KeyxDI=0) then
+                                KeyLockState <= ok1;
+                            else
+                                KeyLockState <= wrong1;
+                            end if
+                        end if
+                    --Oks
+                    when ok1 =>
+                        if(KeyValidxSI='0') 
+                            KeyLockState <= ok1wait;
+                    when ok2 =>
+                        if(KeyValidxSI='0') 
+                            KeyLockState <= ok2wait;
+                    when ok3 =>
+                        if(KeyValidxSI='0') 
+                            KeyLockState <= ok3wait;
+                    --WRONGS
+                    when wrong1 =>
+                        if(KeyValidxSI='0') then
+                            KeyLockState <= wrong1wait;
+                        end if
+                    when wrong2 =>
+                        if(KeyValidxSI='0') then
+                            KeyLockState <= wrong2wait;
+                        end if
+                    when wrong3 =>
+                        if(KeyValidxSI='0') then
+                            KeyLockState <= wrong3wait;
+                        end if
+                    --wgong-wait
+                    when wrong1wait =>
+                        if(KeyValidxSI='1') then
+                            KeyLockState <= wrong2;
+                    when wrong2wait =>
+                        if(KeyValidxSI='1') then
+                            KeyLockState <= wrong3;
+                    when wrong3wait =>
+                        if(KeyValidxSI='1') then
+                            KeyLockState <= locked;
+                    --ok-wait
+                    when ok1wait =>
+                        if(KeyValidxSI='1') then
+                            if(Key=2) then
+                                KeyLockState <= ok2;
+                            else
+                                KeyLockState <= wrong2;
+                            end if
+                        end if
+                    when ok2wait =>
+                        if(KeyValidxSI='1') then
+                            if(Key=2) then
+                                KeyLockState <= ok3;
+                            else
+                                KeyLockState <= wrong3;
+                            end if
+                        end if
+                    when ok3wait =>
+                        if(KeyValidxSI='1') then
+                            CountEnxD <='1';
+                            CountValxD <= 0;
+                        end if
+                    --open
+                    when unlocked =>
+                        if(CountValxD>=100000000) then
+                            KeyLockState <= locked;
+                            CountEnxD='0';
+                        end if
+                    when others =>
+                        CountEnxD<='0';
+                        KeyLockState <= locked;
+                end case;
+
+                --Counter:
+                if(CountEnxS = '1') then
+                    CountEnxS <= CountEnxS + 1;
+                end if
+
+                --output
+                case KeyLockState is
+                
+                    when locked =>
+                        RLED <= '1';
+                        GLED <= '0';
+                    when unlocked =>
+                        RLED <= '0';
+                        GLED <= '1';
+                    when others =>
+                        RLED <= '0';
+                        GLED <= '0';
+                end case;
+
+
+            end if;
+        end process;
+
+
+
+
+end architecture;
