@@ -2,10 +2,10 @@
 -- @file pwm.vhdl
 --=============================================================================
 -- Standard library
-library ieee;
+LIBRARY ieee;
 -- Standard packages
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
 --=============================================================================
 --
@@ -14,18 +14,33 @@ use ieee.numeric_std.all;
 -- @brief PWM circuit for the RGB LED lab (lab 2)
 --
 --=============================================================================
-entity pwm is
-  port (
-    CLKxCI : in std_logic;
-    RSTxRI : in std_logic;
+ENTITY pwm IS
+    PORT (
+        CLKxCI : IN std_logic;
+        RSTxRI : IN std_logic;
 
     BtnPressxSI : in std_logic;
     LedxSO  : out std_logic
   );
 END pwm;
 
+    CONSTANT CounterAdd                           : natural := 131072;
+    SIGNAL EdgexS                                 : std_logic;
+    SIGNAL BtnPressxSN, BtnPressxSP               : std_logic;
+    SIGNAL CounterOverflowxDN, CounterOverflowxDP : unsigned(19 DOWNTO 0);
+    SIGNAL PWMcountxDN, PWMcountxDP               : unsigned(19 DOWNTO 0);
+    SIGNAL PWMxS
 
-architecture rtl of pwm is
+BEGIN
+    PROCESS (CLKxCI, RSTxRI)
+    BEGIN
+        IF (RSTxRI = '1') THEN
+            BtnPressxSP <= '0';
+        ELSIF (CLKxCI'EVENT AND CLKxCI = '1') THEN
+            BtnPressxSP <= BtnPressxSN;
+        END IF;
+    END PROCESS;
+    EdgexS <= BtnPressxSN AND (NOT BtnPressxSP);
 
   constant CounterAdd                           : natural := 131072;
   signal EdgexS                                 : std_logic;

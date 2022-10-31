@@ -3,10 +3,10 @@
 -- @author Simon Thür
 --=============================================================================
 -- Standard library
-library ieee;
+LIBRARY ieee;
 -- Standard packages
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
 --=============================================================================
 --
@@ -16,62 +16,58 @@ use ieee.numeric_std.all;
 --
 --=============================================================================
 
-entity toplevel is
-    port (
-        CLKxCI : in std_logic;
-        RSTxRI : in std_logic;
-        Push0xSI : in std_logic;
-        Push1xSI : in std_logic;
-        Push2xSI : in std_logic;
-        Push3xSI : in std_logic;
-        RLEDxSO : out std_logic;
-        GLEDxSO : out std_logic
-    );
-end toplevel;
-
-
-architecture rtl of toplevel is
-
-  COMPONENT KeyLock
+ENTITY toplevel IS
     PORT (
-        CLKxCI : in std_logic;
-        RSTxRI : in std_logic;
-
-        KeyValidxSI : in std_logic;
-        KeyxDI  : in unsigned(3 downto 0);
-
-        GLEDxSO : out std_logic;
-        RLEDxSO : out std_logic
+        CLKxCI   : IN std_logic;
+        RSTxRI   : IN std_logic;
+        Push0xSI : IN std_logic;
+        Push1xSI : IN std_logic;
+        Push2xSI : IN std_logic;
+        Push3xSI : IN std_logic;
+        RLEDxSO  : OUT std_logic;
+        GLEDxSO  : OUT std_logic
     );
-  END COMPONENT;
+END toplevel;
+ARCHITECTURE rtl OF toplevel IS
 
-  signal KeyValidxS : std_logic;
-  signal KeyxD : unsigned(3 downto 0);
-  
-  BEGIN
+    COMPONENT KeyLock
+        PORT (
+            CLKxCI : IN std_logic;
+            RSTxRI : IN std_logic;
 
-  KeyValidxS <= '1' when Push0xSI='1' and Push1xSI = '0'and Push2xSI = '0'and Push3xSI = '0' else
-                '1' when Push0xSI='0' and Push1xSI = '1'and Push2xSI = '0'and Push3xSI = '0' else
-                '1' when Push0xSI='0' and Push1xSI = '0'and Push2xSI = '1'and Push3xSI = '0' else
-                '1' when Push0xSI='0' and Push1xSI = '0'and Push2xSI = '0'and Push3xSI = '1' else
-                '0';
-  KeyxD <= to_unsigned(0,4) when Push0xSI='1' else
-           to_unsigned(1,4) when Push1xSI='1' else
-           to_unsigned(2,4) when Push2xSI='1' else
-           to_unsigned(3,4) when Push3xSI='1' else
-           TO_UNSIGNED(0,4);
+            KeyValidxSI : IN std_logic;
+            KeyxDI      : IN unsigned(3 DOWNTO 0);
 
-  key_lock : KeyLock
-  PORT MAP(
-      CLKxCI => CLKxCI,
-      RSTxRI => RSTxRI,
-      --in
-      KeyValidxSI => KeyValidxS,
-      KeyxDI  => KeyxD ,
-      --out
-      GLEDxSO => GLEDxSO,
-      RLEDxSO => RLEDxSO
-      );
+            GLEDxSO : OUT std_logic;
+            RLEDxSO : OUT std_logic
+        );
+    END COMPONENT;
 
+    SIGNAL KeyValidxS : std_logic;
+    SIGNAL KeyxD      : unsigned(3 DOWNTO 0);
 
-end rtl;
+BEGIN
+
+    KeyValidxS <= '1' WHEN Push0xSI = '1' AND Push1xSI = '0'AND Push2xSI = '0'AND Push3xSI = '0' ELSE
+        '1' WHEN Push0xSI = '0' AND Push1xSI = '1'AND Push2xSI = '0'AND Push3xSI = '0' ELSE
+        '1' WHEN Push0xSI = '0' AND Push1xSI = '0'AND Push2xSI = '1'AND Push3xSI = '0' ELSE
+        '1' WHEN Push0xSI = '0' AND Push1xSI = '0'AND Push2xSI = '0'AND Push3xSI = '1' ELSE
+        '0';
+    KeyxD <= to_unsigned(0, 4) WHEN Push0xSI = '1' ELSE
+        to_unsigned(1, 4) WHEN Push1xSI = '1' ELSE
+        to_unsigned(2, 4) WHEN Push2xSI = '1' ELSE
+        to_unsigned(3, 4) WHEN Push3xSI = '1' ELSE
+        TO_UNSIGNED(0, 4);
+
+    key_lock : KeyLock
+    PORT MAP(
+        CLKxCI => CLKxCI,
+        RSTxRI => RSTxRI,
+        --in
+        KeyValidxSI => KeyValidxS,
+        KeyxDI      => KeyxD,
+        --out
+        GLEDxSO => GLEDxSO,
+        RLEDxSO => RLEDxSO
+    );
+END rtl;
