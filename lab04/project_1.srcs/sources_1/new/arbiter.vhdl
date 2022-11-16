@@ -123,6 +123,15 @@ begin  -- architecture rtl
 
   --prio logic:
   PrioxDN <='1' WHEN CounterValxDP > 1000 ELSE '0';
+  -- output logic:
+  GLED0xSO <= '1' WHEN FsmStatexDP=Access0 ELSE
+              '0';
+  GLED1xSO <= '1' WHEN FsmStatexDP=Access1 ELSE
+              '1';
+  RLED0xSO <= '1' WHEN FsmStatexDP =Access1 AND Key0xSI='1' ELSE
+              '0';
+  RLED1xSO <= '1' WHEN FsmStatexDP= Access0 AND Key1xSI='1' ELSE
+              '0';
 
 end architecture rtl;
 
