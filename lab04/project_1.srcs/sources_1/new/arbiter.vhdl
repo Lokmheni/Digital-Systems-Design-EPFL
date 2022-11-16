@@ -76,12 +76,19 @@ begin  -- architecture rtl
     END IF;
   END PROCESS registers;
 
-
   FSM_progression: PROCESS (ALL) IS
   BEGIN  -- PROCESS FSM_progression
     -- Default assignment
     FsmStatexDN <= FsmStatexDP;
     PrioxDN <= PrioxDP;
+    CounterValxDN <= CounterValxDP;
+    CountEnablexDN <= CountEnablexDP;
+    -- Counter progression
+    IF CountEnablexDP THEN
+      CounterValxDN<=CounterValxDP+1;
+    END IF;
+
+    
     
     -- State progression
     CASE FsmStatexDP IS
@@ -103,11 +110,23 @@ begin  -- architecture rtl
                           CountEnablexDN<='1';
                           CounterValxDN <= (OTHERS => '0');
                       END IF;
-      WHEN Access1 => IF
-      WHEN OTHERS => NULL;
+      WHEN Access1 =>  IF Key0xSI='0' AND Key1xSI='1' THEN
+                         FsmStatexDN <=base;
+                       ELSIF Key0xSI='1' AND (Key1xSI='0' OR PrioxDP) THEN 
+                         FsmStatexDN <= Access0;
+                         PrioxDN <= '0';
+                         CountEnablexDN <= '1';
+                         CounterValxDN <= (OTHERS => '0');
+                       END IF;
+        
+      WHEN OTHERS => FsmStatexDN<=base;
     END CASE;
   END PROCESS FSM_progression;
-  
+
+
+
+  --prio logic:
+  PrioxDN <= CounterValxDP>200;
 
 end architecture rtl;
 
