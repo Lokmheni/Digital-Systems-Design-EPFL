@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/lab01/lab/src/toplevel.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'toplevel'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/lab01/lab/src/toplevel_tb.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'toplevel_tb'
