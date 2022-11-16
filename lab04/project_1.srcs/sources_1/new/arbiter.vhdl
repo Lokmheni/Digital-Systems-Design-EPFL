@@ -25,10 +25,6 @@ use IEEE.NUMERIC_STD.all;
 
 
 entity arbiter is
-  
-  generic (
-    port : <type > );
-
   port (
     CLKxCI   : in  std_logic;           -- CLK
     RSTxRI   : in  std_logic;           -- --Async rst
@@ -51,7 +47,7 @@ SIGNAL FsmStatexDN : arbiter_state;     -- next state of FSM
 SIGNAL CountEnablexDP : std_logic;
 SIGNAL CountEnablexDN : std_logic;
 SIGNAL CounterValxDN : unsigned(31 DOWNTO 0);  -- Counter Value
-SIGNAL CountEnablexDN : unsigned(31 DOWNTO 0);  -- Counter Value
+SIGNAL CounterValxDP : unsigned(31 DOWNTO 0);  -- Counter Value
 
   
 begin  -- architecture rtl
@@ -70,7 +66,7 @@ begin  -- architecture rtl
       
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       PrioxDP <=PrioxDN;
-      FsmStatexDP <= FsmStatexDPN;
+      FsmStatexDP <= FsmStatexDN;
       CountEnablexDP <= CountEnablexDN;
       CounterValxDP <= CounterValxDN;
     END IF;
@@ -112,7 +108,7 @@ begin  -- architecture rtl
                       END IF;
       WHEN Access1 =>  IF Key0xSI='0' AND Key1xSI='1' THEN
                          FsmStatexDN <=base;
-                       ELSIF Key0xSI='1' AND (Key1xSI='0' OR PrioxDP) THEN 
+                       ELSIF Key0xSI='1' AND (Key1xSI='0' OR PrioxDP='1') THEN 
                          FsmStatexDN <= Access0;
                          PrioxDN <= '0';
                          CountEnablexDN <= '1';
@@ -126,7 +122,7 @@ begin  -- architecture rtl
 
 
   --prio logic:
-  PrioxDN <= CounterValxDP>200;
+  PrioxDN <='1' WHEN CounterValxDP > 1000 ELSE '0';
 
 end architecture rtl;
 
