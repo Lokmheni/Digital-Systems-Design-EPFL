@@ -80,7 +80,7 @@ begin  -- architecture rtl
     CounterValxDN <= CounterValxDP;
     CountEnablexDN <= CountEnablexDP;
     -- Counter progression
-    IF CountEnablexDP THEN
+    IF CountEnablexDP = '1' THEN
       CounterValxDN<=CounterValxDP+1;
     END IF;
 
