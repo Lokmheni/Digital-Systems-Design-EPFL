@@ -1,36 +1,75 @@
+#########################################################################################
+##  Project    : Collect of various scripts for working with EDA-tools (ASIC/FPGA/etc) ##
+##  Link       : https://github.com/iDoka/eda-scripts                                  ##
+##  Description: .gitignore                                                            ##
+##  Usage      : just rename or add contain to .gitignore                              ##
+##  License    : MIT                                                                   ##
+#########################################################################################
 
-lab02/DSD-Lab2_PWM.pdf
+## log files
+*.log
+*.jou
+*.rpt
+*.vdi
 
-lab03/DSD-Lab3_keylock.pdf
+## bitstream
+*.bit
+*.bin
+*.mcs
+*.svf
+*.image
 
-lab03/lab3/lab3.cache/wt/
+## netlist
+*.edf
+*.edif
+*.vn
+*.vm
 
-lab03/lab3/lab3.runs/impl_1/
+## SDF
+*.sdf
 
-lab03/lab3/lab3.runs/synth_1/
-
-lab03/lab3/lab3.sim/sim_1/behav/xsim/
-
-lab03/lab3/lab3.ip_user_files/
-
-lab04/project_1.cache/wt/
-
-lab04/project_1.runs/synth_1/
-
+## sim dump
+*.vcd
+*.saif
+*.tcf
 *.wdb
 
-lab04/project_1.sim/sim_1/behav/xsim/xsim.dir/arbiter_tb_behav/
+## others
+unisims
 
-lab04/project_1.ip_user_files/
+## C-files
+*.elf
+*.a
+*.sa
+*.so
+*.lib
 
-lab04/project_1.sim/sim_1/behav/xsim/
+## dirs
+vivado.cache/
+vivado.hw/
+vivado.ip_user_files/
+vivado.runs/
+vivado.sim/
 
-lab04/project_1.srcs/sources_1/new/
+###### for Xilinx Vivado|ISE
+.Xil/
+.cache/
+fsm_encoding.os
+tab_*/
+webtalk.*
+vivado_pid*.str
+hs_err_pid*
+xelab.*
+xsim.*
+xvlog.*
+*.cache
+*.sim
+*.runs
+*.hw
+*.backup.*
+*.debug
 
-dsd_project/DSD_PROJECT.cache/wt/webtalk_pa.xml
+## checkpoint files
+*.dcp
 
-dsd_project/DSD_PROJECT.cache/wt/gui_handlers.wdf
 
-dsd_project/DSD_PROJECT.cache/wt/java_command_handlers.wdf
-
-dsd_project/DSD_PROJECT.cache/wt/
