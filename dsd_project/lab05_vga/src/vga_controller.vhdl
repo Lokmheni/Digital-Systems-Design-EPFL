@@ -171,9 +171,9 @@ BEGIN
 
 
   --output registers
-  HSxSON <= '0' WHEN XcounterxD > HS_FRONT_PORCH AND XcounterxD < HS_FRONT_PORCH+HS_PULSE ELSE
+  HSxSON <= '0' WHEN XcounterxD > HS_FRONT_PORCH AND XcounterxD <= HS_FRONT_PORCH+HS_PULSE ELSE
             '1';
-  VSxSON <= '0' WHEN YcounterxD > VS_FRONT_PORCH AND YcounterxD < VS_FRONT_PORCH+VS_PULSE ELSE
+  VSxSON <= '0' WHEN YcounterxD > VS_FRONT_PORCH AND YcounterxD <= VS_FRONT_PORCH+VS_PULSE ELSE
             '1';
 
   tmpCoordConversionHelp  <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
