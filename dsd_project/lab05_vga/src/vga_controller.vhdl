@@ -54,8 +54,8 @@ ARCHITECTURE rtl OF vga_controller IS
   -- TODO: Implement your own code here
   SIGNAL XcounterxD       : unsigned(COORD_BW DOWNTO 0);  -- Counter_value (physical x coordinate incl porch and pulse)
   SIGNAL YcounterxD       : unsigned(COORD_BW DOWNTO 0);  -- Counter_value for y (physical)
-  SIGNAL CntEnXxS       : std_logic;  -- Enable physical counter X
-  SIGNAL CntEnYxS       : std_logic;  -- Enable physical counter Y
+  SIGNAL CntEnXxS         : std_logic;  -- Enable physical counter X
+  SIGNAL CntEnYxS         : std_logic;  -- Enable physical counter Y
   SIGNAL CntMaxXxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter x
   SIGNAL CntMaxYxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter y
   SIGNAL CountXOverflowxS : std_logic;  -- Phys X counter overflow
@@ -63,6 +63,9 @@ ARCHITECTURE rtl OF vga_controller IS
 
   SIGNAL validRegionxD : std_logic;     -- Is output color valid?
 
+
+  SIGNAL tmpCoordConversionHelp  : unsigned(COORD_BW DOWNTO 0);  -- tmp var because i dont know how to vhdl sorry
+  SIGNAL tmpCoordConversionHelpP : unsigned (COORD_BW DOWNTO 0);  -- tmp var because vhdl IS strange;
 
 
 
@@ -74,10 +77,10 @@ ARCHITECTURE rtl OF vga_controller IS
   SIGNAL XCoordxDON : unsigned(COORD_BW -1 DOWNTO 0);
   SIGNAL YCoordxDOP : unsigned(COORD_BW - 1 DOWNTO 0);
   SIGNAL YCoordxDON : unsigned(COORD_BW -1 DOWNTO 0);
-  SIGNAL HSxSOP    : std_logic;
-  SIGNAL HSxSON    : std_logic;
+  SIGNAL HSxSOP     : std_logic;
+  SIGNAL HSxSON     : std_logic;
   SIGNAL VSxSOP     : std_logic;
-  SIGNAL VSxSON : std_logic;
+  SIGNAL VSxSON     : std_logic;
   SIGNAL RedxSON    : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
   SIGNAL GreenxSON  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
   SIGNAL BluexSON   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
@@ -104,8 +107,6 @@ BEGIN
   CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterRegisters
     --DEFAULT
-    XcounterxD       <= XcounterxD;
-    YcounterxD       <= YcounterxD;
     CountXOverflowxS <= '0';
     CountYOverflowxS <= '0';
 
@@ -124,16 +125,13 @@ BEGIN
 
       END IF;
 
-      -- count Y
-      IF CntEnYxS = '1' THEN
-        YcounterxD <= YcounterxD+1 WHEN YcounterxD+1 < CntMaxXxD ELSE
+      -- count
+      IF CntEnYxS='1' THEN
+        YcounterxD <= YcounterxD + 1 WHEN YcounterxD + 1 < CntMaxYxD ELSE
                       (OTHERS => '0');
-        CountYOverflowxS <= '0' WHEN YcounterxD+1 < CntMaxXxD ELSE
+        CountYOverflowxS <= '0' WHEN YcounterxD + 1 < CntMaxYxD ELSE
                             '1';
-
       END IF;
-
-
     END IF;
   END PROCESS CounterRegisters;
 
@@ -154,50 +152,69 @@ BEGIN
   -- type   : sequential
   -- inputs : CLKxCI, RSTxRI, RedxSON,GreenxSON,BluexSON,XCoordxDON,YCoordxDON,HSxSON,VSxSON
   -- outputs: same but x_OP
-  outputregisters: PROCESS (CLKxCI, RSTxRI) IS
+  outputregisters : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS outputregisters
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      RedxSON<=(OTHERS => '0');
-      GreenxSON<=(OTHERS => '0');
-      BluexSON<=(OTHERS => '0');
-      XCoordxDON<=(OTHERS => '0');
-      YCoordxDON<=(OTHERS => '0');
-      VSxSON<=(OTHERS => '0');
-      HSxSON<=(OTHERS => '0');
+      RedxSOP    <= (OTHERS => '0');
+      GreenxSOP  <= (OTHERS => '0');
+      BluexSOP   <= (OTHERS => '0');
+      XCoordxDOP <= (OTHERS => '0');
+      YCoordxDOP <= (OTHERS => '0');
+      VSxSOP     <= '0';
+      HSxSOP     <= '0';
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      
+      RedxSOP    <= RedxSON;
+      GreenxSOP  <= GreenxSON;
+      BluexSOP   <= BluexSON;
+      XCoordxDOP <= XCoordxDON;
+      YCoordxDOP <= YCoordxDON;
+      VSxSOP     <= VSxSON;
+      HSxSOP     <= HSxSON;
     END IF;
   END PROCESS outputregisters;
 
-  
 
-  --output
-  HSxSON <= CountXOverflowxS;
-  VSxSON <= CountYOverflowxS;
 
-  XCoordxDON <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
-  YCoordxDON <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE);
+  --output registers
+  HSxSON <= '0' WHEN XcounterxD > HS_FRONT_PORCH AND XcounterxD < HS_FRONT_PORCH+HS_PULSE ELSE
+            '1';
+  VSxSON <= '0' WHEN YcounterxD > VS_FRONT_PORCH AND YcounterxD < VS_FRONT_PORCH+VS_PULSE ELSE
+            '1';
 
- validRegionxD <='1' WHEN XcounterxD > HS_FRONT_PORCH + HS_PULSE
-            AND XcounterxD < HS_FRONT_PORCH+HS_PULSE + HS_DISPLAY
-            AND YcounterxD > VS_FRONT_PORCH + VS_PULSE
-            AND YcounterxD < VS_FRONT_PORCH + VS_PULSE + VS_DISPLAY ELSE
-            '0';
+  tmpCoordConversionHelp  <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
+  tmpCoordConversionHelpP <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE);
 
-  RedxSON <= RedxSI WHEN validRegionxD='1' ELSE
-            (OTHERS => '0');
-  GreenxSON <= GreenxSI WHEN validRegionxD='1' ELSE
-              (OTHERS => '0');
-  BluexSON <= BluexSI WHEN validRegionxD='1' ELSE
+  XCoordxDON <= tmpCoordConversionHelp(COORD_BW -1 DOWNTO 0);
+  YCoordxDON <= tmpCoordConversionHelpP(COORD_BW -1 DOWNTO 0);
+
+  validRegionxD <= '1' WHEN XcounterxD > HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH
+                   AND YcounterxD < VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH ELSE
+                   '0';
+
+  RedxSON <= RedxSI WHEN validRegionxD = '1' ELSE
              (OTHERS => '0');
+  GreenxSON <= GreenxSI WHEN validRegionxD = '1' ELSE
+               (OTHERS => '0');
+  BluexSON <= BluexSI WHEN validRegionxD = '1' ELSE
+              (OTHERS => '0');
+
+  -- Actual output
+
+  RedxSO   <= RedxSOP;
+  GreenxSO <= GreenxSOP;
+  BluexSO  <= BluexSOP;
+
+  XCoordxDO <= XCoordxDOP;
+  YCoordxDO <= YCoordxDOP;
+  HSxSO     <= HSxSOP;
+  VSxSO     <= VSxSOP;
 
 
 
-  
 
-  
 
-  
+
+
 
 END rtl;
 --=============================================================================
