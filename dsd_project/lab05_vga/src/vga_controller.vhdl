@@ -120,17 +120,16 @@ BEGIN
       IF CntEnXxS = '1' THEN
         XcounterxD <= XcounterxD +1 WHEN XcounterxD+1 < CntMaxXxD ELSE
                       (OTHERS => '0');
-        CountXOverflowxS <= '0' WHEN XcounterxD+1 < CntMaxXxD ELSE
-                            '1';
+        CountXOverflowxS <= '1' WHEN XcounterxD = CntMaxXxD-2 ELSE
+                            '0';
 
       END IF;
-
-      -- count
+      -- count Y
       IF CntEnYxS='1' THEN
         YcounterxD <= YcounterxD + 1 WHEN YcounterxD + 1 < CntMaxYxD ELSE
                       (OTHERS => '0');
-        CountYOverflowxS <= '0' WHEN YcounterxD + 1 < CntMaxYxD ELSE
-                            '1';
+        CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 2 ELSE
+                            '0';
       END IF;
     END IF;
   END PROCESS CounterRegisters;
