@@ -63,6 +63,25 @@ ARCHITECTURE rtl OF vga_controller IS
 
   SIGNAL validRegionxD : std_logic;     -- Is output color valid?
 
+
+
+
+  --output registers!!!
+  SIGNAL RedxSOP    : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL GreenxSOP  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL BluexSOP   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL XCoordxDOP : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL XCoordxDON : unsigned(COORD_BW -1 DOWNTO 0);
+  SIGNAL YCoordxDOP : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL YCoordxDON : unsigned(COORD_BW -1 DOWNTO 0);
+  SIGNAL HSxSOP    : std_logic;
+  SIGNAL HSxSON    : std_logic;
+  SIGNAL VSxSOP     : std_logic;
+  SIGNAL VSxSON : std_logic;
+  SIGNAL RedxSON    : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL GreenxSON  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL BluexSON   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
@@ -126,12 +145,38 @@ BEGIN
   CntEnYxS <= CountXOverflowxS;
 
 
-  --output
-  HSxSO <= CountXOverflowxS;
-  VSxSO <= CountYOverflowxS;
 
-  XCoordxDO <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
-  YCoordxDO <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE);
+
+
+  --outputregisters
+
+  -- purpose: Registers for storing output values
+  -- type   : sequential
+  -- inputs : CLKxCI, RSTxRI, RedxSON,GreenxSON,BluexSON,XCoordxDON,YCoordxDON,HSxSON,VSxSON
+  -- outputs: same but x_OP
+  outputregisters: PROCESS (CLKxCI, RSTxRI) IS
+  BEGIN  -- PROCESS outputregisters
+    IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
+      RedxSON<=(OTHERS => '0');
+      GreenxSON<=(OTHERS => '0');
+      BluexSON<=(OTHERS => '0');
+      XCoordxDON<=(OTHERS => '0');
+      YCoordxDON<=(OTHERS => '0');
+      VSxSON<=(OTHERS => '0');
+      HSxSON<=(OTHERS => '0');
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+      
+    END IF;
+  END PROCESS outputregisters;
+
+  
+
+  --output
+  HSxSON <= CountXOverflowxS;
+  VSxSON <= CountYOverflowxS;
+
+  XCoordxDON <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
+  YCoordxDON <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE);
 
  validRegionxD <='1' WHEN XcounterxD > HS_FRONT_PORCH + HS_PULSE
             AND XcounterxD < HS_FRONT_PORCH+HS_PULSE + HS_DISPLAY
@@ -139,18 +184,20 @@ BEGIN
             AND YcounterxD < VS_FRONT_PORCH + VS_PULSE + VS_DISPLAY ELSE
             '0';
 
-  RedxSO <= RedxSI WHEN validRegionxD='1' ELSE
+  RedxSON <= RedxSI WHEN validRegionxD='1' ELSE
             (OTHERS => '0');
-  GreenxSO <= GreenxSI WHEN validRegionxD='1' ELSE
+  GreenxSON <= GreenxSI WHEN validRegionxD='1' ELSE
               (OTHERS => '0');
-  BluexSO <= BluexSI WHEN validRegionxD='1' ELSE
+  BluexSON <= BluexSI WHEN validRegionxD='1' ELSE
              (OTHERS => '0');
 
 
 
+  
 
+  
 
-  --TODO REGISTERS FOR OUTPUT VARIABLES
+  
 
 END rtl;
 --=============================================================================
