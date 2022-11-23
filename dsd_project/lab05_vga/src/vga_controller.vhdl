@@ -106,9 +106,7 @@ BEGIN
   -- outputs: overflow
   CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterRegisters
-    --DEFAULT
-    CountXOverflowxS <= '0';
-    CountYOverflowxS <= '0';
+
 
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
@@ -120,24 +118,22 @@ BEGIN
       IF CntEnXxS = '1' THEN
         XcounterxD <= XcounterxD +1 WHEN XcounterxD+1 < CntMaxXxD ELSE
                       (OTHERS => '0');
-        CountXOverflowxS <= '1' WHEN XcounterxD = CntMaxXxD-2 ELSE
-                            '0';
 
       END IF;
       -- count Y
-      IF CntEnYxS='1' THEN
+      IF CntEnYxS = '1' THEN
         YcounterxD <= YcounterxD + 1 WHEN YcounterxD + 1 < CntMaxYxD ELSE
                       (OTHERS => '0');
-        CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 2 ELSE
-                            '0';
       END IF;
     END IF;
   END PROCESS CounterRegisters;
 
 
-
-
-  --Counter Enable and other logic:
+  -- count enable and overflow logic stuff 
+  CountXOverflowxS <= '1' WHEN XcounterxD = CntMaxXxD - 1 ELSE
+                      '0';
+  CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 1 ELSE
+                      '0';
   CntEnXxS <= '1';
   CntEnYxS <= CountXOverflowxS;
 
