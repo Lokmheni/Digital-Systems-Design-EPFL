@@ -167,6 +167,12 @@ begin
       GreenxSO => GreenxSO,
       BluexSO  => BluexSO
     );
+    
+    i_memory: memory
+    port map(
+     MEM_ADDR_BW
+    
+    );
 
 --=============================================================================
 -- SIGNAL MAPPING
@@ -177,7 +183,7 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  RdAddrBxD <= ; -- TODO: Map the X and Y coordinates to the address of the memory
+  RdAddrBxD <=  ;     -- TODO: Map the X and Y coordinates to the address of the memory
 
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
