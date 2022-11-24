@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Nov 16 11:50:55 2022
+# Process ID: 15728
+# Current directory: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04/synth_1
+# Command line: vivado.exe -log arbiter.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source arbiter.tcl
+# Log file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04/synth_1/arbiter.vds
+# Journal file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04/synth_1\vivado.jou
+#-----------------------------------------------------------
+source arbiter.tcl -notrace
