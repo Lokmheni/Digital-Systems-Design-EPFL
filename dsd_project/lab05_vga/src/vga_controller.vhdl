@@ -182,8 +182,8 @@ BEGIN
   XCoordxDON <= tmpCoordConversionHelp(COORD_BW -1 DOWNTO 0);
   YCoordxDON <= tmpCoordConversionHelpP(COORD_BW -1 DOWNTO 0);
 
-  validRegionxD <= '1' WHEN XcounterxD > HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH
-                   AND YcounterxD < VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH ELSE
+  validRegionxD <= '1' WHEN XcounterxD >= HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH
+                       and  YcounterxD >= VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH ELSE
                    '0';
 
   RedxSON <= RedxSI WHEN validRegionxD = '1' ELSE
