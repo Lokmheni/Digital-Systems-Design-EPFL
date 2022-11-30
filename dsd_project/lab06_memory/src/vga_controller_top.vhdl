@@ -50,9 +50,6 @@ architecture rtl of vga_controller_top is
   -- clk_wiz_0
   signal CLK75xC : std_logic;
 
-  -- blk_mem_gen_0
-  constant MEM_ADDR_BW : natural := 16;
-  constant MEM_DATA_BW : natural := 12; -- 3 * COLOR_BW
   signal WrAddrAxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
   signal RdAddrBxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
   signal ENAxS     : std_logic;
@@ -188,7 +185,7 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  YCoordxDMultipliedxD <= YCoordxD(COORD_BW -1 DOWNTO 6)&"0000000000";
+  YCoordxDMultipliedxD <="000"& YCoordxD(COORD_BW -1 DOWNTO 9)&"0000000000";
   RdAddrBxD <=std_logic_vector(YCoordxDMultipliedxD + XCoordxD);
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
