@@ -2,12 +2,45 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Wed Nov 30 08:43:56 2022
-# Process ID: 21868
-# Current directory: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent4688 H:\My Drive\EPFL\Bachelor Semester 5\Digital systems design\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
-# Log file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/vivado.log
-# Journal file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
+# Start of session at: Wed Nov 30 08:17:39 2022
+# Process ID: 12580
+# Current directory: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7500 C:\Users\thuer\Documents\School\2_EPFL5\digital_systems_design\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Log file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/vivado.log
+# Journal file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
-oopen_project {H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}uupdate_compile_order -fileset sources_1
+open_project C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.xpr
+update_compile_order -fileset sources_1
+
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+set_property top vga_controller_top [get_filesets sim_1]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+set_property file_type {VHDL 2008} [get_files  C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab06_memory/src/vga_controller_top.vhdl]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1

@@ -20,6 +20,10 @@ use ieee.numeric_std.all;
 
 package dsd_prj_pkg is
 
+-------------------------------------------------------------------------------
+-- Lab 5 parameters
+-------------------------------------------------------------------------------
+
   -- Bitwidths for screen coordinate and colors
   constant COLOR_BW : natural := 4;
   constant COORD_BW : natural := 12;
@@ -37,5 +41,9 @@ package dsd_prj_pkg is
   constant VS_PULSE       : natural   := 6;
   constant VS_BACK_PORCH  : natural   := 29;
   constant VS_POLARITY    : std_logic := '0';
+
+  -- Memory parameters
+  constant MEM_ADDR_BW : natural := 16;
+  constant MEM_DATA_BW : natural := 12; -- 3 * COLOR_BW
 
 end package dsd_prj_pkg;

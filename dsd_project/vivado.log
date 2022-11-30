@@ -2,17 +2,87 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Wed Nov 30 08:43:56 2022
-# Process ID: 21868
-# Current directory: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent4688 H:\My Drive\EPFL\Bachelor Semester 5\Digital systems design\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
-# Log file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/vivado.log
-# Journal file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
+# Start of session at: Wed Nov 30 08:17:39 2022
+# Process ID: 12580
+# Current directory: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7500 C:\Users\thuer\Documents\School\2_EPFL5\digital_systems_design\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Log file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/vivado.log
+# Journal file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
-oopen_project {H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}
+open_project C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.xpr
 INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
-Current project path is 'H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project'SScanning sources...
-Finished scanning sourcesIINFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specifiedIINFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.oopen_project: Time (s): cpu = 00:00:35 ; elapsed = 00:00:19 . Memory (MB): peak = 998.957 ; gain = 0.000
+Current project path is 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project'
+INFO: [Project 1-313] Project file moved from 'H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project' since last save.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-509] GeneratedRun file for 'blk_mem_gen_0_synth_1' not found
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'c:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/summary.log'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'c:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.dcp'. Please regenerate to continue.
+open_project: Time (s): cpu = 00:00:25 ; elapsed = 00:00:09 . Memory (MB): peak = 1002.340 ; gain = 0.000
 update_compile_order -fileset sources_1
+ereset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_0'...
+[Wed Nov 30 08:21:08 2022] Launched blk_mem_gen_0_synth_1, synth_1...
+Run output will be captured here:
+blk_mem_gen_0_synth_1: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/blk_mem_gen_0_synth_1/runme.log
+synth_1: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:21:08 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1191.555 ; gain = 0.000
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:26:18 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:26:18 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+set_property top vga_controller_top [get_filesets sim_1]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:45:55 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:45:55 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:52:10 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:52:10 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+set_property file_type {VHDL 2008} [get_files  C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab06_memory/src/vga_controller_top.vhdl]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:54:12 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:54:12 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:55:22 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:55:23 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:56:11 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:56:11 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 08:57:18 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 08:57:18 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Wed Nov 30 09:00:00 2022] Launched synth_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/synth_1/runme.log
+[Wed Nov 30 09:00:00 2022] Launched impl_1...
+Run output will be captured here: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.runs/impl_1/runme.log

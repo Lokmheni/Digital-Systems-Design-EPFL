@@ -68,6 +68,7 @@ architecture rtl of vga_controller_top is
 
   signal XCoordxD : unsigned(COORD_BW - 1 downto 0);
   signal YCoordxD : unsigned(COORD_BW - 1 downto 0);
+  SIGNAL YCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
 
 --=============================================================================
 -- COMPONENT DECLARATIONS
@@ -101,6 +102,7 @@ architecture rtl of vga_controller_top is
       CLKxCI : in std_logic;
       RSTxRI : in std_logic;
 
+      
       -- Data/color input
       RedxSI   : in std_logic_vector(COLOR_BW - 1 downto 0);
       GreenxSI : in std_logic_vector(COLOR_BW - 1 downto 0);
@@ -186,9 +188,8 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  RdAddrBxD <= std_logic_vector(YCoordxD*1024);    -- TODO: Map the X and Y coordinates to the address of the memory
-  RdAddrBxD <= RdAddrBxD + std_logic_vector(XCoordxD);
-
+  YCoordxDMultipliedxD <="000"& YCoordxD(COORD_BW -1 DOWNTO 9)&"0000000000";
+  RdAddrBxD <=std_logic_vector(YCoordxDMultipliedxD + XCoordxD);
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
   BluexSI  <= DOUTBxD(1 * COLOR_BW - 1 downto 0 * COLOR_BW);
