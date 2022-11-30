@@ -176,8 +176,8 @@ BEGIN
   VSxSON <= '0' WHEN YcounterxD > VS_FRONT_PORCH AND YcounterxD <= VS_FRONT_PORCH+VS_PULSE ELSE
             '1';
 
-  tmpCoordConversionHelp  <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE);
-  tmpCoordConversionHelpP <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE);
+  tmpCoordConversionHelp  <= XcounterxD - (HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH)+1;
+  tmpCoordConversionHelpP <= YcounterxD - (VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH);
 
   XCoordxDON <= tmpCoordConversionHelp(COORD_BW -1 DOWNTO 0);
   YCoordxDON <= tmpCoordConversionHelpP(COORD_BW -1 DOWNTO 0);
