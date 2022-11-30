@@ -66,6 +66,8 @@ architecture rtl of vga_controller_top is
   signal XCoordxD : unsigned(COORD_BW - 1 downto 0);
   signal YCoordxD : unsigned(COORD_BW - 1 downto 0);
   SIGNAL YCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
+  SIGNAL YCoordShrunkxD : unsigned(COORD_BW-1 downto 0);  -- divided by four
+  SIGNAL XCoordShrunk : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
 
 --=============================================================================
 -- COMPONENT DECLARATIONS
@@ -185,8 +187,10 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  YCoordxDMultipliedxD <=YCoordxD(COORD_BW -1 DOWNTO 6)&"0000000000";
-  RdAddrBxD <=std_logic_vector(YCoordxDMultipliedxD + XCoordxD);
+  YCoordShrunkxD <= "00"&YCoordxD(COORD_BW-1-2 DOWNTO 0);
+  YCoordxDMultipliedxD <=YCoordShrunkxD(6-1 DOWNTO 0)&"0000000000";
+  XCoordShrunk <="00"& XCoordShrunk(COORD_BW-1-2 DOWNTO 0);
+  RdAddrBxD <=std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
   BluexSI  <= DOUTBxD(1 * COLOR_BW - 1 downto 0 * COLOR_BW);
