@@ -189,7 +189,7 @@ BEGIN
   WrAddrAxD            <= (OTHERS => '0');
   DINAxD               <= (OTHERS => '0');
   YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);   -- get MSBs
-  YCoordxDMultipliedxD <= YCoordShrunkxD(6-1 DOWNTO 0)&"0000000000";
+  YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000"; -- lsl 8
   XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
   RdAddrBxD            <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
   RedxSI               <= DOUTBxD(3 * COLOR_BW - 1 DOWNTO 2 * COLOR_BW);
