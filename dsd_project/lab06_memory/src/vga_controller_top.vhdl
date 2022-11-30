@@ -188,7 +188,7 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  YCoordxDMultipliedxD <="000"& YCoordxD(COORD_BW -1 DOWNTO 9)&"0000000000";
+  YCoordxDMultipliedxD <= YCoordxD(COORD_BW -1 DOWNTO 6)&"0000000000";
   RdAddrBxD <=std_logic_vector(YCoordxDMultipliedxD + XCoordxD);
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
