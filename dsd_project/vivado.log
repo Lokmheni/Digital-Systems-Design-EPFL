@@ -2,26 +2,17 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Thu Nov 24 07:48:36 2022
-# Process ID: 8648
+# Start of session at: Wed Nov 30 08:43:56 2022
+# Process ID: 21868
 # Current directory: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18400 H:\My Drive\EPFL\Bachelor Semester 5\Digital systems design\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent4688 H:\My Drive\EPFL\Bachelor Semester 5\Digital systems design\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/vivado.log
 # Journal file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project {H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}
+oopen_project {H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}
 INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
-Current project path is 'H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project'
-Scanning sources...
-Finished scanning sources
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'h:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.dcp'. Please regenerate to continue.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'h:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.v'. Please regenerate to continue.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'h:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.vhdl'. Please regenerate to continue.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'h:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.v'. Please regenerate to continue.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'h:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl'. Please regenerate to continue.
-open_project: Time (s): cpu = 00:00:23 ; elapsed = 00:00:15 . Memory (MB): peak = 998.871 ; gain = 0.000
+Current project path is 'H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/dsd_project'SScanning sources...
+Finished scanning sourcesIINFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specifiedIINFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.oopen_project: Time (s): cpu = 00:00:35 ; elapsed = 00:00:19 . Memory (MB): peak = 998.957 ; gain = 0.000
 update_compile_order -fileset sources_1

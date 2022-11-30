@@ -6,6 +6,7 @@ library ieee;
 -- Standard packages
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 -- Packages
 library work;
 use work.dsd_prj_pkg.all;
@@ -50,6 +51,8 @@ architecture rtl of vga_controller_top is
   signal CLK75xC : std_logic;
 
   -- blk_mem_gen_0
+  constant MEM_ADDR_BW : natural := 16;
+  constant MEM_DATA_BW : natural := 12; -- 3 * COLOR_BW
   signal WrAddrAxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
   signal RdAddrBxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
   signal ENAxS     : std_logic;
@@ -168,11 +171,11 @@ begin
       BluexSO  => BluexSO
     );
     
-    i_memory: memory
-    port map(
-     MEM_ADDR_BW
+    --i_memory: memory
+    --port map(
+     --MEM_ADDR_BW
     
-    );
+    --);
 
 --=============================================================================
 -- SIGNAL MAPPING
@@ -183,7 +186,8 @@ begin
   WEAxS     <= "0";
   WrAddrAxD <= (others => '0');
   DINAxD    <= (others => '0');
-  RdAddrBxD <=  ;     -- TODO: Map the X and Y coordinates to the address of the memory
+  RdAddrBxD <= std_logic_vector(YCoordxD*1024);    -- TODO: Map the X and Y coordinates to the address of the memory
+  RdAddrBxD <= RdAddrBxD + std_logic_vector(XCoordxD);
 
   RedxSI   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   GreenxSI <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
