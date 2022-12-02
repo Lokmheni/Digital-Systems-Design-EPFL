@@ -182,7 +182,8 @@ BEGIN
   BallPosXSetValxD <= ('0'&VgaXxDI(COORD_BW-2 DOWNTO 0))+(HS_DISPLAY/2);  --middle half of screen
 
   --set?
-  SetCntrs <= GameActivexSN = '1' AND GameActivexSP = '0';
+  SetCntrs <= '1' WHEN GameActivexSN = '1' AND GameActivexSP = '0' ELSE
+              '0';
 
   -- direction signals
   -- purpose: Update ball directions
@@ -203,7 +204,7 @@ BEGIN
     END IF;
     --ball top check
     IF BallDirectionUpxSP = '1' AND BallPosYxD = 0 THEN
-      BallDirectionUpxSN = '0';
+      BallDirectionUpxSN <= '0';
     END IF;
     --ball bottom check
     IF BallDirectionUpxSP = '0' AND BallPosYxD = HS_DISPLAY-1 THEN
@@ -218,7 +219,7 @@ BEGIN
 
     --start game
     IF GameActivexSP = '0' AND LeftxSI = '1' AND RightxSI = '1' THEN
-      GameActivexSN = '1';  -- this triggers set cnt which will set counters
+      GameActivexSN <= '1';  -- this triggers set cnt which will set counters
     END IF;
 
   END PROCESS BallDirectionEvaluation;
