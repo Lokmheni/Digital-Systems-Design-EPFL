@@ -74,6 +74,10 @@ architecture rtl of pong_top is
 
   signal XCoordxD : unsigned(COORD_BW - 1 downto 0); -- Coordinates from VGA controller
   signal YCoordxD : unsigned(COORD_BW - 1 downto 0);
+  -- custom additional coords for VGA controller
+  SIGNAL YCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
+  SIGNAL YCoordShrunkxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
+  SIGNAL XCoordShrunk         : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
 
   signal VSEdgexS : std_logic; -- If 1, row counter resets (new frame). HIGH for 1 CC, when vertical sync starts)
 
@@ -244,8 +248,12 @@ begin
 
   -- Port B
   ENBxS     <= '1';
-  RdAddrBxD <= ; -- TODO: Map the X and Y coordinates to the address of the memory
-
+  --our graphicsmap
+  YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);   -- get MSBs
+  YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000"; -- lsl 8
+  XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
+  RdAddrBxD            <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
+  --endourgraphicsmap
   BGRedxS   <= DOUTBxD(3 * COLOR_BW - 1 downto 2 * COLOR_BW);
   BGGreenxS <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
   BGBluexS  <= DOUTBxD(1 * COLOR_BW - 1 downto 0 * COLOR_BW);
