@@ -70,6 +70,9 @@ ARCHITECTURE rtl OF pong_fsm IS
   SIGNAL BallPosYSetValxD : unsigned(COORD_BW-1 DOWNTO 0);  -- Set value (y pos) to be written to y counter if SetCntrs is high
 
 
+
+
+
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
