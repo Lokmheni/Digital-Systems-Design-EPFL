@@ -136,9 +136,9 @@ begin
 --=============================================================================
 
   -- All white
-  RedxSI   <= "1111";
-  GreenxSI <= "1111";
-  BluexSI  <= "1111";
+  RedxSI   <= "1111" WHEN XCoordxD=to_unsigned(0,12) OR XCoordxD=to_unsigned(1023,12) ELSE "0000";
+  GreenxSI <= "1111" WHEN YCoordxD=to_unsigned(0,12) OR YCoordxD=to_unsigned(767,12)ELSE "0000";
+  BluexSI  <= "0011";
 
 end rtl;
 --=============================================================================
