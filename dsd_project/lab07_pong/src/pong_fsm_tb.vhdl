@@ -36,14 +36,11 @@ END pong_fsm_tb;
 
 ARCHITECTURE tb OF pong_fsm_tb IS
 --constants
-  CONSTANT CLK_HIGH : time := 6 ns;     -- ckl
+  CONSTANT CLK_HIGH : time := 6 ns;
   CONSTANT CLK_LOW  : time := 6 ns;
+  CONSTANT CLK_PER  : time := CLK_LOW + CLK_HIGH;
   CONSTANT CLK_STIM : time := 1 ns;
 
-
---signals
-  SIGNAL CLK_CI : std_logic := '0';
-  SIGNAL RSTxRI : std_logic := '1';
 
 
 
