@@ -36,9 +36,9 @@ ENTITY vga_controller IS
     YCoordxDO : OUT unsigned(COORD_BW - 1 DOWNTO 0);
 
     -- Timing output
-    VSEdgexSO : out std_logic; -- Outcomment this when giving them the lab 5 template and for the testbench
-    HSxSO : OUT std_logic;
-    VSxSO : OUT std_logic;
+    VSEdgexSO : OUT std_logic;  -- Outcomment this when giving them the lab 5 template and for the testbench
+    HSxSO     : OUT std_logic;
+    VSxSO     : OUT std_logic;
 
     -- Data/color output
     RedxSO   : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0);
@@ -85,6 +85,8 @@ ARCHITECTURE rtl OF vga_controller IS
   SIGNAL RedxSON    : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
   SIGNAL GreenxSON  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
   SIGNAL BluexSON   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL NewFramxSN : std_logic;        -- used for ededetecting
+  SIGNAL NewFramxSP : std_logic;
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
@@ -158,6 +160,7 @@ BEGIN
       YCoordxDOP <= (OTHERS => '0');
       VSxSOP     <= '0';
       HSxSOP     <= '0';
+      NewFramxSP <= '0';
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       RedxSOP    <= RedxSON;
       GreenxSOP  <= GreenxSON;
@@ -166,6 +169,7 @@ BEGIN
       YCoordxDOP <= YCoordxDON;
       VSxSOP     <= VSxSON;
       HSxSOP     <= HSxSON;
+      NewFramxSP <= NewFramxSN;
     END IF;
   END PROCESS outputregisters;
 
@@ -184,7 +188,7 @@ BEGIN
   YCoordxDON <= tmpCoordConversionHelpP(COORD_BW -1 DOWNTO 0);
 
   validRegionxD <= '1' WHEN XcounterxD >= HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH
-                       and  YcounterxD >= VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH ELSE
+                   AND YcounterxD >= VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH ELSE
                    '0';
 
   RedxSON <= RedxSI WHEN validRegionxD = '1' ELSE
@@ -206,8 +210,10 @@ BEGIN
   VSxSO     <= VSxSOP;
 
 
-
-
+--edge detection
+  NewFramxSN <= '1' WHEN VSxSON = '1' AND VSxSOP = '0' ELSE
+                '0';
+  VSEdgexSO <= NewFramxSP;
 
 
 
