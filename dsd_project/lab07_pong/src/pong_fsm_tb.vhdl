@@ -80,7 +80,7 @@ ARCHITECTURE tb OF pong_fsm_tb IS
 
 --architechture begin
 BEGIN
-  pong_fsm_1 : ENTITY work.pong_fsm
+  dut : ENTITY work.pong_fsm
     PORT MAP (
       CLKxCI    => CLKxCI,
       RSTxRI    => RSTxRI,
@@ -92,5 +92,32 @@ BEGIN
       BallXxDO  => BallXxDO,
       BallYxDO  => BallYxDO,
       PlateXxDO => PlateXxDO);
+
+  -- vga, maybe change in further testing
+  VgaXxDI <= (OTHERS => '0');
+  VgaYxDI <= (OTHERS => '0');
+
+
+  --clock generation
+  p_clock : PROCESS IS
+  BEGIN
+    CLKxCI <= '0';
+    WAIT FOR CLK_LOW;
+    CLKxCI <= '1';
+    WAIT FOR CLK_HIGH;
+  END PROCESS p_clock;
+
+  --reset
+  p_reset : PROCESS IS
+  BEGIN
+    RSTxRI <= '1';
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    WAIT FOR (2*CLK_PER + CLK_STIM);
+    RSTxRI <= '0';
+    WAIT;
+  END PROCESS p_reset;
+
+
+
 
 END tb;
