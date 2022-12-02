@@ -2,13 +2,13 @@
 -- @file pong_fsm.vhdl
 --=============================================================================
 -- Standard library
-library ieee;
+LIBRARY ieee;
 -- Standard packages
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 -- Packages
-library work;
-use work.pong_pkg.all;
+LIBRARY work;
+USE work.pong_pkg.ALL;
 
 --=============================================================================
 --
@@ -22,44 +22,44 @@ use work.pong_pkg.all;
 --=============================================================================
 -- ENTITY DECLARATION FOR PONG_FSM
 --=============================================================================
-entity pong_fsm is
-  port (
-    CLKxCI : in std_logic;
-    RSTxRI : in std_logic;
+ENTITY pong_fsm IS
+  PORT (
+    CLKxCI : IN std_logic;
+    RSTxRI : IN std_logic;
 
     -- Controls from push buttons
-    LeftxSI  : in std_logic;
-    RightxSI : in std_logic;
+    LeftxSI  : IN std_logic;
+    RightxSI : IN std_logic;
 
     -- Coordinate from VGA
-    VgaXxDI : in unsigned(COORD_BW - 1 downto 0);
-    VgaYxDI : in unsigned(COORD_BW - 1 downto 0);
+    VgaXxDI : IN unsigned(COORD_BW - 1 DOWNTO 0);
+    VgaYxDI : IN unsigned(COORD_BW - 1 DOWNTO 0);
 
     -- Signals from video interface to synchronize (HIGH for 1 CC, when vertical sync starts)
-    VSEdgexSI : in std_logic;
+    VSEdgexSI : IN std_logic;
 
     -- Ball and plate coordinates
-    BallXxDO  : out unsigned(COORD_BW - 1 downto 0);
-    BallYxDO  : out unsigned(COORD_BW - 1 downto 0);
-    PlateXxDO : out unsigned(COORD_BW - 1 downto 0)
-  );
-end pong_fsm;
+    BallXxDO  : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+    BallYxDO  : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+    PlateXxDO : OUT unsigned(COORD_BW - 1 DOWNTO 0)
+    );
+END pong_fsm;
 
 --=============================================================================
 -- ARCHITECTURE DECLARATION
 --=============================================================================
-architecture rtl of pong_fsm is
+ARCHITECTURE rtl OF pong_fsm IS
 
 -- TODO: Implement your code here
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
-begin
+BEGIN
 
 -- TODO: Implement your code here
 
-end rtl;
+END rtl;
 --=============================================================================
 -- ARCHITECTURE END
 --=============================================================================
