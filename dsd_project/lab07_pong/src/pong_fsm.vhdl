@@ -57,7 +57,7 @@ ARCHITECTURE rtl OF pong_fsm IS
   SIGNAL BallDirectionLeftxSP : std_logic;  -- '1' if ball is moving left (x coord decreasing)
   SIGNAL BallPosXxD           : unsigned(COORD_BW-1 DOWNTO 0);  -- X position of the ball counter
   SIGNAL BallPosYxD           : unsigned(COORD_BW-1 DOWNTO 0);  -- Y position OF the ball counter
-  SIGNAL BarPoxXxD            : unsigned(COORD_BW-1 DOWNTO 0);  -- X position of the bar
+  SIGNAL BarPosXxD            : unsigned(COORD_BW-1 DOWNTO 0);  -- X position of the bar
 
   SIGNAL CntBallXEnxS : std_logic;      -- Count enable for ball x coordinate
   SIGNAL CntBallYEnxS : std_logic;      -- Count enable for ball y coordinate
@@ -111,7 +111,7 @@ BEGIN
       BallPosYxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntBallYEnxS = '1' THEN
-        IF BallDirectionUpxSN = '0' THEN
+        IF BallDirectionUpxSP = '0' THEN
           BallPosYxD <= BallPosYxD+1;   --count up
         ELSE
           BallPosYxD <= BallPosYxD-1;   --count down
@@ -128,22 +128,44 @@ BEGIN
   -- purpose: Counter for x coordinate of bar ( no set value )
   -- type   : sequential
   -- inputs : CLKxCI, RSTxRI, CntBarEnxS, cntBarDirxS
-  -- outputs: BarPoxXxD
+  -- outputs: BarPosXxD
   BarPositionCounter : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS BarPositionCounter
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      BarPoxXxD <= to_unsigned(HS_DISPLAY/2, COORD_BW);  -- reset to center of screen
+      BarPosXxD <= to_unsigned(HS_DISPLAY/2, COORD_BW);  -- reset to center of screen
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN             -- rising clock edge
       IF CntBarEnxS = '1' THEN
         IF cntBarDirxS = '0' THEN
-          BarPoxXxD <= BarPoxXxD+1;     --count up
+          BarPosXxD <= BarPosXxD+1;     --count up
         ELSE
-          BarPoxXxD <= BarPoxXxD-1;     --count down
+          BarPosXxD <= BarPosXxD-1;     --count down
         END IF;
       END IF;
-      -- no set value, bar stays at same position
+    -- no set value, bar stays at same position
     END IF;
   END PROCESS BarPositionCounter;
+
+
+  --=====================
+  --Registers for signals
+  --=====================
+  -- purpose: Register for signals
+  -- type   : sequential
+  -- inputs : CLKxCI, RSTxRI, GameActivexS, BallDirectionUpxS, BallDirectionLeftxS
+  -- outputs: 
+  ControlSignalReg : PROCESS (CLKxCI, RSTxRI) IS
+  BEGIN  -- PROCESS ControlSignalReg
+    IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
+      GameActivexSP        <= '0';
+      BallDirectionLeftxSP <= '0';
+      BallDirectionUpxSP   <= '0';
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+      GameActivexSP        <= GameActivexSN;
+      BallDirectionUpxSP   <= BallDirectionUpxSN;
+      BallDirectionLeftxSP <= BallDirectionLeftxSN;
+    END IF;
+  END PROCESS ControlSignalReg;
+
 
 
   --=================
@@ -152,11 +174,58 @@ BEGIN
   -- Enable signals:
   CntBallXEnxS <= GameActivexSP;
   CntBallYEnxS <= GameActivexSP;
-  CntBarEnxS <= '1' WHEN GameActivexSP='1' AND (LeftxSI='1' XOR RightxSI='1' );
-  
-                  
+  CntBarEnxS   <= '1' WHEN GameActivexSP = '1' AND (LeftxSI = '1' XOR RightxSI = '1');
 
-  
+
+  -- not very energy efficient but such is life
+  BallPosYSetValxD <= '0'& VgaYxDI(COORD_BW-2 DOWNTO 0);  -- upper half of screen
+  BallPosXSetValxD <= ('0'&VgaXxDI(COORD_BW-2 DOWNTO 0))+(HS_DISPLAY/2);  --middle half of screen
+
+  --set?
+  SetCntrs <= GameActivexSN = '1' AND GameActivexSP = '0';
+
+  -- direction signals
+  -- purpose: Update ball directions
+  -- type   : combinational
+  -- inputs : all
+  -- outputs: 
+  BallDirectionEvaluation : PROCESS (ALL) IS
+  BEGIN  -- PROCESS BallDirectionEvaluation
+    --DEFAULT VALUES
+    BallDirectionUpxSN   <= BallDirectionUpxSP;
+    BallDirectionLeftxSN <= BallDirectionLeftxSP;
+    GameActivexSN        <= GameActivexSP;
+    --ball left right checks
+    IF BallDirectionLeftxSP = '1' AND BallPosXxD = 0 THEN
+      BallDirectionLeftxSN <= '0';
+    ELSIF BallDirectionUpxSP = '0' AND BallPosXxD = HS_DISPLAY-1 THEN
+      BallDirectionLeftxSN <= '1';
+    END IF;
+    --ball top check
+    IF BallDirectionUpxSP = '1' AND BallPosYxD = 0 THEN
+      BallDirectionUpxSN = '0';
+    END IF;
+    --ball bottom check
+    IF BallDirectionUpxSP = '0' AND BallPosYxD = HS_DISPLAY-1 THEN
+      --lose check
+      IF BallPosXxD < BarPosXxD-2 OR BallPosXxD > BarPosXxD+2 THEN
+        GameActivexSN <= '0';           -- lose
+      ELSE
+        BallDirectionUpxSN <= '1';      -- ball goes back up
+      END IF;
+    END IF;
+
+
+    --start game
+    IF GameActivexSP = '0' AND LeftxSI = '1' AND RightxSI = '1' THEN
+      GameActivexSN = '1';  -- this triggers set cnt which will set counters
+    END IF;
+
+  END PROCESS BallDirectionEvaluation;
+
+
+
+
 
 
 END rtl;
