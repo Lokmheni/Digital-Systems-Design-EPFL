@@ -172,9 +172,12 @@ BEGIN
   --signals and logic
   --=================
   -- Enable signals:
-  CntBallXEnxS <= GameActivexSP;
-  CntBallYEnxS <= GameActivexSP;
-  CntBarEnxS   <= '1' WHEN GameActivexSP = '1' AND (LeftxSI = '1' XOR RightxSI = '1');
+  CntBallXEnxS <= '1' WHEN GameActivexSP = '1' AND VSEdgexSI = '1' ELSE
+                  '0';
+  CntBallYEnxS <= '1' WHEN GameActivexSP = '1' AND VSEdgexSI = '1'ELSE
+                  '0';
+  CntBarEnxS <= '1' WHEN GameActivexSP = '1'AND VSEdgexSI = '1' AND (LeftxSI = '1' XOR RightxSI = '1') ELSE
+                '0';
 
 
   -- not very energy efficient but such is life
