@@ -8,7 +8,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 -- Packages
 library work;
-use work.pong_kg.all;
+use work.dsd_prj_pkg.all;
 
 --=============================================================================
 --
