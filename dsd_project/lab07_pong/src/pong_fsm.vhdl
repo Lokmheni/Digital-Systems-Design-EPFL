@@ -138,10 +138,16 @@ BEGIN
       BarPosXxD <= to_unsigned(HS_DISPLAY/2, COORD_BW);  -- reset to center of screen
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN             -- rising clock edge
       IF CntBarEnxS = '1' THEN
-        IF cntBarDirxS = '0' AND BarPosXxD < HS_DISPLAY-PLATE_WIDTH THEN
-          BarPosXxD <= BarPosXxD+PLATE_STEP_X;           --count up
-        ELSIF BarPosXxD > 1 THEN
+        IF cntBarDirxS = '0'THEN
+          IF BarPosXxD < HS_DISPLAY-PLATE_WIDTH - PLATE_STEP_X THEN
+            BarPosXxD <= BarPosXxD+PLATE_STEP_X;         --count up
+          ELSE
+            BarPosXxD <= to_unsigned(HS_DISPLAY-PLATE_WIDTH-1, COORD_BW);
+          END IF;
+        ELSIF BarPosXxD > PLATE_STEP_X THEN
           BarPosXxD <= BarPosXxD-PLATE_STEP_X;           --count down
+        ELSE
+          BarPosXxD <= (OTHERS => '0');
         END IF;
       END IF;
     -- no set value, bar stays at same position
