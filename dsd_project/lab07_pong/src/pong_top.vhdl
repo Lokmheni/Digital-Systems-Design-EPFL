@@ -258,6 +258,33 @@ begin
   BGGreenxS <= DOUTBxD(2 * COLOR_BW - 1 downto 1 * COLOR_BW);
   BGBluexS  <= DOUTBxD(1 * COLOR_BW - 1 downto 0 * COLOR_BW);
 
+  --actually write colors to vga
+  -- purpose: select BG or sprite 
+  -- type   : combinational
+  -- inputs : all
+  -- outputs: VGA colors (RedxS, GreenxS, BluexS)
+  SpriteLogic : PROCESS (ALL) IS
+  BEGIN  -- PROCESS SpriteLogic
+    --BG as default
+    RedxS   <= BGRedxS;
+    GreenxS <= BGGreenxS;
+    BluexS  <= BGBluexS;
+
+    -- ball logic
+    IF XCoordxD = BallXxD AND YCoordxD = BallYxD THEN
+      RedxS   <= (OTHERS => '1');
+      GreenxS <= (OTHERS => '1');
+      BluexS  <= (OTHERS => '1');
+    END IF;
+    IF YCoordxD = HS_DISPLAY AND XCoordxD < PlateXxD+2 AND XCoordxD > PlateXxD-2 THEN
+      RedxS   <= (OTHERS => '1');
+      GreenxS <= (OTHERS => '1');
+      BluexS  <= (OTHERS => '1');
+    END IF;
+
+  END PROCESS SpriteLogic;
+
+
 end rtl;
 --=============================================================================
 -- ARCHITECTURE END
