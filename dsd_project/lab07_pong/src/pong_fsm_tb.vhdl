@@ -118,13 +118,13 @@ BEGIN
   p_frame_edge : PROCESS IS
   BEGIN
     VSEdgexSI <= '0';
-    WAIT UNTIL RSTxRI = '0';
-    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1' AND RSTxRI = '0';  -- Align to clock
     WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
     WAIT FOR CLK_STIM;
     VSEdgexSI <= '1';
     WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
-    Wait for CLK_STIM;
+    WAIT FOR CLK_STIM;
+
   END PROCESS p_frame_edge;
 
   -- purpose: just run and see
