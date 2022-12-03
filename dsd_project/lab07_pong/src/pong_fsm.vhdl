@@ -213,12 +213,15 @@ BEGIN
       BallDirectionUpxSN <= '0';
     END IF;
     --ball bottom check
-    IF BallDirectionUpxSP = '0' AND BallPosYxD = VS_DISPLAY-1 THEN
+    IF BallDirectionUpxSP = '0' AND BallPosYxD >= VS_DISPLAY-1 THEN
       --lose check
       IF BallPosXxD < BarPosXxD-2 OR BallPosXxD > BarPosXxD+2 THEN
         GameActivexSN <= '0';           -- lose
       ELSE
         BallDirectionUpxSN <= '1';      -- ball goes back up
+      END IF;
+      IF SetCntrs = '1' THEN
+        BallDirectionUpxSN <= '1';
       END IF;
     END IF;
 
