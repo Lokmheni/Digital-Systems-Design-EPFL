@@ -213,7 +213,7 @@ BEGIN
       BallDirectionUpxSN <= '0';
     END IF;
     --ball bottom check
-    IF BallDirectionUpxSP = '0' AND BallPosYxD = HS_DISPLAY-1 THEN
+    IF BallDirectionUpxSP = '0' AND BallPosYxD = VS_DISPLAY-1 THEN
       --lose check
       IF BallPosXxD < BarPosXxD-2 OR BallPosXxD > BarPosXxD+2 THEN
         GameActivexSN <= '0';           -- lose
