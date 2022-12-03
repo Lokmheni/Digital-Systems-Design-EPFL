@@ -272,12 +272,12 @@ BEGIN
     BluexS  <= BGBluexS;
 
     -- ball logic
-    IF XCoordxD < BallXxD+5 AND XCoordxD > BallXxD-5 AND YCoordxD < BallYxD+5 AND YCoordxD > BallYxD-5 THEN
+    IF XCoordxD < BallXxD+BALL_WIDTH AND XCoordxD >= BallXxD AND YCoordxD < BallYxD+BALL_HEIGHT AND YCoordxD >= BallYxD THEN
       RedxS   <= (OTHERS => '1');
       GreenxS <= (OTHERS => '1');
       BluexS  <= (OTHERS => '1');
     END IF;
-    IF YCoordxD > HS_DISPLAY-4 AND XCoordxD < PlateXxD+10 AND XCoordxD > PlateXxD-10 THEN
+    IF YCoordxD > HS_DISPLAY-PLATE_HEIGHT AND XCoordxD < PlateXxD+PLATE_WIDTH AND XCoordxD >= PlateXxD THEN
       RedxS   <= (OTHERS => '1');
       GreenxS <= (OTHERS => '1');
       BluexS  <= (OTHERS => '1');

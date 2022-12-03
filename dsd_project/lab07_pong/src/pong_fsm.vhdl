@@ -88,12 +88,12 @@ BEGIN
   BEGIN  -- PROCESS XCoordCounter
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       BallPosXxD <= (OTHERS => '0');
-    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN     -- rising clock edge
       IF CntBallXEnxS = '1' THEN        -- enable
-        IF BallDirectionLeftxSP = '0' THEN    -- count up
-          BallPosXxD <= BallPosXxD+1;
+        IF BallDirectionLeftxSP = '0' THEN       -- count up
+          BallPosXxD <= BallPosXxD+BALL_STEP_X;
         ELSE
-          BallPosXxD <= BallPosXxD-1;   -- count down
+          BallPosXxD <= BallPosXxD-BALL_STEP_X;  -- count down
         END IF;
       END IF;
       --set cntr
@@ -112,12 +112,12 @@ BEGIN
   BEGIN  -- PROCESS YcoordCounter
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       BallPosYxD <= (OTHERS => '0');
-    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN     -- rising clock edge
       IF CntBallYEnxS = '1' THEN
         IF BallDirectionUpxSP = '0' THEN
-          BallPosYxD <= BallPosYxD+1;   --count up
+          BallPosYxD <= BallPosYxD+BALL_STEP_Y;  --count up
         ELSE
-          BallPosYxD <= BallPosYxD-1;   --count down
+          BallPosYxD <= BallPosYxD-BALL_STEP_Y;  --count down
         END IF;
       END IF;
       IF SetCntrs = '1' THEN
@@ -138,10 +138,10 @@ BEGIN
       BarPosXxD <= to_unsigned(HS_DISPLAY/2, COORD_BW);  -- reset to center of screen
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN             -- rising clock edge
       IF CntBarEnxS = '1' THEN
-        IF cntBarDirxS = '0' AND BarPosXxD < HS_DISPLAY THEN
-          BarPosXxD <= BarPosXxD+1;     --count up
+        IF cntBarDirxS = '0' AND BarPosXxD < HS_DISPLAY-PLATE_WIDTH THEN
+          BarPosXxD <= BarPosXxD+PLATE_STEP_X;           --count up
         ELSE
-          BarPosXxD <= BarPosXxD-1;     --count down
+          BarPosXxD <= BarPosXxD-PLATE_STEP_X;           --count down
         END IF;
       END IF;
     -- no set value, bar stays at same position
@@ -205,7 +205,7 @@ BEGIN
     --ball left right checks
     IF BallDirectionLeftxSP = '1' AND BallPosXxD = 0 THEN
       BallDirectionLeftxSN <= '0';
-    ELSIF BallDirectionUpxSP = '0' AND BallPosXxD = HS_DISPLAY-1 THEN
+    ELSIF BallDirectionUpxSP = '0' AND BallPosXxD = HS_DISPLAY-BALL_WIDTH THEN
       BallDirectionLeftxSN <= '1';
     END IF;
     --ball top check
@@ -213,12 +213,12 @@ BEGIN
       BallDirectionUpxSN <= '0';
     END IF;
     --ball bottom check
-    IF BallDirectionUpxSP = '0' AND BallPosYxD >= VS_DISPLAY-1 THEN
-      --lose check
-      IF BallPosXxD < BarPosXxD-2 OR BallPosXxD > BarPosXxD+2 THEN
-        GameActivexSN <= '0';           -- lose
-      ELSE
+    IF BallDirectionUpxSP = '0' AND BallPosYxD >= VS_DISPLAY-BALL_HEIGHT - PLATE_HEIGHT THEN
+      --bounce back check
+      IF BallPosXxD >= BarPosXxD AND BallPosXxD <= BarPosXxD+BALL_WIDTH + PLATE_WIDTH THEN
         BallDirectionUpxSN <= '1';      -- ball goes back up
+      ELSIF BallPosYxD = VS_DISPLAY-BALL_HEIGHT THEN
+        GameActivexSN <= '0';           -- lose      
       END IF;
       IF SetCntrs = '1' THEN
         BallDirectionUpxSN <= '1';
