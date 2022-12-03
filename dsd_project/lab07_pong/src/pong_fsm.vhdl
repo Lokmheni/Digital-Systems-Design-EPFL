@@ -199,13 +199,13 @@ BEGIN
   BallDirectionEvaluation : PROCESS (ALL) IS
   BEGIN  -- PROCESS BallDirectionEvaluation
     --DEFAULT VALUES
-    BallDirectionUpxSN   <= BallDirectionUpxSP;
-    BallDirectionLeftxSN <= BallDirectionLeftxSP;
-    GameActivexSN        <= GameActivexSP;
+    BallDirectionUpxSN                           <= BallDirectionUpxSP;
+    BallDirectionLeftxSN                         <= BallDirectionLeftxSP;
+    GameActivexSN                                <= GameActivexSP;
     --ball left right checks
-    IF BallDirectionLeftxSP = '1' AND BallPosXxD = 0 THEN
+    IF BallDirectionLeftxSP = '1' AND BallPosXxD <= 1 THEN
       BallDirectionLeftxSN <= '0';
-    ELSIF BallDirectionLeftxSP = '0' AND BallPosXxD = HS_DISPLAY-BALL_WIDTH THEN
+    ELSIF BallDirectionLeftxSP = '0' AND BallPosXxD >= HS_DISPLAY-BALL_WIDTH THEN
       BallDirectionLeftxSN <= '1';
     END IF;
     --ball top check
