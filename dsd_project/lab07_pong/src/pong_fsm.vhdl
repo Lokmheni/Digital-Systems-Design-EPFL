@@ -217,7 +217,7 @@ BEGIN
       --bounce back check
       IF BallPosXxD >= BarPosXxD AND BallPosXxD <= BarPosXxD+BALL_WIDTH + PLATE_WIDTH THEN
         BallDirectionUpxSN <= '1';      -- ball goes back up
-      ELSIF BallPosYxD = VS_DISPLAY-BALL_HEIGHT THEN
+      ELSIF BallPosYxD >= VS_DISPLAY-BALL_HEIGHT THEN
         GameActivexSN <= '0';           -- lose      
       END IF;
       IF SetCntrs = '1' THEN
