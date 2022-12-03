@@ -221,7 +221,8 @@ BEGIN
         GameActivexSN <= '0';           -- lose      
       END IF;
       IF SetCntrs = '1' THEN
-        BallDirectionUpxSN <= '1';
+        BallDirectionUpxSN   <= VgaXxDI(0);
+        BallDirectionLeftxSN <= VgaYxDI(0);
       END IF;
     END IF;
 
