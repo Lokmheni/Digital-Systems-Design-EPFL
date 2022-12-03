@@ -138,7 +138,7 @@ BEGIN
       BarPosXxD <= to_unsigned(HS_DISPLAY/2, COORD_BW);  -- reset to center of screen
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN             -- rising clock edge
       IF CntBarEnxS = '1' THEN
-        IF cntBarDirxS = '0' THEN
+        IF cntBarDirxS = '0' AND BarPosXxD < HS_DISPLAY THEN
           BarPosXxD <= BarPosXxD+1;     --count up
         ELSE
           BarPosXxD <= BarPosXxD-1;     --count down
