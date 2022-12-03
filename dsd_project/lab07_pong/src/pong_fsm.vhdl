@@ -190,7 +190,7 @@ BEGIN
   --set?
   SetCntrs <= '1' WHEN GameActivexSN = '1' AND GameActivexSP = '0' ELSE
               '0';
-
+  cntBarDirxS <= LeftxSI;               -- xor is handled by countenable
   -- direction signals
   -- purpose: Update ball directions
   -- type   : combinational
@@ -233,7 +233,9 @@ BEGIN
 
 
 
-
+  BallXxDO  <= BallPosXxD;
+  BallYxDO  <= BallPosYxD;
+  PlateXxDO <= BarPosXxD;
 
 END rtl;
 --=============================================================================
