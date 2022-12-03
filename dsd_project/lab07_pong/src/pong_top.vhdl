@@ -277,7 +277,7 @@ BEGIN
       GreenxS <= (OTHERS => '1');
       BluexS  <= (OTHERS => '1');
     END IF;
-    IF YCoordxD > HS_DISPLAY-PLATE_HEIGHT AND XCoordxD < PlateXxD+PLATE_WIDTH AND XCoordxD >= PlateXxD THEN
+    IF YCoordxD > VS_DISPLAY-PLATE_HEIGHT AND XCoordxD < PlateXxD+PLATE_WIDTH AND XCoordxD >= PlateXxD THEN
       RedxS   <= (OTHERS => '1');
       GreenxS <= (OTHERS => '1');
       BluexS  <= (OTHERS => '1');

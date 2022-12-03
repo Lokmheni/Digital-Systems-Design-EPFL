@@ -140,7 +140,7 @@ BEGIN
       IF CntBarEnxS = '1' THEN
         IF cntBarDirxS = '0' AND BarPosXxD < HS_DISPLAY-PLATE_WIDTH THEN
           BarPosXxD <= BarPosXxD+PLATE_STEP_X;           --count up
-        ELSE
+        ELSIF BarPosXxD > 1 THEN
           BarPosXxD <= BarPosXxD-PLATE_STEP_X;           --count down
         END IF;
       END IF;
@@ -184,7 +184,7 @@ BEGIN
 
 
   -- not very energy efficient but such is life
-  BallPosYSetValxD <= '0'& VgaYxDI(COORD_BW-2 DOWNTO 0);  -- upper half of screen
+  BallPosYSetValxD <= "00"& VgaYxDI(COORD_BW-1 DOWNTO 2)+1;  -- upper quarter of screen
   BallPosXSetValxD <= ('0'&VgaXxDI(COORD_BW-2 DOWNTO 0))+(HS_DISPLAY/2);  --middle half of screen
 
   --set?
@@ -209,7 +209,7 @@ BEGIN
       BallDirectionLeftxSN <= '1';
     END IF;
     --ball top check
-    IF BallDirectionUpxSP = '1' AND BallPosYxD = 0 THEN
+    IF BallDirectionUpxSP = '1' AND BallPosYxD <= 1 THEN
       BallDirectionUpxSN <= '0';
     END IF;
     --ball bottom check
