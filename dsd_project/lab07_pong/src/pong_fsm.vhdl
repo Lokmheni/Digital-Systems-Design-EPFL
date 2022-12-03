@@ -205,7 +205,7 @@ BEGIN
     --ball left right checks
     IF BallDirectionLeftxSP = '1' AND BallPosXxD = 0 THEN
       BallDirectionLeftxSN <= '0';
-    ELSIF BallDirectionUpxSP = '0' AND BallPosXxD = HS_DISPLAY-BALL_WIDTH THEN
+    ELSIF BallDirectionLeftxSP = '0' AND BallPosXxD = HS_DISPLAY-BALL_WIDTH THEN
       BallDirectionLeftxSN <= '1';
     END IF;
     --ball top check
