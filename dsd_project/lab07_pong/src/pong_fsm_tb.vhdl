@@ -124,6 +124,7 @@ BEGIN
     WAIT FOR CLK_STIM;
     VSEdgexSI <= '1';
     WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    Wait for CLK_STIM;
   END PROCESS p_frame_edge;
 
   -- purpose: just run and see
