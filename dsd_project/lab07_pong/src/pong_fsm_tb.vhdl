@@ -162,7 +162,11 @@ BEGIN
     RightxSI <= '1';
     LeftxSI  <= '1';
 
-    FOR i IN 0 TO 3000 LOOP
+    WAIT FOR 2 * clk_per;
+
+
+    -- test if ball gets played back (bar follows ball)
+    FOR i IN 0 TO 6000 LOOP
       IF BallXxDO < PlateXxDO THEN
         LeftxSI  <= '1';
         RightxSI <= '0';
