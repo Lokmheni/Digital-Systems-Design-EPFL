@@ -185,7 +185,7 @@ BEGIN
 
   -- not very energy efficient but such is life
   BallPosYSetValxD <= "00"& VgaYxDI(COORD_BW-1 DOWNTO 2)+1;  -- upper quarter of screen
-  BallPosXSetValxD <= ('0'&VgaXxDI(COORD_BW-2 DOWNTO 0))+(HS_DISPLAY/2);  --middle half of screen
+  BallPosXSetValxD <= ("00"&VgaXxDI(COORD_BW-1 DOWNTO 2))+(HS_DISPLAY/2);  --middle half of screen
 
   --set?
   SetCntrs <= '1' WHEN GameActivexSN = '1' AND GameActivexSP = '0' ELSE
