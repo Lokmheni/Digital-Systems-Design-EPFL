@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: EPFL
--- Engineer: Simon ThÃ¼r
+-- Engineer: Simon Thür
 -- 
 -- Create Date: 02.12.2022 22:27:12
 -- Design Name: 
@@ -115,6 +115,67 @@ BEGIN
   END PROCESS p_reset;
 
 
+  p_frame_edge : PROCESS IS
+  BEGIN
+    VSEdgexSI <= '0';
+    WAIT UNTIL RSTxRI = '0';
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    WAIT FOR CLK_STIM;
+    VSEdgexSI <= '1';
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+  END PROCESS p_frame_edge;
 
+  -- purpose: just run and see
+  p_verfy_pong : PROCESS IS
+  BEGIN  -- PROCESS
+    LeftxSI  <= '0';
+    RightxSI <= '0';
+    -- wait before beginning game
+    WAIT UNTIL RSTxRI = '0';
+    WAIT FOR 2*CLK_PER;
+    WAIT UNTIL CLKxCI'event AND CLKxCI = '1';  -- Align to clock
+    WAIT FOR CLK_STIM;
+
+    --begin game
+    LeftxSI  <= '1';
+    RightxSI <= '1';
+
+    WAIT FOR 5 * CLK_PER;
+    LeftxSI <= '0';
+
+    WAIT FOR 100 * CLK_PER;
+    RightxSI <= '0';
+    LeftxSI  <= '1';
+
+    WAIT FOR 50 * CLK_PER;
+    LeftxSI <= '0';
+
+    WAIT FOR 10 * CLK_PER;
+
+    --I actually have no idea where the ball is going to land so... just wait
+    --and see what happens i guess
+
+    -- wait until we (probably) definetly lost the game
+    WAIT FOR 2 * CLK_PER * 2 * 780;  -- 2 clk perids per frame, 2 screenlenths
+    RightxSI <= '1';
+    LeftxSI  <= '1';
+
+    FOR i IN 0 TO 3000 LOOP
+      IF BallXxDO < PlateXxDO THEN
+        LeftxSI  <= '1';
+        RightxSI <= '0';
+      ELSIF BallXxDO > PlateXxDO THEN
+        LeftxSI  <= '0';
+        RightxSI <= '1';
+      END IF;
+
+      WAIT FOR 2 * CLK_PER;
+    END LOOP;  -- i
+
+
+    stop(0);
+
+  END PROCESS p_verfy_pong;
 
 END tb;
