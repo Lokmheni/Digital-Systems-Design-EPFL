@@ -80,12 +80,12 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
       YcounterxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnXxS = '1' THEN
-        XcounterxD <= XcounterxD +1 WHEN XcounterxD < 1023 ELSE
+        XcounterxD <= XcounterxD +1 WHEN XcounterxD +1 < CntMaxXxD ELSE
                       (OTHERS => '0');
       END IF;
       -- count Y
       IF CntEnYxS = '1' THEN
-        YcounterxD <= YcounterxD + 1 WHEN YcounterxD < 767 ELSE
+        YcounterxD <= YcounterxD + 1 WHEN YcounterxD + 1 < CntMaxYxD ELSE
                       (OTHERS => '0');
       END IF;
     END IF;
@@ -93,23 +93,25 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   
 CounterZ : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterZ
-  Z_re <= C_RE_INC(N_BITS-1 DOWNTO 0) * XcounterxD(COORD_BW-1 DOWNTO 0) + C_RE_0(N_BITS-1 DOWNTO 0);
-  Z_im <= C_IM_INC(N_BITS-1 DOWNTO 0) * YcounterxD(COORD_BW-1 DOWNTO 0) + C_IM_0(N_BITS-1 DOWNTO 0);
-  --RESET
-  IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
+    Z_re <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
+    Z_im <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+    --RESET
+    IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       Z_re <= (OTHERS => '0');
       Z_im <= (OTHERS => '0');
-      
-  ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-  IF CntEnZxS = '1' AND ITERxDO < MAX_ITER  THEN
-    Z_re_temp <= Z_re * Z_re - Z_im * Z_im + C_RE_0
-    Z_im <= 2 * Z_im * Z_re + C_IM_0
-    Z_re <=  Z_re_temp 
-    ITERxDO <= ITERxDO + 1    WHEN(Z_re * Z_re + Z_im * Z_im < 4); 
-  ELSIF ITERxDO = MAX_ITER THEN
-    WExSO => '1'    ELSE
-         (OTHERS => '0');
-  END IF;
+       
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+        IF CntEnZxS = '1' AND ITERxDO < MAX_ITER  THEN
+            Z_re_temp <= Z_re * Z_re - Z_im * Z_im + C_RE_0
+            Z_im <= 2 * Z_im * Z_re + C_IM_0
+            Z_re <=  Z_re_temp 
+            ITERxDO <= ITERxDO + 1    WHEN(Z_re * Z_re + Z_im * Z_im < 4); 
+        ELSIF ITERxDO = MAX_ITER THEN
+            WExSO <= '1'   WHEN  Z_re * Z_re + Z_im * Z_im < 4   ELSE
+                           (OTHERS => '0');
+        END IF;
+    END IF;
+  END PROCESS CounterZ;
     
   
   
