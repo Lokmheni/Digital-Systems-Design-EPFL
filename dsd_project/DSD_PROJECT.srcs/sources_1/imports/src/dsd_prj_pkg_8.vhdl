@@ -73,7 +73,7 @@ package dsd_prj_pkg is
   constant N_BITS : natural := N_INT + N_FRAC;
 
   constant ITER_LIM : natural := 2**(2 + N_FRAC); -- Represents 2^2 in Q3.15
-  constant MAX_ITER : natural := 100;             -- Maximum iteration bumber before stopping
+  constant MAX_ITER : natural := 100;             -- Maximum iteration number before stopping
 
   constant C_RE_0 : signed(N_BITS + 1 - 1 downto 0) := to_signed(-2 * (2**N_FRAC), N_BITS + 1); -- Q3.15
   constant C_IM_0 : signed(N_BITS + 1 - 1 downto 0) := to_signed(-1 * (2**N_FRAC), N_BITS + 1); -- Q3.15

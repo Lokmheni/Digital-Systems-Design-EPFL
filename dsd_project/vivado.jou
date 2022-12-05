@@ -2,13 +2,19 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Sun Dec  4 12:32:01 2022
-# Process ID: 12264
+# Start of session at: Sun Dec  4 16:16:24 2022
+# Process ID: 22324
 # Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent21316 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18924 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/vivado.log
 # Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+import_files -force -norecurse {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+import_files -force -norecurse {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
 update_compile_order -fileset sources_1

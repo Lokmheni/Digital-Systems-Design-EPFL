@@ -2,10 +2,10 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Sun Dec  4 12:32:01 2022
-# Process ID: 12264
+# Start of session at: Sun Dec  4 16:16:24 2022
+# Process ID: 22324
 # Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent21316 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18924 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/vivado.log
 # Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
@@ -26,7 +26,13 @@ INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
 WARNING: [IP_Flow 19-3664] IP 'clk_wiz_0' generated file not found 'c:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/clk_wiz_0_1/clk_wiz_0.dcp'. Please regenerate to continue.
-open_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 981.414 ; gain = 0.000
+open_project: Time (s): cpu = 00:00:21 ; elapsed = 00:00:13 . Memory (MB): peak = 1215.438 ; gain = 0.000
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+import_files -force -norecurse {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
+import_files -force -norecurse {{H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Project/lab08_mandelbrot_handout/lab/src/dsd_prj_pkg_8.vhdl}}
 update_compile_order -fileset sources_1
 exit
-INFO: [Common 17-206] Exiting Vivado at Sun Dec  4 12:34:10 2022...
+INFO: [Common 17-206] Exiting Vivado at Mon Dec  5 01:58:59 2022...

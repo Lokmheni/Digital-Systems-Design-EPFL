@@ -87,6 +87,11 @@ architecture rtl of mandelbrot_top is
   signal MandelbrotXxD    : unsigned(COORD_BW - 1 downto 0);
   signal MandelbrotYxD    : unsigned(COORD_BW - 1 downto 0);
   signal MandelbrotITERxD : unsigned(MEM_DATA_BW - 1 downto 0);    -- Iteration number from Mandelbrot (chooses colour)
+  --SIGNAL XCoordxD             : unsigned(COORD_BW - 1 DOWNTO 0);
+  --SIGNAL YCoordxD             : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL YCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
+  SIGNAL YCoordShrunkxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
+  SIGNAL XCoordShrunk         : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
 
 --=============================================================================
 -- COMPONENT DECLARATIONS
@@ -265,12 +270,16 @@ begin
 -- Port A
 ENAxS     <= MandelbrotWExS;
 WEAxS     <= (others => MandelbrotWExS);
-WrAddrAxD <= ; -- TODO
+WrAddrAxD <= (OTHERS => '0');
 DINAxD    <= std_logic_vector(MandelbrotITERxD);
 
 -- Port B
 ENBxS     <= '1';
-RdAddrBxD <= ; -- TODO
+YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);   -- get MSBs
+YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000"; -- lsl 8
+XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
+RdAddrBxD            <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
+--RdAddrBxD <= ; -- TODO
 
 --=============================================================================
 -- SPRITE SIGNAL MAPPING
