@@ -63,10 +63,11 @@ architecture rtl of mandelbrot is
   SIGNAL CntMaxYxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter y
   SIGNAL CountXOverflowxS : std_logic;  -- Phys X counter overflow
   SIGNAL CountYOverflowxS : std_logic;  -- Phys Y Counter overflow
-  SIGNAL Z_re             : unsigned(COORD_BW DOWNTO 0); -- real part of z
-  SIGNAL Z_re_temp        : unsigned(COORD_BW DOWNTO 0);
-  SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0); -- imaginary part of z
-  --SIGNAL N_iter           : unsigned(COORD_BW DOWNTO 0); -- number of iterations
+  SIGNAL Z_rexN           : unsigned(COORD_BW DOWNTO 0); -- real part of z
+  SIGNAL Z_imxN           : unsigned(COORD_BW DOWNTO 0); -- real part of z
+  SIGNAL Z_rexP           : unsigned(COORD_BW DOWNTO 0);
+  SIGNAL Z_imxP           : unsigned(COORD_BW DOWNTO 0); -- imaginary part of z
+  --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
     
 --=============================================================================
 -- ARCHITECTURE BEGIN
@@ -93,21 +94,21 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   
 CounterZ : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterZ
-    Z_re <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-    Z_im <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+    Z_rexN <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
+    Z_imxN <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      Z_re <= (OTHERS => '0');
-      Z_im <= (OTHERS => '0');
+      Z_rexN <= (OTHERS => '0');
+      Z_imxN <= (OTHERS => '0');
        
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
         IF CntEnZxS = '1' AND ITERxDO < MAX_ITER  THEN
-            Z_re_temp <= Z_re * Z_re - Z_im * Z_im + C_RE_0
-            Z_im <= 2 * Z_im * Z_re + C_IM_0
-            Z_re <=  Z_re_temp 
-            ITERxDO <= ITERxDO + 1    WHEN(Z_re * Z_re + Z_im * Z_im < 4); 
+            Z_rexP <= unsigned(Z_rexN * Z_rexN - Z_imxN * Z_imxN + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)))
+            Z_imxP <= unsigned(2 * Z_imxN * Z_rexN + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)))
+            --Z_rexP <=  Z_re_temp 
+            ITERxDO <= ITERxDO + 1    WHEN(Z_rexN * Z_rexN + Z_imxN * Z_imxN < 4); 
         ELSIF ITERxDO = MAX_ITER THEN
-            WExSO <= '1'   WHEN  Z_re * Z_re + Z_im * Z_im < 4   ELSE
+            WExSO <= '1'   WHEN  Z_rexN * Z_rexN + Z_imxN * Z_imxN < 4   ELSE
                            (OTHERS => '0');
         END IF;
     END IF;
