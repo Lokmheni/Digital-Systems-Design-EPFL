@@ -58,10 +58,15 @@ architecture rtl of mandelbrot is
   SIGNAL YcounterxD       : unsigned(COORD_BW DOWNTO 0);  -- Counter_value for y (physical)
   SIGNAL CntEnXxS         : std_logic;  -- Enable physical counter X
   SIGNAL CntEnYxS         : std_logic;  -- Enable physical counter Y
+  SIGNAL CntEnZxS         : std_logic;
   SIGNAL CntMaxXxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter x
   SIGNAL CntMaxYxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter y
   SIGNAL CountXOverflowxS : std_logic;  -- Phys X counter overflow
   SIGNAL CountYOverflowxS : std_logic;  -- Phys Y Counter overflow
+  SIGNAL Z_re             : unsigned(COORD_BW DOWNTO 0); -- real part of z
+  SIGNAL Z_re_temp        : unsigned(COORD_BW DOWNTO 0);
+  SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0); -- imaginary part of z
+  --SIGNAL N_iter           : unsigned(COORD_BW DOWNTO 0); -- number of iterations
     
 --=============================================================================
 -- ARCHITECTURE BEGIN
@@ -75,17 +80,40 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
       YcounterxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnXxS = '1' THEN
-        XcounterxD <= XcounterxD +1 WHEN ITERxDO < MAX_ITER ELSE
+        XcounterxD <= XcounterxD +1 WHEN XcounterxD < 1023 ELSE
                       (OTHERS => '0');
-
       END IF;
       -- count Y
       IF CntEnYxS = '1' THEN
-        YcounterxD <= C_IM_INC + 1 WHEN ITERxDO < MAX_ITER ELSE
+        YcounterxD <= YcounterxD + 1 WHEN YcounterxD < 767 ELSE
                       (OTHERS => '0');
       END IF;
     END IF;
   END PROCESS CounterRegisters;
+  
+CounterZ : PROCESS (CLKxCI, RSTxRI) IS
+  BEGIN  -- PROCESS CounterZ
+  Z_re <= C_RE_INC(N_BITS-1 DOWNTO 0) * XcounterxD(COORD_BW-1 DOWNTO 0) + C_RE_0(N_BITS-1 DOWNTO 0);
+  Z_im <= C_IM_INC(N_BITS-1 DOWNTO 0) * YcounterxD(COORD_BW-1 DOWNTO 0) + C_IM_0(N_BITS-1 DOWNTO 0);
+  --RESET
+  IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
+      Z_re <= (OTHERS => '0');
+      Z_im <= (OTHERS => '0');
+      
+  ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+  IF CntEnZxS = '1' AND ITERxDO < MAX_ITER  THEN
+    Z_re_temp <= Z_re * Z_re - Z_im * Z_im + C_RE_0
+    Z_im <= 2 * Z_im * Z_re + C_IM_0
+    Z_re <=  Z_re_temp 
+    ITERxDO <= ITERxDO + 1    WHEN(Z_re * Z_re + Z_im * Z_im < 4); 
+  ELSIF ITERxDO = MAX_ITER THEN
+    WExSO => '1'    ELSE
+         (OTHERS => '0');
+  END IF;
+    
+  
+  
+  
  
   -- TODO: Implement your own code here
   -- lokman does not know how to proceed :((((
