@@ -24,5 +24,6 @@ INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
 WARNING: [IP_Flow 19-3664] IP 'clk_wiz_0' generated file not found 'c:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/clk_wiz_0_1/clk_wiz_0.dcp'. Please regenerate to continue.
 open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:08 . Memory (MB): peak = 1195.457 ; gain = 0.000
-update_compile_order -fileset sources_exit
-INFO: [Common 17-206] Exiting Vivado at Mon Dec  5 15:53:29 2022...
+update_compile_order -fileset sources_exset_property file_type {VHDL 2008} [get_files  {{C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl}}]
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Dec  5 18:35:48 2022...

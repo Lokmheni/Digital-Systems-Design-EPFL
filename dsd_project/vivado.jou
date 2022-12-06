@@ -12,3 +12,4 @@
 start_gui
 open_project {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}
 update_compile_order -fileset sources_1
+set_property file_type {VHDL 2008} [get_files  {{C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl}}]
