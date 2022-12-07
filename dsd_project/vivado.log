@@ -2,10 +2,10 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Mon Dec  5 15:35:51 2022
-# Process ID: 22660
+# Start of session at: Wed Dec  7 12:20:23 2022
+# Process ID: 9760
 # Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent22256 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12892 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/vivado.log
 # Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
@@ -23,7 +23,669 @@ INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
 WARNING: [IP_Flow 19-3664] IP 'clk_wiz_0' generated file not found 'c:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/clk_wiz_0_1/clk_wiz_0.dcp'. Please regenerate to continue.
-open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:08 . Memory (MB): peak = 1195.457 ; gain = 0.000
-update_compile_order -fileset sources_exset_property file_type {VHDL 2008} [get_files  {{C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl}}]
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 1186.242 ; gain = 0.000
+update_compile_order -fileset sources_1
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+ERROR: [VRFC 10-664] expression has 13 elements ; expected 12 [C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl:110]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 1186.242 ; gain = 0.000
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+run_program: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 1186.242 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "mandelbrot_tb_behav -key {Behavioral:sim_1:Functional:mandelbrot_tb} -tclbatch {mandelbrot_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source mandelbrot_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'mandelbrot_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:09 ; elapsed = 00:00:16 . Memory (MB): peak = 1186.242 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "mandelbrot_tb_behav -key {Behavioral:sim_1:Functional:mandelbrot_tb} -tclbatch {mandelbrot_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source mandelbrot_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'mandelbrot_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:11 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:11 . Memory (MB): peak = 1186.242 ; gain = 0.000
+current_wave_config {Untitled 2}
+Untitled 2
+add_wave {{/mandelbrot_tb/dut}} 
+run all
+Note: Completed Writing Image File
+Time: 8156820 ns  Iteration: 1  Process: /mandelbrot_tb/p_write  File: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sim_1/imports/src/mandelbrot_tb.vhdl
+$stop called at time : 8156820 ns : File "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sim_1/imports/src/mandelbrot_tb.vhdl" Line 138
+run: Time (s): cpu = 00:00:05 ; elapsed = 00:00:10 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:02 ; elapsed = 00:00:13 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:03 ; elapsed = 00:00:14 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '4' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:02 ; elapsed = 00:00:15 . Memory (MB): peak = 1186.242 ; gain = 0.000
+run all
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:10 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+run_program: Time (s): cpu = 00:00:00 ; elapsed = 00:00:05 . Memory (MB): peak = 1186.242 ; gain = 0.000
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '4' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:02 ; elapsed = 00:00:16 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:02 ; elapsed = 00:00:12 . Memory (MB): peak = 1186.242 ; gain = 0.000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+ERROR: [VRFC 10-4982] syntax error near 'IF' [C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl:80]
+ERROR: [VRFC 10-3782] unit 'rtl' ignored due to previous errors [C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl:39]
+INFO: [VRFC 10-3070] VHDL file 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl' ignored due to errors
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 1186.242 ; gain = 0.000
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'mandelbrot_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim/epfl.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mandelbrot_tb_vlog.prj"
+"xvhdl --incr --relax -prj mandelbrot_tb_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.srcs/sources_1/imports/src/mandelbrot.vhdl" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'mandelbrot'
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 1186.242 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.sim/sim_1/behav/xsim'
+"xelab -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ac37c77cbebf430bac29d305ab336469 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot mandelbrot_tb_behav xil_defaultlib.mandelbrot_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.env
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.dsd_prj_pkg
+Compiling module xil_defaultlib.glbl
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot [mandelbrot_default]
+Compiling architecture rtl of entity xil_defaultlib.mandelbrot_tb
+Built simulation snapshot mandelbrot_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 1186.242 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
 exit
-INFO: [Common 17-206] Exiting Vivado at Mon Dec  5 18:35:48 2022...
+INFO: [Common 17-206] Exiting Vivado at Wed Dec  7 12:59:46 2022...
