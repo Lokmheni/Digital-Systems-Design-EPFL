@@ -83,6 +83,8 @@ begin
 CntMaxXxD <= to_unsigned(HS_DISPLAY + HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH, CntMaxXxD'length);
 CntMaxYxD <= to_unsigned(VS_DISPLAY + VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH, CntMaxYxD'length);
 
+FINISHED_W <= '1' WHEN ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP = ITER_LIM
+    ELSE '0';
 
 CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterRegisters
@@ -108,8 +110,8 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
                       '0';
   CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 1 ELSE
                       '0';
-  CntEnXxS <= '1' WHEN  ITERxDP < MAX_ITER AND Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM
-    ELSE '0'; 
+  CntEnXxS <= not FINISHED_W;
+
   CntEnYxS <= CountXOverflowxS;
   
   XxDO <= XcounterxD;
@@ -119,9 +121,8 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
   --ITERxDN <= ITERxDO;
   
-  ITERxDN <= (OTHERS => '0') WHEN CntEnXxS = '1'
-    ELSE ITERxDP + 1 WHEN  ITERxDP < MAX_ITER
-    ELSE ITERxDP;
+  ITERxDN <= (OTHERS => '0') WHEN FINISHED_W = '1'
+    ELSE ITERxDP + 1;
   
   --ITERxDN <= ITERxDP + 1    WHEN  ITERxDP < MAX_ITER
   --ELSE 0 WHEN CntEnxD
@@ -143,15 +144,15 @@ CounterZ : PROCESS (ALL) IS
         END IF;
     END IF;
   END PROCESS CounterZ;
-  CntEnZxS <= '1' WHEN ITERxDP < MAX_ITER AND Z_rexN  * Z_rexN + Z_imxN * Z_imxN < ITER_LIM
-    ELSE '0';
+  CntEnZxS <= '0' WHEN FINISHED_W = '1'
+    ELSE '1';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
   ITERxDO <= ITERxDP;
-  WExSO <= '1'   WHEN  ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM
-    ELSE '0';  
-  Z_rexN <= Z_rexInitial WHEN CntEnxXS = '1'
+  WExSO <= '0'   WHEN  FINISHED_W = '1'
+    ELSE '1';  
+  Z_rexN <= Z_rexInitial WHEN FINISHED_W = '1'
     ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxN <= Z_imxInitial WHEN CntEnxXS = '1'
+  Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
     ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
   
   -- TODO: Implement your own code here
