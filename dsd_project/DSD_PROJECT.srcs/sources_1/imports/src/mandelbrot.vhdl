@@ -104,7 +104,7 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
                       '0';
   CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 1 ELSE
                       '0';
-  CntEnXxS <= '1' WHEN  ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP < ITER_LIM
+  CntEnXxS <= '1' WHEN  ITERxDP < MAX_ITER AND Z_rexP * Z_rexP + Z_imxP * Z_imxP < ITER_LIM
     ELSE '0'; 
   CntEnYxS <= CountXOverflowxS;
   
@@ -114,7 +114,7 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   Z_rexN <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
   Z_imxN <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
   --ITERxDN <= ITERxDO;
-  ITERxDN <= ITERxDP + 1    WHEN  Z_rexN  * Z_rexN + Z_imxN * Z_imxN < ITER_LIM
+  ITERxDN <= ITERxDP + 1    WHEN  ITERxDP + 1 < MAX_ITER AND Z_rexN  * Z_rexN + Z_imxN * Z_imxN < ITER_LIM
     ELSE  ITERxDP;
 CounterZ : PROCESS (ALL) IS
   BEGIN  -- PROCESS CounterZ
@@ -132,7 +132,8 @@ CounterZ : PROCESS (ALL) IS
         END IF;
     END IF;
   END PROCESS CounterZ;
-  CntEnZxS <= '1';
+  CntEnZxS <= '1' WHEN ITERxDP < MAX_ITER AND Z_rexN  * Z_rexN + Z_imxN * Z_imxN < ITER_LIM
+    ELSE '0';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
   ITERxDO <= ITERxDP;
   WExSO <= '1'   WHEN  ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP < ITER_LIM
