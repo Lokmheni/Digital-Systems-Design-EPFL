@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Wed Nov 30 08:22:59 2022
-// Host        : DESKTOP-UUUA4G2 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               c:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.v
+// Date        : Mon Nov 28 20:57:26 2022
+// Host        : HpLok running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub -rename_top blk_mem_gen_0 -prefix
+//               blk_mem_gen_0_ blk_mem_gen_0_stub.v
 // Design      : blk_mem_gen_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg400-1

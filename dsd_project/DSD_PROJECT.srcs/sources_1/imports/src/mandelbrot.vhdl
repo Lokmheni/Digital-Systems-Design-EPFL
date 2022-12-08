@@ -69,8 +69,11 @@ architecture rtl of mandelbrot is
   SIGNAL Z_imxP           : unsigned(COORD_BW DOWNTO 0); -- imaginary part of z
   SIGNAL Z_re             : unsigned(COORD_BW DOWNTO 0);
   SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0);
+  SIGNAL Z_rexInitial     : unsigned(COORD_BW DOWNTO 0); -- real part of z
+  SIGNAL Z_imxInitial     : unsigned(COORD_BW DOWNTO 0); -- real part of z
   SIGNAL ITERxDN          : unsigned(MEM_DATA_BW - 1 downto 0);
   SIGNAL ITERxDP          : unsigned(MEM_DATA_BW - 1 downto 0);
+  SIGNAL FINISHED_W       : std_logic;
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
     
 --=============================================================================
@@ -79,6 +82,7 @@ architecture rtl of mandelbrot is
 begin
 CntMaxXxD <= to_unsigned(HS_DISPLAY + HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH, CntMaxXxD'length);
 CntMaxYxD <= to_unsigned(VS_DISPLAY + VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH, CntMaxYxD'length);
+
 
 CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterRegisters
@@ -104,18 +108,25 @@ CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
                       '0';
   CountYOverflowxS <= '1' WHEN YcounterxD = CntMaxYxD - 1 ELSE
                       '0';
-  CntEnXxS <= '1' WHEN  ITERxDP < MAX_ITER AND Z_rexP * Z_rexP + Z_imxP * Z_imxP < ITER_LIM
+  CntEnXxS <= '1' WHEN  ITERxDP < MAX_ITER AND Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM
     ELSE '0'; 
   CntEnYxS <= CountXOverflowxS;
   
   XxDO <= XcounterxD;
   YxDO <= YcounterxD;
   
-  Z_rexN <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxN <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+  Z_rexInitial <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
+  Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
   --ITERxDN <= ITERxDO;
-  ITERxDN <= ITERxDP + 1    WHEN  ITERxDP + 1 < MAX_ITER AND Z_rexN  * Z_rexN + Z_imxN * Z_imxN < ITER_LIM
-    ELSE  ITERxDP;
+  
+  ITERxDN <= (OTHERS => '0') WHEN CntEnXxS = '1'
+    ELSE ITERxDP + 1 WHEN  ITERxDP < MAX_ITER
+    ELSE ITERxDP;
+  
+  --ITERxDN <= ITERxDP + 1    WHEN  ITERxDP < MAX_ITER
+  --ELSE 0 WHEN CntEnxD
+    --ELSE  ITERxDP;--- todo set to zero when done
+    
 CounterZ : PROCESS (ALL) IS
   BEGIN  -- PROCESS CounterZ
     --RESET
@@ -136,14 +147,17 @@ CounterZ : PROCESS (ALL) IS
     ELSE '0';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
   ITERxDO <= ITERxDP;
-  WExSO <= '1'   WHEN  ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP < ITER_LIM
+  WExSO <= '1'   WHEN  ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM
     ELSE '0';  
-  Z_re <= unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_im <= unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+  Z_rexN <= Z_rexInitial WHEN CntEnxXS = '1'
+    ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
+  Z_imxN <= Z_imxInitial WHEN CntEnxXS = '1'
+    ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
   
   -- TODO: Implement your own code here
   -- lokman does not know how to proceed :((((
   -- now it's getting better :))
+  -- IT'S GETTING SHIT AGAIN :((((
 end architecture rtl;
 --=============================================================================
 -- ARCHITECTURE END
