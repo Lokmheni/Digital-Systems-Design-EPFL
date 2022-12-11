@@ -189,6 +189,7 @@ BEGIN
 
 
   -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
+  -- also, add the sign bit!!!!
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
             z_rere(N_BITS+N_FRAC DOWNTO N_FRAC) - Z_imim(N_BITS+N_FRAC DOWNTO N_FRAC) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
