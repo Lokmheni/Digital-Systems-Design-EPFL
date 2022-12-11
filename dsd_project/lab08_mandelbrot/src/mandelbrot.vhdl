@@ -72,6 +72,7 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL IterCntxD        : unsigned(8-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
   SIGNAL IterCntSyncRstxS : std_logic;
   SIGNAL FINISHED_W       : std_logic;
+  SIGNAL IterDonexS       : std_logic;  -- basically WE
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
 
 --=============================================================================
@@ -94,9 +95,9 @@ BEGIN
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnXxS = '1' THEN
         IF XcounterxD+1 < HS_DISPLAY THEN
-          XcounterxD       <= XcounterxD+1;
+          XcounterxD <= XcounterxD+1;
         ELSE
-          XcounterxD       <= (OTHERS => '0');
+          XcounterxD <= (OTHERS => '0');
         END IF;
       END IF;
     END IF;
@@ -140,13 +141,14 @@ BEGIN
 
 
 
-  CountXOverflowxS <= '1' WHEN XcounterxD = HS_DISPLAY - 1 ELSE
+  CountXOverflowxS <= '1' WHEN XcounterxD = HS_DISPLAY - 1 ELSE  -- this is fine
                       '0';
   CountYOverflowxS <= '1' WHEN YcounterxD = VS_DISPLAY - 1 ELSE
                       '0';
-  CntEnXxS <= NOT FINISHED_W;
+  CntEnXxS <= IterDonexS;
 
-  CntEnYxS <= CountXOverflowxS;
+  CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1' ELSE
+              '0';
 
   XxDO <= XcounterxD;
   YxDO <= YcounterxD;
