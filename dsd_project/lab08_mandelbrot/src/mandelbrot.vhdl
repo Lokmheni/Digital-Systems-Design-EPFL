@@ -72,12 +72,18 @@ ARCHITECTURE rtl OF mandelbrot IS
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
 
   --intermediate signals
-  SIGNAL Z_re_multxN : signed(N_BITS+1 DOWNTO 0);  -- Z_rexP*2
+  SIGNAL Z_re_multxN : signed(N_BITS+1 DOWNTO 0);    -- Z_rexP*2
+  SIGNAL z_rere      : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
+  SIGNAL Z_imim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
+  SIGNAL z_reim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
+
+
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
 BEGIN
+
 
 
 
@@ -175,14 +181,16 @@ BEGIN
 
 
 
---IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
 
   Z_re_multxN <= Z_imxP&'0';            --x2
+  z_rere      <= Z_rexP * Z_rexP;
+  Z_imim      <= Z_rexP *Z_imxP;
+  z_reim      <= Z_rexP*Z_imxP;
 
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            resize(Z_rexP * Z_rexP, N_BITS+1) - resize(Z_imxP * Z_imxP, N_BITS+1) + Z_rexInitial;
+            z_rere(N_BITS+N_FRAC DOWNTO N_FRAC) - Z_imim(N_BITS+N_FRAC DOWNTO N_FRAC) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            resize(Z_re_multxN * Z_rexP*2, N_BITS+1) + Z_imxInitial;
+            resize(Z_re_multxN * Z_rexP*2, N_BITS) + Z_imxInitial;
 
 
 
