@@ -187,6 +187,8 @@ BEGIN
   Z_imim      <= Z_imxP*Z_imxP;
   z_reim      <= Z_rexP*Z_imxP;
 
+
+  -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
             z_rere(N_BITS+N_FRAC DOWNTO N_FRAC) - Z_imim(N_BITS+N_FRAC DOWNTO N_FRAC) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
@@ -194,7 +196,7 @@ BEGIN
 
 
 
---when done?
+--when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
   IterDonexS <= '1' WHEN (z_rere + Z_imim > ITER_LIM) OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
