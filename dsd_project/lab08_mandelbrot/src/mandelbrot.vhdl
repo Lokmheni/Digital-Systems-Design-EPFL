@@ -69,7 +69,7 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0);
   SIGNAL Z_rexInitial     : unsigned(COORD_BW DOWNTO 0);  -- real part of z
   SIGNAL Z_imxInitial     : unsigned(COORD_BW DOWNTO 0);  -- real part of z
-  SIGNAL IterCntxD        : unsigned(8-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
+  SIGNAL IterCntxD        : unsigned(MEM_DATA_BW-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
   SIGNAL IterCntSyncRstxS : std_logic;
   SIGNAL FINISHED_W       : std_logic;
   SIGNAL IterDonexS       : std_logic;  -- basically WE
@@ -187,7 +187,7 @@ BEGIN
 
 
 --when done?
-  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4) OR IterCntxD = ITER_LIM ELSE
+  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP > 4) OR IterCntxD = ITER_LIM ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
