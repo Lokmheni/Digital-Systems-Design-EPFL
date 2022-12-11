@@ -46,9 +46,9 @@ architecture rtl of mandelbrot is
 --z_i=c_i;
 --n = 1;
 --While ((z_r * z_r + z_i * z_i) < 4 & n<MAX_ITER) {
---z_r’ = z_r * z_r - z_i * z_i + c_r;
+--z_rï¿½ = z_r * z_r - z_i * z_i + c_r;
 --z_i = 2 * z_r * z_i + c_i;
---z_r = z_r’;
+--z_r = z_rï¿½;
 --n = n + 1;
 --}
 -- asynchronous reset for the start
@@ -80,31 +80,49 @@ architecture rtl of mandelbrot is
 -- ARCHITECTURE BEGIN
 --=============================================================================
 begin
-CntMaxXxD <= to_unsigned(HS_DISPLAY + HS_FRONT_PORCH + HS_PULSE + HS_BACK_PORCH, CntMaxXxD'length);
-CntMaxYxD <= to_unsigned(VS_DISPLAY + VS_FRONT_PORCH + VS_PULSE + VS_BACK_PORCH, CntMaxYxD'length);
-
 FINISHED_W <= '1' WHEN ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP = ITER_LIM
     ELSE '0';
 
-CounterRegisters : PROCESS (CLKxCI, RSTxRI) IS
-  BEGIN  -- PROCESS CounterRegisters
-    
-    --RESET
+
+
+  -- purpose: This is the x counter register
+  -- type   : sequential
+  -- inputs : CLKxCI, RSTxRI
+  -- outputs: 
+  CounterX_proc: PROCESS (CLKxCI, RSTxRI) IS
+  BEGIN  -- PROCESS CounterX_proc
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      XcounterxD <= (OTHERS => '0');
-      YcounterxD <= (OTHERS => '0');
+      XcounterxD<=(OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      IF CntEnXxS = '1' THEN
-        XcounterxD <= XcounterxD +1 WHEN XcounterxD +1 < CntMaxXxD ELSE
-                      (OTHERS => '0');
-      END IF;
-      -- count Y
-      IF CntEnYxS = '1' THEN
-        YcounterxD <= YcounterxD + 1 WHEN YcounterxD + 1 < CntMaxYxD ELSE
-                      (OTHERS => '0');
+      IF CntEnXxS='1' THEN
+        IF XcounterxD<HS_DISPLAY THEN
+          XcounterxD<=XcounterxD+1;     ELSE
+            XcounterxD<=(OTHERS => '0');     
+        END IF;
       END IF;
     END IF;
-  END PROCESS CounterRegisters;
+  END PROCESS CounterX_proc;
+
+
+  -- purpose: This is the y counter register
+  -- type   : sequential
+  -- inputs : CLKxCI, RSTxRI
+  -- outputs: 
+  CounterY_proc: PROCESS (CLKxCI, RSTxRI) IS
+  BEGIN  -- PROCESS CounterX_proc
+    IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
+      YcounterxD <= (OTHERS => '0');
+    ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+      IF CntEnYxS='1' THEN
+        IF YcounterxD<VS_DISPLAY THEN
+          YcounterxD<=YcounterxD+1;     ELSE
+            YcounterxD<=(OTHERS => '0');     
+        END IF;
+      END IF;
+    END IF;
+  END PROCESS CounterY_proc;
+
+  
   
   CountXOverflowxS <= '1' WHEN XcounterxD = CntMaxXxD - 1 ELSE
                       '0';
