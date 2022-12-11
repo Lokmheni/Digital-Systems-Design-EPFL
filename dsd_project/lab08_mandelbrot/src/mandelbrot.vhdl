@@ -58,29 +58,26 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL YcounterxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- Counter_value for y (physical)
   SIGNAL CntEnXxS         : std_logic;  -- Enable physical counter X
   SIGNAL CntEnYxS         : std_logic;  -- Enable physical counter Y
-  SIGNAL CntEnZxS         : std_logic;
   SIGNAL CountXOverflowxS : std_logic;  -- Phys X counter overflow
   SIGNAL CountYOverflowxS : std_logic;  -- Phys Y Counter overflow
-  SIGNAL Z_rexN           : unsigned(COORD_BW DOWNTO 0);  -- real part of z
-  SIGNAL Z_imxN           : unsigned(COORD_BW DOWNTO 0);  -- real part of z
-  SIGNAL Z_rexP           : unsigned(COORD_BW DOWNTO 0);
-  SIGNAL Z_imxP           : unsigned(COORD_BW DOWNTO 0);  -- imaginary part of z
-  SIGNAL Z_re             : unsigned(COORD_BW DOWNTO 0);
-  SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0);
-  SIGNAL Z_rexInitial     : unsigned(COORD_BW DOWNTO 0);  -- real part of z
-  SIGNAL Z_imxInitial     : unsigned(COORD_BW DOWNTO 0);  -- real part of z
+  SIGNAL Z_rexN           : signed(N_BITS DOWNTO 0);  -- real part of z
+  SIGNAL Z_imxN           : signed(N_BITS DOWNTO 0);  -- real part of z
+  SIGNAL Z_rexP           : signed(N_BITS DOWNTO 0);
+  SIGNAL Z_imxP           : signed(N_BITS DOWNTO 0);  -- imaginary part of z
+  SIGNAL Z_rexInitial     : signed(N_BITS DOWNTO 0);  -- real part of z
+  SIGNAL Z_imxInitial     : signed(N_BITS DOWNTO 0);  -- real part of z
   SIGNAL IterCntxD        : unsigned(MEM_DATA_BW-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
   SIGNAL IterCntSyncRstxS : std_logic;
-  SIGNAL FINISHED_W       : std_logic;
   SIGNAL IterDonexS       : std_logic;  -- basically WE
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
+
+  --intermediate signals
+  SIGNAL Z_re_multxN : signed(N_BITS DOWNTO 0);  -- Z_rexP*2
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
 BEGIN
-  FINISHED_W <= '1' WHEN IterCntxD = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP = ITER_LIM
-                ELSE '0';
 
 
 
@@ -106,7 +103,7 @@ BEGIN
 
   -- purpose: This is the y counter register
   -- type   : sequential
-  -- inputs : CLKxCI, RSTxRI
+  -- inputs : CLKxCI, RSTxR
   -- outputs: 
   CounterY_proc : PROCESS (CLKxCI, RSTxRI) IS
   BEGIN  -- PROCESS CounterX_proc
@@ -133,8 +130,10 @@ BEGIN
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       IterCntxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      IF IterCntSyncRstxS = '1' THEN
+      IF IterCntSyncRstxS = '0' THEN
         IterCntxD <= IterCntxD + 1;
+      ELSE
+        IterCntxD <= (OTHERS => '0');
       END IF;
     END IF;
   END PROCESS iteration_counter_process;
@@ -172,17 +171,19 @@ BEGIN
   --iteration logic:
 
   --assuming this is fine, intial value:
-  Z_rexInitial <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+  Z_rexInitial <= C_RE_INC *signed(XcounterxD) + C_RE_0;
+  Z_imxInitial <= C_IM_INC *signed(YcounterxD) + C_IM_0;
 
 
 
 --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
 
-  Z_rexN <= Z_rexInitial WHEN IterDonexS = '1'
-            ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxN <= Z_imxInitial WHEN IterDonexS = '1'
-            ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+  Z_re_multxN <= Z_imxP(N_BITS DOWNTO 2)&"00";
+
+  Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
+            (Z_rexP * Z_rexP) - (Z_imxP * Z_imxP) + C_RE_0;
+  Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
+            (Z_imxP(N_BITS DOWNTO 2)&"00"* Z_rexP) + C_IM_0;
 
 
 
