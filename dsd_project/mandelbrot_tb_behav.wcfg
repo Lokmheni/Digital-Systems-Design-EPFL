@@ -12,15 +12,26 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
+<<<<<<< HEAD
       <ZoomStartTime time="166666fs"></ZoomStartTime>
       <ZoomEndTime time="1166667fs"></ZoomEndTime>
+=======
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="1247059fs"></ZoomEndTime>
+>>>>>>> Lab8
       <Cursor1Time time="1000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="381"></NameColumnWidth>
+<<<<<<< HEAD
       <ValueColumnWidth column_width="179"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="95" />
+=======
+      <ValueColumnWidth column_width="185"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="59" />
+>>>>>>> Lab8
    <wvobject fp_name="/mandelbrot_tb/CLKxCI" type="logic">
       <obj_property name="ElementShortName">CLKxCI</obj_property>
       <obj_property name="ObjectShortName">CLKxCI</obj_property>
@@ -257,6 +268,7 @@
       <obj_property name="ElementShortName">FINISHED_W</obj_property>
       <obj_property name="ObjectShortName">FINISHED_W</obj_property>
    </wvobject>
+<<<<<<< HEAD
    <wvobject fp_name="/mandelbrot_tb/CLKxCI" type="logic">
       <obj_property name="ElementShortName">CLKxCI</obj_property>
       <obj_property name="ObjectShortName">CLKxCI</obj_property>
@@ -401,4 +413,6 @@
       <obj_property name="ElementShortName">FINISHED_W</obj_property>
       <obj_property name="ObjectShortName">FINISHED_W</obj_property>
    </wvobject>
+=======
+>>>>>>> Lab8
 </wave_config>

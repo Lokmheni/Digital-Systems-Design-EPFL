@@ -2,20 +2,11 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Sat Dec 10 19:07:55 2022
-# Process ID: 6044
+# Start of session at: Sun Dec 11 17:00:57 2022
+# Process ID: 8716
 # Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent15436 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12088 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/vivado.log
 # Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
-oopen_project {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/DSD_PROJECT.xpr}uupdate_compile_order -fileset sources_1launch_simulation
-open_wave_config {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/mandelbrot_tb_behav.wcfg}
-source mandelbrot_tb.tcl
-current_wave_config {mandelbrot_tb_behav.wcfg}
-add_wave {{/mandelbrot_tb}} 
-current_wave_config {mandelbrot_tb_behav.wcfg}
-add_wave {{/mandelbrot_tb/dut}} 
-save_wave_config {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/mandelbrot_tb_behav.wcfg}
-close_sim
