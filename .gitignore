@@ -73,3 +73,5 @@ xvlog.*
 *.dcp
 
 
+
+*.vhdl#
