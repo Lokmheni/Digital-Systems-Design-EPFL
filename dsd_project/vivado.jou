@@ -2,11 +2,11 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Sun Dec 11 17:00:57 2022
-# Process ID: 8716
-# Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12088 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\dsd_project\DSD_PROJECT.xpr
-# Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/vivado.log
-# Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project\vivado.jou
+# Start of session at: Sun Dec 11 16:04:13 2022
+# Process ID: 5936
+# Current directory: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1464 C:\Users\thuer\Documents\School\2_EPFL5\digital_systems_design\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Log file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/vivado.log
+# Journal file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
