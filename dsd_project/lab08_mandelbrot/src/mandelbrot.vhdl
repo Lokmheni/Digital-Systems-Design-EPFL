@@ -145,28 +145,35 @@ BEGIN
                       '0';
   CountYOverflowxS <= '1' WHEN YcounterxD = VS_DISPLAY - 1 ELSE
                       '0';
-  CntEnXxS <= IterDonexS;
 
-  CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1' ELSE
-              '0';
 
+  --assuming this is fine
   Z_rexInitial <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
   Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
 
-  CounterZ : PROCESS (ALL) IS
+  -- normal register process, this is fine
+  z_reg_proc : PROCESS (ALL) IS
   BEGIN  -- PROCESS CounterZ
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       Z_rexP <= (OTHERS => '0');
       Z_imxP <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      IF CntEnZxS = '1' AND IterCntxD < MAX_ITER THEN
         Z_rexP <= Z_rexN;
         Z_imxP <= Z_imxN;
-      --Z_rexP <=  Z_re_temp                            
-      END IF;
     END IF;
-  END PROCESS CounterZ;
+  END PROCESS z_reg_proc;
+
+
+--x,y counter logic
+  CntEnXxS <= IterDonexS;
+  CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1' ELSE
+              '0';
+
+
+  --iteration logic:
+
+
   CntEnZxS <= '0' WHEN FINISHED_W = '1'
               ELSE '1';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
@@ -176,6 +183,11 @@ ELSE '1';
                ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
      Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
                ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+
+
+
+
+
 
 
 
