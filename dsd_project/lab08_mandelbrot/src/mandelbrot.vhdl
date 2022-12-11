@@ -184,13 +184,13 @@ BEGIN
 
   Z_re_multxN <= Z_imxP&'0';            --x2
   z_rere      <= Z_rexP * Z_rexP;
-  Z_imim      <= Z_rexP *Z_imxP;
+  Z_imim      <= Z_imxP*Z_imxP;
   z_reim      <= Z_rexP*Z_imxP;
 
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            z_rere(N_BITS+N_FRAC DOWNTO N_FRAC) - Z_imim(N_BITS+N_FRAC DOWNTO N_FRAC) + Z_rexInitial;
+            z_rere(N_BITS+N_FRAC+1 DOWNTO N_FRAC+1) - Z_imim(N_BITS+N_FRAC+1 DOWNTO N_FRAC+1) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            resize(Z_re_multxN * Z_rexP*2, N_BITS) + Z_imxInitial;
+            z_reim(N_BITS+N_FRAC+2 DOWNTO N_FRAC+2) + Z_imxInitial;  --2*Zreim +ziminit
 
 
 
