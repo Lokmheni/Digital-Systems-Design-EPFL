@@ -176,8 +176,8 @@ BEGIN
 
   --iteration logic:
 
-  Z_rexInitial <= resize(C_RE_INC * signed(XcounterxD), N_BITS+1) + C_RE_0;  --sign bit to 0
-  Z_imxInitial <= resize(C_IM_INC * signed(YcounterxD), N_BITS+1) + C_IM_0;  --sign bit to 0
+  Z_rexInitial <= resize(C_RE_INC * signed('0'&XcounterxD), N_BITS+1) + C_RE_0;  --sign bit to 0
+  Z_imxInitial <= resize(C_IM_INC * signed('0'&YcounterxD), N_BITS+1) + C_IM_0;  --sign bit to 0
 
 
 
@@ -188,9 +188,9 @@ BEGIN
   z_reim      <= Z_rexP*Z_imxP;
 
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            z_rere(N_BITS+N_FRAC+1 DOWNTO N_FRAC+1) - Z_imim(N_BITS+N_FRAC+1 DOWNTO N_FRAC+1) + Z_rexInitial;
+            z_rere(N_BITS+N_FRAC DOWNTO N_FRAC) - Z_imim(N_BITS+N_FRAC DOWNTO N_FRAC) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            z_reim(N_BITS+N_FRAC+2 DOWNTO N_FRAC+2) + Z_imxInitial;  --2*Zreim +ziminit
+            z_reim(N_BITS+N_FRAC+1 DOWNTO N_FRAC+1) + Z_imxInitial;  --2*Zreim +ziminit
 
 
 
