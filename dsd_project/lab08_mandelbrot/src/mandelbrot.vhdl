@@ -179,14 +179,17 @@ BEGIN
 
 --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
 
-  Z_rexN <= Z_rexInitial WHEN FINISHED_W = '1'
+  Z_rexN <= Z_rexInitial WHEN IterDonexS = '1'
             ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
+  Z_imxN <= Z_imxInitial WHEN IterDonexS = '1'
             ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
 
 
 
-
+--when done?
+  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4) OR IterCntxD = ITER_LIM ELSE
+                '0';
+  IterCntSyncRstxS <= IterDonexS;
 
 
 
