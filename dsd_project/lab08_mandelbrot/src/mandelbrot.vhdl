@@ -59,8 +59,6 @@ architecture rtl of mandelbrot is
   SIGNAL CntEnXxS         : std_logic;  -- Enable physical counter X
   SIGNAL CntEnYxS         : std_logic;  -- Enable physical counter Y
   SIGNAL CntEnZxS         : std_logic;
-  SIGNAL CntMaxXxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter x
-  SIGNAL CntMaxYxD        : unsigned(COORD_BW DOWNTO 0);  -- max value of counter y
   SIGNAL CountXOverflowxS : std_logic;  -- Phys X counter overflow
   SIGNAL CountYOverflowxS : std_logic;  -- Phys Y Counter overflow
   SIGNAL Z_rexN           : unsigned(COORD_BW DOWNTO 0); -- real part of z
@@ -71,8 +69,8 @@ architecture rtl of mandelbrot is
   SIGNAL Z_im             : unsigned(COORD_BW DOWNTO 0);
   SIGNAL Z_rexInitial     : unsigned(COORD_BW DOWNTO 0); -- real part of z
   SIGNAL Z_imxInitial     : unsigned(COORD_BW DOWNTO 0); -- real part of z
-  SIGNAL ITERxDN          : unsigned(MEM_DATA_BW - 1 downto 0);
-  SIGNAL ITERxDP          : unsigned(MEM_DATA_BW - 1 downto 0);
+  SIGNAL IterCntxD : unsigned(8-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
+  SIGNAL IterCntSyncRstxS : std_logic;
   SIGNAL FINISHED_W       : std_logic;
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
     
@@ -80,7 +78,7 @@ architecture rtl of mandelbrot is
 -- ARCHITECTURE BEGIN
 --=============================================================================
 begin
-FINISHED_W <= '1' WHEN ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP = ITER_LIM
+FINISHED_W <= '1' WHEN IterCntxD = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP = ITER_LIM
     ELSE '0';
 
 
@@ -122,7 +120,23 @@ FINISHED_W <= '1' WHEN ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP =
     END IF;
   END PROCESS CounterY_proc;
 
-  
+
+-- purpose: count iterations (always counts, except if sync/async rst is high
+-- type   : sequential
+-- inputs : CLKxCI, RSTxRI
+-- outputs: 
+iteration_counter_process: PROCESS (CLKxCI, RSTxRI) IS
+BEGIN  -- PROCESS iteration_counter_process
+  IF RSTxRI = '1' THEN                  -- asynchronous reset (active high)
+  IterCntxD<=(OTHERS => '0');
+  ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
+    IF IterCntSyncRstxS='1' THEN
+      IterCntxD <= IterCntxD + 1;
+    END IF;
+  END IF;
+END PROCESS iteration_counter_process;
+
+
   
   CountXOverflowxS <= '1' WHEN XcounterxD = CntMaxXxD - 1 ELSE
                       '0';
@@ -137,27 +151,17 @@ FINISHED_W <= '1' WHEN ITERxDP = MAX_ITER OR Z_rexP * Z_rexP + Z_imxP * Z_imxP =
   
   Z_rexInitial <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
   Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
-  --ITERxDN <= ITERxDO;
-  
-  ITERxDN <= (OTHERS => '0') WHEN FINISHED_W = '1'
-    ELSE ITERxDP + 1;
-  
-  --ITERxDN <= ITERxDP + 1    WHEN  ITERxDP < MAX_ITER
-  --ELSE 0 WHEN CntEnxD
-    --ELSE  ITERxDP;--- todo set to zero when done
-    
+
 CounterZ : PROCESS (ALL) IS
   BEGIN  -- PROCESS CounterZ
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       Z_rexP <= (OTHERS => '0');
       Z_imxP <= (OTHERS => '0');
-      ITERxDP <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-        IF CntEnZxS = '1' AND ITERxDP < MAX_ITER  THEN
+        IF CntEnZxS = '1' AND IterCntxD < MAX_ITER  THEN
             Z_rexP <= Z_rexN;
             Z_imxP <= Z_imxN;
-            ITERxDP <= ITERxDN;
            --Z_rexP <=  Z_re_temp                            
         END IF;
     END IF;
@@ -165,18 +169,18 @@ CounterZ : PROCESS (ALL) IS
   CntEnZxS <= '0' WHEN FINISHED_W = '1'
     ELSE '1';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
-  ITERxDO <= ITERxDP;
+
   WExSO <= '0'   WHEN  FINISHED_W = '1'
     ELSE '1';  
   Z_rexN <= Z_rexInitial WHEN FINISHED_W = '1'
     ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
   Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
     ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
-  
-  -- TODO: Implement your own code here
-  -- lokman does not know how to proceed :((((
-  -- now it's getting better :))
-  -- IT'S GETTING SHIT AGAIN :((((
+
+
+
+
+  ITERxDO <=IterCntxD;
 end architecture rtl;
 --=============================================================================
 -- ARCHITECTURE END
