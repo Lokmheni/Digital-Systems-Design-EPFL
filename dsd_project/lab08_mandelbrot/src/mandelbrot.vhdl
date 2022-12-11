@@ -187,7 +187,7 @@ BEGIN
 
 
 --when done?
-  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP > 4) OR IterCntxD = ITER_LIM ELSE
+  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM) OR IterCntxD = ITER_LIM ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
