@@ -111,7 +111,7 @@ BEGIN
       YcounterxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnYxS = '1' THEN
-        IF YcounterxD < VS_DISPLAY THEN
+        IF YcounterxD+1 < VS_DISPLAY THEN
           YcounterxD <= YcounterxD+1;
         ELSE
           YcounterxD <= (OTHERS => '0');
@@ -170,20 +170,19 @@ BEGIN
 
   --iteration logic:
 
-  --assuming this is fine, intial value:
-  Z_rexInitial <= C_RE_INC *signed(XcounterxD) + C_RE_0;
-  Z_imxInitial <= C_IM_INC *signed(YcounterxD) + C_IM_0;
+  Z_rexInitial <= resize(C_RE_INC * signed(XcounterxD), N_BITS+1) + C_RE_0;  --sign bit to 0
+  Z_imxInitial <= resize(C_IM_INC * signed(YcounterxD), N_BITS+1) + C_IM_0;  --sign bit to 0
 
 
 
 --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
 
-  Z_re_multxN <= Z_imxP(N_BITS DOWNTO 2)&"00";
+  Z_re_multxN <= Z_imxP(N_BITS) & Z_imxP(N_BITS-1 DOWNTO 1)&"0";  --x2
 
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            (Z_rexP * Z_rexP) - (Z_imxP * Z_imxP) + C_RE_0;
+            resize(Z_rexP * Z_rexP, N_BITS+1) - resize(Z_imxP * Z_imxP, N_BITS+1) + C_RE_0;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            (Z_imxP(N_BITS DOWNTO 2)&"00"* Z_rexP) + C_IM_0;
+            resize(Z_re_multxN * Z_rexP, N_BITS+1) + C_IM_0;
 
 
 
