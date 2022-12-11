@@ -150,9 +150,6 @@ BEGIN
   CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1' ELSE
               '0';
 
-  XxDO <= XcounterxD;
-  YxDO <= YcounterxD;
-
   Z_rexInitial <= unsigned(unsigned(C_RE_INC(N_BITS-1 DOWNTO 0)) * XcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
   Z_imxInitial <= unsigned(unsigned(C_IM_INC(N_BITS-1 DOWNTO 0)) * YcounterxD(COORD_BW-1 DOWNTO 0) + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
 
@@ -174,17 +171,20 @@ BEGIN
               ELSE '1';
   --IF(Z_rexP * Z_rexP + Z_imxP * Z_imxP < 4)   THEN
 
-  WExSO <= '0' WHEN FINISHED_W = '1'
-           ELSE '1';
-  Z_rexN <= Z_rexInitial WHEN FINISHED_W = '1'
-            ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
-  Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
-            ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
+ELSE '1';
+     Z_rexN <= Z_rexInitial WHEN FINISHED_W = '1'
+               ELSE unsigned(Z_rexP * Z_rexP - Z_imxP * Z_imxP + unsigned(C_RE_0(N_BITS-1 DOWNTO 0)));
+     Z_imxN <= Z_imxInitial WHEN FINISHED_W = '1'
+               ELSE unsigned(2 * Z_imxP * Z_rexP + unsigned(C_IM_0(N_BITS-1 DOWNTO 0)));
 
 
 
-
-  ITERxDO <= IterCntxD;
+-- output assignements (can be done directly, since they are all counter
+-- registers dircltly
+     XxDO    <= XcounterxD;
+     YxDO    <= YcounterxD;
+     ITERxDO <= IterCntxD;
+     WExSO   <= IterDonexS;
 END ARCHITECTURE rtl;
 --=============================================================================
 -- ARCHITECTURE END
