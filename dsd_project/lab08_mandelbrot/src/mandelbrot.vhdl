@@ -195,7 +195,7 @@ BEGIN
 
 
 --when done?
-  IterDonexS <= '1' WHEN (Z_rexP * Z_rexP + Z_imxP * Z_imxP > ITER_LIM) OR IterCntxD = MAX_ITER ELSE
+  IterDonexS <= '1' WHEN (z_rere + Z_imim > ITER_LIM) OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
