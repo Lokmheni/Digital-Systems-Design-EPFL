@@ -76,6 +76,7 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL z_rere      : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
   SIGNAL Z_imim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
   SIGNAL z_reim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
+  SIGNAL ZAbsSqrdxD  : signed(N_BITS DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
 
   CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
 
@@ -201,7 +202,8 @@ BEGIN
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
-  IterDonexS <= '1' WHEN (z_rere + Z_imim > ITER_LIM_DOUBLE_FRAC) OR IterCntxD = MAX_ITER ELSE
+  ZAbsSqrdxD <= resize(z_rere(2*N_bits+1 DOWNTO N_FRAC), N_BITS+1) + resize(Z_imim(2*N_BITS+1 DOWNTO N_FRAC), N_bits+1);
+  IterDonexS <= '1' WHEN ZAbsSqrdxD > ITER_LIM_DOUBLE_FRAC OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
