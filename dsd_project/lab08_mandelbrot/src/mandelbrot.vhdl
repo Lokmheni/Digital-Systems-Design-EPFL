@@ -200,7 +200,7 @@ BEGIN
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
-  IterDonexS <= '1' WHEN (z_rere + Z_imim > ITER_LIM) OR IterCntxD = MAX_ITER ELSE
+  IterDonexS <= '1' WHEN (z_rere + Z_imim > ITER_LIM_DOUBLE_FRAC) OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
