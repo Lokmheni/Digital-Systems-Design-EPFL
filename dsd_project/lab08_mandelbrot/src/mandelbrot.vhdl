@@ -193,9 +193,9 @@ BEGIN
   -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
   -- also, add the sign bit!!!!
   Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            resize(z_rere(2*N_bits+1 DOWNTO N_FRAC), N_bits+1) - resize(Z_imim(2*N_BITS+1 DOWNTO N_FRAC), N_bits+1) + Z_rexInitial;
+            resize(z_rere(2*N_bits+1 DOWNTO N_FRAC), N_BITS+1) - resize(Z_imim(2*N_BITS+1 DOWNTO N_FRAC), N_bits+1) + Z_rexInitial;
   Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            signed(z_reim(2*N_BITS+1)&z_reim(N_BITS+N_FRAC DOWNTO N_FRAC+1)) + Z_imxInitial;  --2*Zreim +ziminit
+            resize(z_reim(2*N_BITS+1 DOWNTO N_FRAC+1), N_BITS+1) + Z_imxInitial;  --2*Zreim +ziminit
 
 
 
