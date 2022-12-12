@@ -77,6 +77,7 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL Z_imim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
   SIGNAL z_reim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
 
+  CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
 
 
 --=============================================================================
