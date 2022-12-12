@@ -72,11 +72,12 @@ ARCHITECTURE rtl OF mandelbrot IS
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
 
   --intermediate signals
-  SIGNAL Z_re_multxN : signed(N_BITS+1 DOWNTO 0);    -- Z_rexP*2
-  SIGNAL z_rere      : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
-  SIGNAL Z_imim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
-  SIGNAL z_reim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
-  SIGNAL ZAbsSqrdxD  : signed(N_BITS DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
+  SIGNAL Z_re_multxN    : signed(N_BITS+1 DOWNTO 0);  -- Z_rexP*2
+  SIGNAL z_rere         : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
+  SIGNAL Z_imim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
+  SIGNAL z_reim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
+  SIGNAL ZAbsSqrdxD     : unsigned(N_BITS DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
+  SIGNAL ZAbsSqrdxd_q30 : signed(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with 30 bit fraction
 
   CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
 
@@ -202,8 +203,9 @@ BEGIN
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
-  ZAbsSqrdxD <= resize(z_rere(2*N_bits+1 DOWNTO N_FRAC), N_BITS+1) + resize(Z_imim(2*N_BITS+1 DOWNTO N_FRAC), N_bits+1);
-  IterDonexS <= '1' WHEN ZAbsSqrdxD > ITER_LIM_DOUBLE_FRAC OR IterCntxD = MAX_ITER ELSE
+  ZAbsSqrdxd_q30 <= z_rere+z_imim;
+  ZAbsSqrdxD     <= resize(ZAbsSqrdxd_q30(2*N_bits+1 DOWNTO N_FRAC+1), N_BITS+1);
+  IterDonexS     <= '1' WHEN ZAbsSqrdxD > ITER_LIM_DOUBLE_FRAC OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
