@@ -64,8 +64,8 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL Z_imxN           : signed(N_BITS DOWNTO 0);  -- real part of z
   SIGNAL Z_rexP           : signed(N_BITS DOWNTO 0);
   SIGNAL Z_imxP           : signed(N_BITS DOWNTO 0);  -- imaginary part of z
-  SIGNAL Z_rexInitial     : signed(N_BITS DOWNTO 0);  -- real part of z
-  SIGNAL Z_imxInitial     : signed(N_BITS DOWNTO 0);  -- real part of z
+  SIGNAL Z_rexInitial     : signed(N_BITS+COORD_BW+1 DOWNTO 0);  -- real part of z
+  SIGNAL Z_imxInitial     : signed(N_BITS+COORD_BW+1 DOWNTO 0);  -- imaginary part of z
   SIGNAL IterCntxD        : unsigned(MEM_DATA_BW-1 DOWNTO 0);  -- we need 7 bits for 100 iteratins, Im using 8 bits so we could go up to 255 iterations
   SIGNAL IterCntSyncRstxS : std_logic;
   SIGNAL IterDonexS       : std_logic;  -- basically WE
@@ -76,8 +76,8 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL z_rere         : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
   SIGNAL Z_imim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
   SIGNAL z_reim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
-  SIGNAL ZAbsSqrdxD     : unsigned(N_BITS DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
-  SIGNAL ZAbsSqrdxd_q30 : signed(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with 30 bit fraction
+  SIGNAL ZAbsSqrdxD     : signed(N_BITS+1 DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
+  SIGNAL ZAbsSqrdxd_q30 : signed(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with Q6,30 bit fraction
 
   CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
 
@@ -181,8 +181,8 @@ BEGIN
 
   -- not happy using resize, but it has the same outcome as if using z-counter
   -- inestead of using x,y to generate z_init
-  Z_rexInitial <= resize(C_RE_INC * signed('0'&XcounterxD), N_BITS+1) + C_RE_0;  --sign bit to 0
-  Z_imxInitial <= resize(C_IM_INC * signed('0'&YcounterxD), N_BITS+1) + C_IM_0;  --sign bit to 0
+  Z_rexInitial <= C_RE_INC * signed('0'&XcounterxD) + C_RE_0;  --sign bit to 0
+  Z_imxInitial <= C_IM_INC * signed('0'&YcounterxD) + C_IM_0;  --sign bit to 0
 
 
 
@@ -195,17 +195,18 @@ BEGIN
 
   -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
   -- also, add the sign bit!!!!
-  Z_rexN <= Z_rexInitial WHEN IterDonexS = '1' ELSE
-            resize(z_rere(2*N_bits+1 DOWNTO N_FRAC), N_BITS+1) - resize(Z_imim(2*N_BITS+1 DOWNTO N_FRAC), N_bits+1) + Z_rexInitial;
-  Z_imxN <= Z_imxInitial WHEN IterDonexS = '1' ELSE
-            resize(z_reim(2*N_BITS+1 DOWNTO N_FRAC+1), N_BITS+1) + Z_imxInitial;  --2*Zreim +ziminit
+  Z_rexN <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
+            WHEN IterDonexS = '1' ELSE
+            signed(z_rere(2*N_BITS) & z_rere(2*N_bits-3 DOWNTO N_FRAC)) - signed(Z_imim(2*N_bits)&Z_imim(2*N_BITS-3 DOWNTO N_FRAC)) + Z_rexInitial(N_BITS DOWNTO 0);
+  Z_imxN <= Z_imxInitial(N_BITS DOWNTO 0) WHEN IterDonexS = '1' ELSE
+            signed(z_reim(2*N_BITS)& z_reim(2*N_BITS-2 DOWNTO N_FRAC+1)) + Z_imxInitial(N_BITS DOWNTO 0);  --2*Zreim +ziminit
 
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
   ZAbsSqrdxd_q30 <= z_rere+z_imim;
-  ZAbsSqrdxD     <= resize(ZAbsSqrdxd_q30(2*N_bits+1 DOWNTO N_FRAC+1), N_BITS+1);
-  IterDonexS     <= '1' WHEN ZAbsSqrdxD > ITER_LIM_DOUBLE_FRAC OR IterCntxD = MAX_ITER ELSE
+  ZAbsSqrdxD     <= ZAbsSqrdxd_q30(2*N_bits-1 DOWNTO N_FRAC);
+  IterDonexS     <= '1' WHEN signed(ZAbsSqrdxd_q30(2*N_BITS+1 DOWNTO 30)) > 4 OR IterCntxD = 10 ELSE  --TODORM MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
