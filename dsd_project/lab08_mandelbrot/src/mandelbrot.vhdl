@@ -198,15 +198,16 @@ BEGIN
   Z_rexN <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
             WHEN IterDonexS = '1' ELSE
             signed(z_rere(2*N_BITS) & z_rere(2*N_bits-3 DOWNTO N_FRAC)) - signed(Z_imim(2*N_bits)&Z_imim(2*N_BITS-3 DOWNTO N_FRAC)) + Z_rexInitial(N_BITS DOWNTO 0);
+
   Z_imxN <= Z_imxInitial(N_BITS+COORD_BW) & Z_imxInitial(N_BITS-1 DOWNTO 0) WHEN IterDonexS = '1' ELSE
-            signed(z_reim(2*N_BITS)& z_reim(2*N_BITS-2 DOWNTO N_FRAC+1)) + Z_imxInitial(N_BITS DOWNTO 0);  --2*Zreim +ziminit
+            signed(z_reim(2*N_BITS) & z_reim(2*N_BITS-2 DOWNTO N_FRAC+1)) + Z_imxInitial(N_BITS DOWNTO 0);  --2*Zreim +ziminit
 
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
   ZAbsSqrdxd_q30 <= z_rere+z_imim;
   ZAbsSqrdxD     <= ZAbsSqrdxd_q30(2*N_bits-1 DOWNTO N_FRAC);
-  IterDonexS     <= '1' WHEN signed(ZAbsSqrdxd_q30(2*N_BITS+1 DOWNTO 30)) > 4 OR IterCntxD = 10 ELSE  --TODORM MAX_ITER ELSE
+  IterDonexS     <= '1' WHEN unsigned(ZAbsSqrdxd_q30(2*N_BITS+1 DOWNTO 30)) > 4 OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
