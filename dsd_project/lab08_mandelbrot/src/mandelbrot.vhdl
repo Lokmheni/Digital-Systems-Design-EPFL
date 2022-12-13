@@ -187,7 +187,7 @@ BEGIN
 
 
 
-  Z_re_multxN <= Z_imxP&'0';            --x2
+  Z_re_multxN <= Z_imxP&'0';            --x2 unused rn
   z_rere      <= Z_rexP * Z_rexP;
   Z_imim      <= Z_imxP*Z_imxP;
   z_reim      <= Z_rexP*Z_imxP;
@@ -198,7 +198,7 @@ BEGIN
   Z_rexN <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
             WHEN IterDonexS = '1' ELSE
             signed(z_rere(2*N_BITS) & z_rere(2*N_bits-3 DOWNTO N_FRAC)) - signed(Z_imim(2*N_bits)&Z_imim(2*N_BITS-3 DOWNTO N_FRAC)) + Z_rexInitial(N_BITS DOWNTO 0);
-  Z_imxN <= Z_imxInitial(N_BITS DOWNTO 0) WHEN IterDonexS = '1' ELSE
+  Z_imxN <= Z_imxInitial(N_BITS+COORD_BW) & Z_imxInitial(N_BITS-1 DOWNTO 0) WHEN IterDonexS = '1' ELSE
             signed(z_reim(2*N_BITS)& z_reim(2*N_BITS-2 DOWNTO N_FRAC+1)) + Z_imxInitial(N_BITS DOWNTO 0);  --2*Zreim +ziminit
 
 
