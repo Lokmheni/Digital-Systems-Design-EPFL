@@ -2,13 +2,13 @@
 -- @file mandelbrot_top.vhdl
 --=============================================================================
 -- Standard library
-library ieee;
+LIBRARY ieee;
 -- Standard packages
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 -- Packages
-library work;
-use work.dsd_prj_pkg.all;
+LIBRARY work;
+USE work.dsd_prj_pkg.ALL;
 
 --=============================================================================
 --
@@ -22,185 +22,188 @@ use work.dsd_prj_pkg.all;
 --=============================================================================
 -- ENTITY DECLARATION FOR MANDELBROT_TOP
 --=============================================================================
-entity mandelbrot_top is
-  port (
-    CLK125xCI : in std_logic;
-    RSTxRI    : in std_logic;
+ENTITY mandelbrot_top IS
+  PORT (
+    CLK125xCI : IN std_logic;
+    RSTxRI    : IN std_logic;
 
     -- Button inputs
-    LEFTxSI  : in std_logic;
-    RIGHTxSI : in std_logic;
+    LEFTxSI  : IN std_logic;
+    RIGHTxSI : IN std_logic;
 
     -- Timing outputs
-    HSxSO : out std_logic;
-    VSxSO : out std_logic;
+    HSxSO : OUT std_logic;
+    VSxSO : OUT std_logic;
 
     -- Data/color output
-    RedxSO   : out std_logic_vector(COLOR_BW - 1 downto 0);
-    GreenxSO : out std_logic_vector(COLOR_BW - 1 downto 0);
-    BluexSO  : out std_logic_vector(COLOR_BW - 1 downto 0)
-  );
-end mandelbrot_top;
+    RedxSO   : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+    GreenxSO : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+    BluexSO  : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0)
+    );
+END mandelbrot_top;
 
 
 --=============================================================================
 -- ARCHITECTURE DECLARATION
 --=============================================================================
-architecture rtl of mandelbrot_top is
+ARCHITECTURE rtl OF mandelbrot_top IS
 
 --=============================================================================
 -- SIGNAL (COMBINATIONAL) DECLARATIONS
 --=============================================================================;
 
   -- clk_wiz_0
-  signal CLK75xC : std_logic;
+  SIGNAL CLK75xC : std_logic;
 
   -- blk_mem_gen_0
-  signal WrAddrAxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
-  signal RdAddrBxD : std_logic_vector(MEM_ADDR_BW - 1 downto 0);
-  signal ENAxS     : std_logic;
-  signal WEAxS     : std_logic_vector(0 downto 0);
-  signal ENBxS     : std_logic;
-  signal DINAxD    : std_logic_vector(MEM_DATA_BW - 1 downto 0);
-  signal DOUTBxD   : std_logic_vector(MEM_DATA_BW - 1 downto 0);
+  SIGNAL WrAddrAxD : std_logic_vector(MEM_ADDR_BW - 1 DOWNTO 0);
+  SIGNAL RdAddrBxD : std_logic_vector(MEM_ADDR_BW - 1 DOWNTO 0);
+  SIGNAL ENAxS     : std_logic;
+  SIGNAL WEAxS     : std_logic_vector(0 DOWNTO 0);
+  SIGNAL ENBxS     : std_logic;
+  SIGNAL DINAxD    : std_logic_vector(MEM_DATA_BW - 1 DOWNTO 0);
+  SIGNAL DOUTBxD   : std_logic_vector(MEM_DATA_BW - 1 DOWNTO 0);
 
-  signal BGRedxS   : std_logic_vector(COLOR_BW - 1 downto 0); -- Background colors from the memory
-  signal BGGreenxS : std_logic_vector(COLOR_BW - 1 downto 0);
-  signal BGBluexS  : std_logic_vector(COLOR_BW - 1 downto 0);
+  SIGNAL BGRedxS   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);  -- Background colors from the memory
+  SIGNAL BGGreenxS : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL BGBluexS  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
 
   -- vga_controller
-  signal RedxS   : std_logic_vector(COLOR_BW - 1 downto 0); -- Color to VGA controller
-  signal GreenxS : std_logic_vector(COLOR_BW - 1 downto 0);
-  signal BluexS  : std_logic_vector(COLOR_BW - 1 downto 0);
+  SIGNAL RedxS   : std_logic_vector(COLOR_BW - 1 DOWNTO 0);  -- Color to VGA controller
+  SIGNAL GreenxS : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+  SIGNAL BluexS  : std_logic_vector(COLOR_BW - 1 DOWNTO 0);
 
-  signal XCoordxD : unsigned(COORD_BW - 1 downto 0); -- Coordinates from VGA controller
-  signal YCoordxD : unsigned(COORD_BW - 1 downto 0);
+  SIGNAL XCoordxD : unsigned(COORD_BW - 1 DOWNTO 0);  -- Coordinates from VGA controller
+  SIGNAL YCoordxD : unsigned(COORD_BW - 1 DOWNTO 0);
 
-  signal VSEdgexS : std_logic; -- If 1, row counter resets (new frame). HIGH for 1 CC, when vertical sync starts)
+  SIGNAL VSEdgexS : std_logic;  -- If 1, row counter resets (new frame). HIGH for 1 CC, when vertical sync starts)
 
   -- pong_fsm
-  signal BallXxD  : unsigned(COORD_BW - 1 downto 0); -- Coordinates of ball and plate
-  signal BallYxD  : unsigned(COORD_BW - 1 downto 0);
-  signal PlateXxD : unsigned(COORD_BW - 1 downto 0);
+  SIGNAL BallXxD  : unsigned(COORD_BW - 1 DOWNTO 0);  -- Coordinates of ball and plate
+  SIGNAL BallYxD  : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL PlateXxD : unsigned(COORD_BW - 1 DOWNTO 0);
 
   -- mandelbrot
-  signal MandelbrotWExS   : std_logic; -- If 1, Mandelbrot writes
-  signal MandelbrotXxD    : unsigned(COORD_BW - 1 downto 0);
-  signal MandelbrotYxD    : unsigned(COORD_BW - 1 downto 0);
-  signal MandelbrotITERxD : unsigned(MEM_DATA_BW - 1 downto 0);    -- Iteration number from Mandelbrot (chooses colour)
+  SIGNAL MandelbrotWExS             : std_logic;  -- If 1, Mandelbrot writes
+  SIGNAL MandelbrotXxD              : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL MandelbrotYxD              : unsigned(COORD_BW - 1 DOWNTO 0);
+  SIGNAL MandelbrotITERxD           : unsigned(MEM_DATA_BW - 1 DOWNTO 0);  -- Iteration number from Mandelbrot (chooses colour)
   --SIGNAL XCoordxD             : unsigned(COORD_BW - 1 DOWNTO 0);
   --SIGNAL YCoordxD             : unsigned(COORD_BW - 1 DOWNTO 0);
-  SIGNAL YCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
-  SIGNAL YCoordShrunkxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
-  SIGNAL XCoordShrunk         : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
+  SIGNAL YCoordxDMultipliedxD       : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
+  SIGNAL YCoordShrunkxD             : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
+  SIGNAL XCoordShrunk               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
+  SIGNAL YMandelCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
+  SIGNAL YMandelCoordShrunkxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
+  SIGNAL XMandelCoordShrunk         : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
 
 --=============================================================================
 -- COMPONENT DECLARATIONS
 --=============================================================================
-  component clk_wiz_0 is
-    port (
-      clk_out1 : out std_logic;
-      reset    : in  std_logic;
-      locked   : out std_logic;
-      clk_in1  : in  std_logic
-    );
-  end component clk_wiz_0;
+  COMPONENT clk_wiz_0 IS
+    PORT (
+      clk_out1 : OUT std_logic;
+      reset    : IN  std_logic;
+      locked   : OUT std_logic;
+      clk_in1  : IN  std_logic
+      );
+  END COMPONENT clk_wiz_0;
 
-  component blk_mem_gen_0
-    port (
-      clka  : in std_logic;
-      ena   : in std_logic;
-      wea   : in std_logic_vector(0 downto 0);
-      addra : in std_logic_vector(15 downto 0);
-      dina  : in std_logic_vector(11 downto 0);
+  COMPONENT blk_mem_gen_0
+    PORT (
+      clka  : IN std_logic;
+      ena   : IN std_logic;
+      wea   : IN std_logic_vector(0 DOWNTO 0);
+      addra : IN std_logic_vector(15 DOWNTO 0);
+      dina  : IN std_logic_vector(11 DOWNTO 0);
 
-      clkb  : in std_logic;
-      enb   : in std_logic;
-      addrb : in std_logic_vector(15 downto 0);
-      doutb : out std_logic_vector(11 downto 0)
-    );
-  end component;
+      clkb  : IN  std_logic;
+      enb   : IN  std_logic;
+      addrb : IN  std_logic_vector(15 DOWNTO 0);
+      doutb : OUT std_logic_vector(11 DOWNTO 0)
+      );
+  END COMPONENT;
 
-  component vga_controller is
-    port (
-      CLKxCI : in std_logic;
-      RSTxRI : in std_logic;
+  COMPONENT vga_controller IS
+    PORT (
+      CLKxCI : IN std_logic;
+      RSTxRI : IN std_logic;
 
       -- Data/color input
-      RedxSI   : in std_logic_vector(COLOR_BW - 1 downto 0);
-      GreenxSI : in std_logic_vector(COLOR_BW - 1 downto 0);
-      BluexSI  : in std_logic_vector(COLOR_BW - 1 downto 0);
+      RedxSI   : IN std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+      GreenxSI : IN std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+      BluexSI  : IN std_logic_vector(COLOR_BW - 1 DOWNTO 0);
 
       -- Coordinate output
-      XCoordxDO : out unsigned(COORD_BW - 1 downto 0);
-      YCoordxDO : out unsigned(COORD_BW - 1 downto 0);
+      XCoordxDO : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+      YCoordxDO : OUT unsigned(COORD_BW - 1 DOWNTO 0);
 
       -- Timing output
-      HSxSO : out std_logic;
-      VSxSO : out std_logic;
+      HSxSO : OUT std_logic;
+      VSxSO : OUT std_logic;
 
-      VSEdgexSO : out std_logic;
+      VSEdgexSO : OUT std_logic;
 
       -- Data/color output
-      RedxSO   : out std_logic_vector(COLOR_BW - 1 downto 0);
-      GreenxSO : out std_logic_vector(COLOR_BW - 1 downto 0);
-      BluexSO  : out std_logic_vector(COLOR_BW - 1 downto 0)
-    );
-  end component vga_controller;
+      RedxSO   : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+      GreenxSO : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0);
+      BluexSO  : OUT std_logic_vector(COLOR_BW - 1 DOWNTO 0)
+      );
+  END COMPONENT vga_controller;
 
-  component pong_fsm is
-    port (
-      CLKxCI : in std_logic;
-      RSTxRI : in std_logic;
+  COMPONENT pong_fsm IS
+    PORT (
+      CLKxCI : IN std_logic;
+      RSTxRI : IN std_logic;
 
       -- Controls from push buttons
-      LeftxSI  : in std_logic;
-      RightxSI : in std_logic;
+      LeftxSI  : IN std_logic;
+      RightxSI : IN std_logic;
 
       -- Coordinate from VGA
-      VgaXxDI : in unsigned(COORD_BW - 1 downto 0);
-      VgaYxDI : in unsigned(COORD_BW - 1 downto 0);
+      VgaXxDI : IN unsigned(COORD_BW - 1 DOWNTO 0);
+      VgaYxDI : IN unsigned(COORD_BW - 1 DOWNTO 0);
 
       -- Signals from video interface to synchronize (HIGH for 1 CC, when vertical sync starts)
-      VSEdgexSI : in std_logic;
+      VSEdgexSI : IN std_logic;
 
       -- Ball and plate coordinates
-      BallXxDO  : out unsigned(COORD_BW - 1 downto 0);
-      BallYxDO  : out unsigned(COORD_BW - 1 downto 0);
-      PlateXxDO : out unsigned(COORD_BW - 1 downto 0)
-    );
-  end component pong_fsm;
+      BallXxDO  : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+      BallYxDO  : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+      PlateXxDO : OUT unsigned(COORD_BW - 1 DOWNTO 0)
+      );
+  END COMPONENT pong_fsm;
 
-  component mandelbrot is
-    port (
-      CLKxCI : in  std_logic;
-      RSTxRI : in  std_logic;
+  COMPONENT mandelbrot IS
+    PORT (
+      CLKxCI : IN std_logic;
+      RSTxRI : IN std_logic;
 
-      WExSO   : out std_logic;
-      XxDO    : out unsigned(COORD_BW - 1 downto 0);
-      YxDO    : out unsigned(COORD_BW - 1 downto 0);
-      ITERxDO : out unsigned(MEM_DATA_BW - 1 downto 0)
-    );
-  end component mandelbrot;
+      WExSO   : OUT std_logic;
+      XxDO    : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+      YxDO    : OUT unsigned(COORD_BW - 1 DOWNTO 0);
+      ITERxDO : OUT unsigned(MEM_DATA_BW - 1 DOWNTO 0)
+      );
+  END COMPONENT mandelbrot;
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
 --=============================================================================
-begin
+BEGIN
 
 --=============================================================================
 -- COMPONENT INSTANTIATIONS
 --=============================================================================
   i_clk_wiz_0 : clk_wiz_0
-    port map (
+    PORT MAP (
       clk_out1 => CLK75xC,
       reset    => RSTxRI,
-      locked   => open,
+      locked   => OPEN,
       clk_in1  => CLK125xCI
-    );
+      );
 
   i_blk_mem_gen_0 : blk_mem_gen_0
-    port map (
+    PORT MAP (
       clka  => CLK75xC,
       ena   => ENAxS,
       wea   => WEAxS,
@@ -211,10 +214,10 @@ begin
       enb   => ENBxS,
       addrb => RdAddrBxD,
       doutb => DOUTBxD
-    );
+      );
 
-  i_vga_controller: vga_controller
-    port map (
+  i_vga_controller : vga_controller
+    PORT MAP (
       CLKxCI => CLK75xC,
       RSTxRI => RSTxRI,
 
@@ -233,10 +236,10 @@ begin
       RedxSO   => RedxSO,
       GreenxSO => GreenxSO,
       BluexSO  => BluexSO
-    );
+      );
 
   i_pong_fsm : pong_fsm
-    port map (
+    PORT MAP (
       CLKxCI => CLK75xC,
       RSTxRI => RSTxRI,
 
@@ -251,46 +254,79 @@ begin
       BallXxDO  => BallXxD,
       BallYxDO  => BallYxD,
       PlateXxDO => PlateXxD
-    );
+      );
 
   i_mandelbrot : mandelbrot
-    port map (
-      CLKxCI  => CLK75xC,
-      RSTxRI  => RSTxRI,
+    PORT MAP (
+      CLKxCI => CLK75xC,
+      RSTxRI => RSTxRI,
 
       WExSO   => MandelbrotWExS,
       XxDO    => MandelbrotXxD,
       YxDO    => MandelbrotYxD,
       ITERxDO => MandelbrotITERxD
-    );
+      );
 
 --=============================================================================
 -- MEMORY SIGNAL MAPPING
 --=============================================================================
 
 -- Port A
-ENAxS     <= MandelbrotWExS;
-WEAxS     <= (others => MandelbrotWExS);
-WrAddrAxD <= (OTHERS => '0');
-DINAxD    <= std_logic_vector(MandelbrotITERxD);
+  ENAxS <= MandelbrotWExS;
+  WEAxS <= (OTHERS => MandelbrotWExS);
+
+  YMandelCoordShrunkxD       <= "00"&MandelbrotYxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
+  YMandelCoordxDMultipliedxD <= YMandelCoordShrunkxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
+  XMandelCoordShrunk         <= "00"& MandelbrotXxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
+
+
+  WrAddrAxD <= std_logic_vector(YMandelCoordxDMultipliedxD + XMandelcoordShrunk);
+  DINAxD    <= std_logic_vector(MandelbrotITERxD);
 
 -- Port B
-ENBxS     <= '1';
-YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);   -- get MSBs
-YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000"; -- lsl 8
-XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
-RdAddrBxD            <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
+  ENBxS                <= '1';
+  YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);       -- get MSBs
+  YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
+  XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);      -- get MSBs
+
+  RdAddrBxD <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
+
 --RdAddrBxD <= ; -- TODO
 
 --=============================================================================
 -- SPRITE SIGNAL MAPPING
 --=============================================================================
 
-RedxS    <= DOUTBxD(3 * COLOR_BW - 1 DOWNTO 2 * COLOR_BW);
-GreenxS  <= DOUTBxD(2 * COLOR_BW - 1 DOWNTO 1 * COLOR_BW);
-BluexS   <= DOUTBxD(1 * COLOR_BW - 1 DOWNTO 0 * COLOR_BW); -- TODO
 
-end rtl;
+  --actually write colors to vga
+  -- purpose: select BG or sprite 
+  -- type   : combinational
+  -- inputs : all
+  -- outputs: VGA colors (RedxS, GreenxS, BluexS)
+  SpriteLogic : PROCESS (ALL) IS
+  BEGIN  -- PROCESS SpriteLogic
+    --BG as default
+    RedxS   <= BGRedxS;
+    GreenxS <= BGGreenxS;
+    BluexS  <= BGBluexS;
+
+    -- ball logic
+    IF XCoordxD < BallXxD+BALL_WIDTH AND XCoordxD >= BallXxD AND YCoordxD < BallYxD+BALL_HEIGHT AND YCoordxD >= BallYxD THEN
+      RedxS   <= (OTHERS => '1');
+      GreenxS <= (OTHERS => '1');
+      BluexS  <= (OTHERS => '1');
+    END IF;
+    IF YCoordxD > VS_DISPLAY-PLATE_HEIGHT AND XCoordxD < PlateXxD+PLATE_WIDTH AND XCoordxD >= PlateXxD THEN
+      RedxS   <= (OTHERS => '1');
+      GreenxS <= (OTHERS => '1');
+      BluexS  <= (OTHERS => '1');
+    END IF;
+
+  END PROCESS SpriteLogic;
+
+
+
+END rtl;
 --=============================================================================
 -- ARCHITECTURE END
 --=============================================================================
