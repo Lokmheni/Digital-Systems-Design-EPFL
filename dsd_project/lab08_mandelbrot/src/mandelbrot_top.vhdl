@@ -291,7 +291,11 @@ BEGIN
 
   RdAddrBxD <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
 
---RdAddrBxD <= ; -- TODO
+  BGRedxS   <= DOUTBxD(3 * COLOR_BW - 1 DOWNTO 2 * COLOR_BW);
+  BGGreenxS <= DOUTBxD(2 * COLOR_BW - 1 DOWNTO 1 * COLOR_BW);
+  BGBluexS  <= DOUTBxD(1 * COLOR_BW - 1 DOWNTO 0 * COLOR_BW);
+
+
 
 --=============================================================================
 -- SPRITE SIGNAL MAPPING
