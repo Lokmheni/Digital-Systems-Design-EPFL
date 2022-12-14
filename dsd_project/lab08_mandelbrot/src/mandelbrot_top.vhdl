@@ -28,8 +28,8 @@ ENTITY mandelbrot_top IS
     RSTxRI    : IN std_logic;
 
     -- Button inputs
-    LEFTxSI  : IN std_logic;
-    RIGHTxSI : IN std_logic;
+    LeftxSI  : IN std_logic;
+    RightxSI : IN std_logic;
 
     -- Timing outputs
     HSxSO : OUT std_logic;
