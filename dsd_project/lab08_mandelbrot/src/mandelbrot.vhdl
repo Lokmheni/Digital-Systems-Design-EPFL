@@ -72,12 +72,18 @@ ARCHITECTURE rtl OF mandelbrot IS
   --SIGNAL N_iter         : unsigned(COORD_BW DOWNTO 0); -- number of iterations
 
   --intermediate signals
-  SIGNAL Z_re_multxN    : signed(N_BITS+1 DOWNTO 0);  -- Z_rexP*2
-  SIGNAL z_rere         : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
-  SIGNAL Z_imim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
-  SIGNAL z_reim         : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
-  SIGNAL ZAbsSqrdxD     : signed(N_BITS+1 DOWNTO 0);  -- |z|^2 (in standard signed Q3,15 format)
-  SIGNAL ZAbsSqrdxd_q30 : signed(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with Q6,30 bit fraction
+  SIGNAL Z_re_multxN : signed(N_BITS+1 DOWNTO 0);    -- Z_rexP*2
+  SIGNAL z_rere      : signed(2*N_bits+1 DOWNTO 0);  -- re_re*z_re
+  SIGNAL Z_imim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
+  SIGNAL z_reim      : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
+  SIGNAL z_reremimim : signed(2*N_bits+1 DOWNTO 0);  -- z_rere-z_imim
+--  SIGNAL z_r_qfrac   : signed(2*N_bits+1 DOWNTO 0);  -- zrxn WITH Q6,30
+--  SIGNAL z_i_qfrac   : signed(2*N_bits+1 DOWNTO 0);  -- zixn WITH Q6,30
+
+  SIGNAL test_var : signed(N_BITS+1 DOWNTO 0);  -- just to see shit in the wave file
+
+
+  SIGNAL ZAbsSqrdxd_q30 : unsigned(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with Q6,30 bit fraction
 
   CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
 
@@ -192,22 +198,28 @@ BEGIN
   Z_imim      <= Z_imxP*Z_imxP;
   z_reim      <= Z_rexP*Z_imxP;
 
+  z_reremimim <= z_rere - Z_imim;       --Q6,15
+
 
   -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
   -- also, add the sign bit!!!!
-  Z_rexN <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
+
+--test thing
+  test_var <= signed(z_reim(2*N_BITS) & z_reim(2*N_BITS-3 DOWNTO N_FRAC-1)) + signed(Z_imxInitial(N_BITS+COORD_BW)&Z_imxInitial(N_BITS DOWNTO 0));  --2*Zreim +ziminit
+  --real tahing
+  Z_rexN   <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
             WHEN IterDonexS = '1' ELSE
-            signed(z_rere(2*N_BITS) & z_rere(2*N_bits-3 DOWNTO N_FRAC)) - signed(Z_imim(2*N_bits)&Z_imim(2*N_BITS-3 DOWNTO N_FRAC)) + Z_rexInitial(N_BITS DOWNTO 0);
+            signed(z_reremimim(2*N_BITS)&z_reremimim(2*N_BITS-3 DOWNTO N_FRAC)) + signed(Z_rexInitial(N_BITS+COORD_BW)&Z_rexInitial(N_BITS-1 DOWNTO 0));
 
   Z_imxN <= Z_imxInitial(N_BITS+COORD_BW) & Z_imxInitial(N_BITS-1 DOWNTO 0) WHEN IterDonexS = '1' ELSE
-            signed(z_reim(2*N_BITS) & z_reim(2*N_BITS-2 DOWNTO N_FRAC+1)) + Z_imxInitial(N_BITS DOWNTO 0);  --2*Zreim +ziminit
+            test_var(N_BITS) & test_var(N_BITS-1 DOWNTO 0);
 
 
 
 --when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
-  ZAbsSqrdxd_q30 <= z_rere+z_imim;
-  ZAbsSqrdxD     <= ZAbsSqrdxd_q30(2*N_bits-1 DOWNTO N_FRAC);
-  IterDonexS     <= '1' WHEN unsigned(ZAbsSqrdxd_q30(2*N_BITS+1 DOWNTO 30)) > 4 OR IterCntxD = MAX_ITER ELSE
+  ZAbsSqrdxd_q30 <= unsigned(z_rere+z_imim);
+
+  IterDonexS <= '1' WHEN ZAbsSqrdxd_q30(2*N_BITS+1 DOWNTO 30) > 4 OR IterCntxD = 10 ELSE  -- MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
