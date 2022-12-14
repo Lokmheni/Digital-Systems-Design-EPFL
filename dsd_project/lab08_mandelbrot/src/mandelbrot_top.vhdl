@@ -76,7 +76,7 @@ architecture rtl of mandelbrot_top is
   signal XCoordxD : unsigned(COORD_BW - 1 downto 0); -- Coordinates from VGA controller
   signal YCoordxD : unsigned(COORD_BW - 1 downto 0);
 
-  signal VSYNCxS : std_logic; -- If 1, row counter resets (new frame). HIGH for 1 CC, when vertical sync starts)
+  signal VSEdgexS : std_logic; -- If 1, row counter resets (new frame). HIGH for 1 CC, when vertical sync starts)
 
   -- pong_fsm
   signal BallXxD  : unsigned(COORD_BW - 1 downto 0); -- Coordinates of ball and plate
@@ -139,7 +139,7 @@ architecture rtl of mandelbrot_top is
       HSxSO : out std_logic;
       VSxSO : out std_logic;
 
-      VSYNCxSO : out std_logic;
+      VSEdgexSO : out std_logic;
 
       -- Data/color output
       RedxSO   : out std_logic_vector(COLOR_BW - 1 downto 0);
@@ -162,7 +162,7 @@ architecture rtl of mandelbrot_top is
       VgaYxDI : in unsigned(COORD_BW - 1 downto 0);
 
       -- Signals from video interface to synchronize (HIGH for 1 CC, when vertical sync starts)
-      VSYNCxSI : in std_logic;
+      VSEdgexSI : in std_logic;
 
       -- Ball and plate coordinates
       BallXxDO  : out unsigned(COORD_BW - 1 downto 0);
@@ -225,7 +225,7 @@ begin
       HSxSO => HSxSO,
       VSxSO => VSxSO,
 
-      VSYNCxSO => VSYNCxS,
+      VSEdgexSO => VSEdgexS,
 
       XCoordxDO => XCoordxD,
       YCoordxDO => YCoordxD,
@@ -246,7 +246,7 @@ begin
       VgaXxDI => XCoordxD,
       VgaYxDI => YCoordxD,
 
-      VSYNCxSI => VSYNCxS,
+      VSEdgexSI => VSEdgexS,
 
       BallXxDO  => BallXxD,
       BallYxDO  => BallYxD,
