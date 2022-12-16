@@ -85,8 +85,8 @@ ARCHITECTURE rtl OF mandelbrot IS
 
   SIGNAL ZAbsSqrdxD_Q6_30 : unsigned(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with Q6,30 bit fraction
 
-  CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
-
+  SIGNAL FinishedCalculationsxSP : std_logic;  -- '1' when done
+  SIGNAL FinishedCalculationsxSN : std_logic;  -- '1' when done
 
 --=============================================================================
 -- ARCHITECTURE BEGIN
@@ -168,18 +168,20 @@ BEGIN
   BEGIN  -- PROCESS CounterZ
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      Z_rexP <= (OTHERS => '0');
-      Z_imxP <= (OTHERS => '0');
+      Z_rexP                  <= (OTHERS => '0');
+      Z_imxP                  <= (OTHERS => '0');
+      FinishedCalculationsxSP <= '0';
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      Z_rexP <= Z_rexN;
-      Z_imxP <= Z_imxN;
+      Z_rexP                  <= Z_rexN;
+      Z_imxP                  <= Z_imxN;
+      FinishedCalculationsxSP <= FinishedCalculationsxSN;
     END IF;
   END PROCESS z_reg_proc;
 
 
 --x,y counter logic
-  CntEnXxS <= IterDonexS;
-  CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1' ELSE
+  CntEnXxS <= '1' WHEN IterDonexS = '1' AND FinishedCalculationsxSP = '0';
+  CntEnYxS <= '1' WHEN CountXOverflowxS = '1' AND IterDonexS = '1'AND FinishedCalculationsxSP = '0' ELSE
               '0';
 
 
@@ -223,6 +225,13 @@ BEGIN
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
+
+  --finish calculations
+  FinishedCalculationsxSN <= '1' WHEN (XcounterxD+1 = HS_DISPLAY/4 AND
+                                       YcounterxD+1 = VS_DISPLAY AND
+                                       WExSO = '1')
+                             OR FinishedCalculationsxSP = '1' ELSE
+                             '0';
 
 
 
