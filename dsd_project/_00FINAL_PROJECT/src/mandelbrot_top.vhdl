@@ -94,8 +94,6 @@ ARCHITECTURE rtl OF mandelbrot_top IS
   SIGNAL YCoordShrunkxD             : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
   SIGNAL XCoordShrunk               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
   SIGNAL YMandelCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
-  SIGNAL YMandelCoordShrunkxD       : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
-  SIGNAL XMandelCoordShrunk         : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
 
 --=============================================================================
 -- COMPONENT DECLARATIONS
@@ -275,12 +273,10 @@ BEGIN
   ENAxS <= MandelbrotWExS;
   WEAxS <= (OTHERS => MandelbrotWExS);
 
-  YMandelCoordShrunkxD       <= "00"&MandelbrotYxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
-  YMandelCoordxDMultipliedxD <= YMandelCoordShrunkxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
-  XMandelCoordShrunk         <= "00"& MandelbrotXxD(COORD_BW-1 DOWNTO 2);  -- get MSBs
 
+  YMandelCoordxDMultipliedxD <= MandelbrotYxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
 
-  WrAddrAxD <= std_logic_vector(YMandelCoordxDMultipliedxD + XMandelcoordShrunk);
+  WrAddrAxD <= std_logic_vector(YMandelCoordxDMultipliedxD + MandelbrotXxD);
   DINAxD    <= std_logic_vector(MandelbrotITERxD);
 
 -- Port B

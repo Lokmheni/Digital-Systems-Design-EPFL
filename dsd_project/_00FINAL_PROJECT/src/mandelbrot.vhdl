@@ -106,7 +106,7 @@ BEGIN
       XcounterxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnXxS = '1' THEN
-        IF XcounterxD+1 < HS_DISPLAY THEN
+        IF XcounterxD+1 < HS_DISPLAY/4 THEN
           XcounterxD <= XcounterxD+1;
         ELSE
           XcounterxD <= (OTHERS => '0');
@@ -126,7 +126,7 @@ BEGIN
       YcounterxD <= (OTHERS => '0');
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       IF CntEnYxS = '1' THEN
-        IF YcounterxD+1 < VS_DISPLAY THEN
+        IF YcounterxD+1 < VS_DISPLAY/4 THEN
           YcounterxD <= YcounterxD+1;
         ELSE
           YcounterxD <= (OTHERS => '0');
@@ -155,9 +155,9 @@ BEGIN
 
 
 
-  CountXOverflowxS <= '1' WHEN XcounterxD = HS_DISPLAY - 1 ELSE  -- this is fine
+  CountXOverflowxS <= '1' WHEN XcounterxD = HS_DISPLAY/4 - 1 ELSE  -- this is fine
                       '0';
-  CountYOverflowxS <= '1' WHEN YcounterxD = VS_DISPLAY - 1 ELSE
+  CountYOverflowxS <= '1' WHEN YcounterxD = VS_DISPLAY/4 - 1 ELSE
                       '0';
 
 
