@@ -256,7 +256,7 @@ BEGIN
 
   ZAbsSqrdxD_Q6_30 <= unsigned(z_rerexD_Q6_30+z_imimxD_Q6_30);
 
-  IterDonexS <= '1' WHEN ZAbsSqrdxD_Q6_30(2*N_BITS+1 DOWNTO 2*N_BITS-2) > 4 OR IterCntxD = MAX_ITER ELSE
+  IterDonexS <= '1' WHEN ZAbsSqrdxD_Q6_30(2*N_BITS+1 DOWNTO 2*N_BITS-4) > 4 OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 
