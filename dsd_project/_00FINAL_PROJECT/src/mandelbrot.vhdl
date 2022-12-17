@@ -216,7 +216,7 @@ BEGIN
     ImIncxDN      <= ImIncxDP;
     ZoomInxSN     <= ZoomInxSP;
     --logic zoom diraction
-    IF ImIncxDP = 10 OR ReIncxDP = 10 THEN
+    IF ImIncxDP = C_ZOOM_LIMIT OR ReIncxDP = C_ZOOM_LIMIT THEN
       ZoomInxSN <= '0';
     ELSIF ReStartValxDP = C_RE_0 OR ImStartValxDP = C_IM_0 THEN
       ZoomInxSN <= '1';

@@ -89,5 +89,5 @@ PACKAGE dsd_prj_pkg IS
   CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(90, N_BITS+1);  -- q3.15
   CONSTANT C_RE_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-2, N_BITS+1);  -- q3.15
   CONSTANT C_IM_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- Q3.15
-
+  CONSTANT C_ZOOM_LIMIT     : natural                 := 50;  -- if zoom step is smaller than this, it will reverse and zoom out (must bs multiple of 4)
 END PACKAGE dsd_prj_pkg;
