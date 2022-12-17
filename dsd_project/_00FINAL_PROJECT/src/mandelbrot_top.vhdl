@@ -95,7 +95,7 @@ ARCHITECTURE rtl OF mandelbrot_top IS
   SIGNAL XCoordShrunk               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
   SIGNAL YMandelCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
 
-  SIGNAL ResetFramexSI : std_logic;
+  SIGNAL ResetFramexS : std_logic;
 --=============================================================================
 -- COMPONENT DECLARATIONS
 --=============================================================================
@@ -261,7 +261,7 @@ BEGIN
       CLKxCI => CLK75xC,
       RSTxRI => RSTxRI,
 
-      ResetFramexSI => ResetFramsxS,
+      ResetFramexSI => ResetFramexS,
 
       WExSO   => MandelbrotWExS,
       XxDO    => MandelbrotXxD,
@@ -328,6 +328,11 @@ BEGIN
 
   END PROCESS SpriteLogic;
 
+
+
+  --frame rst todo
+  ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
+                  '0';
 
 
 END rtl;

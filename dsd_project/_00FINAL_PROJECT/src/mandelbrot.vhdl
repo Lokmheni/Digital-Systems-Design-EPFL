@@ -78,15 +78,25 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL Z_imimxD_Q6_30        : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_im
   SIGNAL z_reimxD_Q6_30        : signed(2*N_bits+1 DOWNTO 0);  -- z_im*z_re
   SIGNAL z_re2_min_im2xD_Q6_30 : signed(2*N_bits+1 DOWNTO 0);  -- z_rerexD_Q6_30-z_imimxD_Q6_30
---  SIGNAL z_r_qfrac   : signed(2*N_bits+1 DOWNTO 0);  -- zrxn WITH Q6,30
---  SIGNAL z_i_qfrac   : signed(2*N_bits+1 DOWNTO 0);  -- zixn WITH Q6,30
 
-  SIGNAL z_rexN_q4_15 : signed(N_BITS+1 DOWNTO 0);  -- just to see shit in the wave file
-
-
+  SIGNAL z_rexN_q4_15     : signed(N_BITS+1 DOWNTO 0);  -- intermediate signal to
+                                                        -- counteract overflos
   SIGNAL ZAbsSqrdxD_Q6_30 : unsigned(2*N_BITS+1 DOWNTO 0);  -- |z|^2 with Q6,30 bit fraction
 
-  CONSTANT ITER_LIM_DOUBLE_FRAC : natural := ITER_LIM*(2**N_FRAC);  -- iter_lim with sqrd offset
+  --zooming signals
+  SIGNAL ReStartValxDP : signed(N_BITS DOWNTO 0);
+  SIGNAL ReStartValxDN : signed(N_BITS DOWNTO 0);
+  SIGNAL ImStartValxDP : signed(N_BITS DOWNTO 0);
+  SIGNAL ImStartValxDN : signed(N_BITS DOWNTO 0);
+
+  SIGNAL ReIncxDP : signed(N_BITS DOWNTO 0);
+  SIGNAL ReIncxDN : signed(N_BITS DOWNTO 0);
+  SIGNAL ImIncxDP : signed(N_BITS DOWNTO 0);
+  SIGNAL ImIncxDN : signed(N_BITS DOWNTO 0);
+  SIGNAL ZoomEn   : std_logic;
+
+
+
 
 
 --=============================================================================
@@ -164,16 +174,26 @@ BEGIN
 
 
 
-  -- normal register process, this is fine
+  -- normal register process
   z_reg_proc : PROCESS (ALL) IS
   BEGIN  -- PROCESS CounterZ
     --RESET
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
-      Z_rexP <= (OTHERS => '0');
-      Z_imxP <= (OTHERS => '0');
+      Z_rexP        <= (OTHERS => '0');
+      Z_imxP        <= (OTHERS => '0');
+      ReStartValxDP <= C_RE_0;
+      ImStartValxDP <= C_IM_0;
+      ReIncxDP      <= C_RE_INC;
+      ImIncxDP      <= C_IM_INC;
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       Z_rexP <= Z_rexN;
       Z_imxP <= Z_imxN;
+      IF ZoomEn = '1' THEN
+        ReStartValxDP <= ReStartValxDN;
+        ImStartValxDP <= ImStartValxDN;
+        ReIncxDP      <= ReIncxDN;
+        ImIncxDP      <= ImIncxDN;
+      END IF;
     END IF;
   END PROCESS z_reg_proc;
 
@@ -184,28 +204,29 @@ BEGIN
               '0';
 
 
+  -- zoom logic
+  ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP WHEN ResetFramexSI = '0' ELSE C_RE_0;
+  ImStartValxDN <= ImStartValxDp + C_IM_0_INCSTEP WHEN ResetFramexSI = '0' ELSE C_IM_0;
+  ReIncxDN      <= ReIncxDp +C_RE_INC_INCSTEP     WHEN ResetFramexSI = '0' ELSE C_RE_INC;
+  ImIncxDN      <= ImIncxDp + C_IM_INC_INCSTEP    WHEN ResetFramexSI = '0' ELSE C_IM_INC;
+
+
   --iteration logic:
-
-  -- not happy using resize, but it has the same outcome as if using z-counter
-  -- inestead of using x,y to generate z_init
-  Z_rexInitial <= C_RE_INC * signed('0'&XcounterxD) + C_RE_0;  --sign bit to 0
-  Z_imxInitial <= C_IM_INC * signed('0'&YcounterxD) + C_IM_0;  --sign bit to 0
+  Z_rexInitial <= ReIncxDP * signed('0'&XcounterxD) + ReStartValxDP;  --sign bit to 0
+  Z_imxInitial <= ImIncxDP * signed('0'&YcounterxD) + ImStartValxDP;  --sign bit to 0
 
 
 
-
-  Z_re_multxN    <= Z_imxP&'0';         --x2 unused rn
-  z_rerexD_Q6_30 <= Z_rexP * Z_rexP;
-  Z_imimxD_Q6_30 <= Z_imxP*Z_imxP;
-  z_reimxD_Q6_30 <= Z_rexP*Z_imxP;
-
+--calculate next Z:
+  Z_re_multxN           <= Z_imxP&'0';                       --x2 unused rn
+  z_rerexD_Q6_30        <= Z_rexP * Z_rexP;
+  Z_imimxD_Q6_30        <= Z_imxP*Z_imxP;
+  z_reimxD_Q6_30        <= Z_rexP*Z_imxP;
   z_re2_min_im2xD_Q6_30 <= z_rerexD_Q6_30 - Z_imimxD_Q6_30;  --Q6,15
+  ZoomEn                <= '1' WHEN IterDonexS = '1' AND XcounterxD = 0 AND YcounterxD = 0 ELSE
+            '0';
 
 
-  -- TODO THINK THIS THROUGH AGAIN (N_FRAC, N_FRAC+1 ETC.)
-  -- also, add the sign bit!!!!
-
---test thing
   z_rexN_q4_15 <= signed(z_reimxD_Q6_30(2*N_BITS) & z_reimxD_Q6_30(2*N_BITS-3 DOWNTO N_FRAC-1)) + signed(Z_imxInitial(N_BITS+COORD_BW)&Z_imxInitial(N_BITS DOWNTO 0));  --2*Zreim +ziminit
   --real tahing
   Z_rexN       <= Z_rexInitial(N_BITS+COORD_BW)& Z_rexInitial(N_BITS-1 DOWNTO 0)
