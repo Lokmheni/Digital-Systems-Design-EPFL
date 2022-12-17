@@ -215,7 +215,7 @@ BEGIN
       ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP;
       ImStartValxDN <= ImStartValxDP + C_IM_0_INCSTEP;
       ReIncxDN      <= ReIncxDP + C_RE_INC_INCSTEP;
-      ImIncxDN      <= ImIncxDP + C_IM_INC_INCSTEP;
+      ImIncxDN <= ImIncxDP + C_IM_INC_INCSTEP;
     ELSE
       ReStartValxDN <= ReStartValxDP;
       ImStartValxDN <= ImStartValxDP;
@@ -256,7 +256,7 @@ BEGIN
 
   ZAbsSqrdxD_Q6_30 <= unsigned(z_rerexD_Q6_30+z_imimxD_Q6_30);
 
-  IterDonexS <= '1' WHEN ZAbsSqrdxD_Q6_30(2*N_BITS+1 DOWNTO 30) > 4 OR IterCntxD = MAX_ITER ELSE
+  IterDonexS <= '1' WHEN ZAbsSqrdxD_Q6_30(2*N_BITS+1 DOWNTO 2*N_BITS-2) > 4 OR IterCntxD = MAX_ITER ELSE
                 '0';
   IterCntSyncRstxS <= IterDonexS;
 

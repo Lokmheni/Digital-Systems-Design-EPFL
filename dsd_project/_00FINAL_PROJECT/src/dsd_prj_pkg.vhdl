@@ -86,7 +86,7 @@ PACKAGE dsd_prj_pkg IS
 
   --zoom params
   CONSTANT C_RE_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(100, N_BITS+1);  -- q3.15
-  CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(20, N_BITS+1);  -- q3.15
+  CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(50, N_BITS+1);  -- q3.15
   CONSTANT C_RE_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- q3.15
   CONSTANT C_IM_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- Q3.15
 
