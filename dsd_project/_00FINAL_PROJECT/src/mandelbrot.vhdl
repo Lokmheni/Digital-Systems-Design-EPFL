@@ -187,14 +187,12 @@ BEGIN
       ReIncxDP      <= C_RE_INC;
       ImIncxDP      <= C_IM_INC;
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
-      Z_rexP <= Z_rexN;
-      Z_imxP <= Z_imxN;
-      IF ZoomEn = '1' THEN
-        ReStartValxDP <= ReStartValxDN;
-        ImStartValxDP <= ImStartValxDN;
-        ReIncxDP      <= ReIncxDN;
-        ImIncxDP      <= ImIncxDN;
-      END IF;
+      Z_rexP        <= Z_rexN;
+      Z_imxP        <= Z_imxN;
+      ReStartValxDP <= ReStartValxDN;
+      ImStartValxDP <= ImStartValxDN;
+      ReIncxDP      <= ReIncxDN;
+      ImIncxDP      <= ImIncxDN;
     END IF;
   END PROCESS z_reg_proc;
 
