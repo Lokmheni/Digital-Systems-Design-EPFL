@@ -79,8 +79,8 @@ PACKAGE dsd_prj_pkg IS
   CONSTANT C_IM_0 : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(-1 * (2**N_FRAC), N_BITS + 1);  -- Q3.15
 
   -- REVISIT: What is the starting point supposed to be?
-  CONSTANT C_RE_INC : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(3 * 2**(-10 + N_FRAC)/4, N_BITS + 1);  -- Q3.15
-  CONSTANT C_IM_INC : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(5 * 2**(-11 + N_FRAC)/4, N_BITS + 1);  -- Q3.15
+  CONSTANT C_RE_INC : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(3 * 2**(-10 + N_FRAC)*4, N_BITS + 1);  -- Q3.15
+  CONSTANT C_IM_INC : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(5 * 2**(-11 + N_FRAC)*4, N_BITS + 1);  -- Q3.15
 
 
 
