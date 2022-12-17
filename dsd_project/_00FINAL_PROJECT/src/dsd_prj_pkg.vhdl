@@ -89,5 +89,8 @@ PACKAGE dsd_prj_pkg IS
   CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(90, N_BITS+1);  -- q3.15
   CONSTANT C_RE_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-2, N_BITS+1);  -- q3.15
   CONSTANT C_IM_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- Q3.15
-  CONSTANT C_ZOOM_LIMIT     : natural                 := 50;  -- if zoom step is smaller than this, it will reverse and zoom out (must bs multiple of 4)
+  CONSTANT C_ZOOM_LIMIT     : natural                 := 100;  -- if zoom step is smaller than this, it will reverse and zoom out (must bs multiple of 4)
+
+  -- number of frames
+  CONSTANT C_NBR_OF_FRAMES_ZOOM : natural := MAX_ITER/20/2;  -- Worst case, N=20F -> only half screen worst case -> N=40F
 END PACKAGE dsd_prj_pkg;

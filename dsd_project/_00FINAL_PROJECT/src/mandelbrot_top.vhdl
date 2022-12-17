@@ -350,7 +350,7 @@ BEGIN
       FramCounterxD <= (OTHERS => '0');
     ELSIF CLK75xC'event AND CLK75xC = '1' THEN  -- rising clock edge
       IF VSEdgexS = '1' THEN
-        IF FramCounterxD = 10 THEN
+        IF FramCounterxD = C_NBR_OF_FRAMES_ZOOM THEN
           FramCounterxD <= (OTHERS => '0');
         ELSE
           FramCounterxD <= FramCounterxD+1;
@@ -362,7 +362,7 @@ BEGIN
 --  ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
 --                  '0';
   ResetFramexS <= '0';
-  NextFramexS  <= '1' WHEN FramCounterxD = 10 AND VSEdgexS = '1' ELSE '0';
+  NextFramexS  <= '1' WHEN FramCounterxD = C_NBR_OF_FRAMES_ZOOM AND VSEdgexS = '1' ELSE '0';
 
 
 END rtl;
