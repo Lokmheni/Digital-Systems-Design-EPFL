@@ -285,7 +285,12 @@ BEGIN
   YMandelCoordxDMultipliedxD <= MandelbrotYxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
 
   WrAddrAxD <= std_logic_vector(YMandelCoordxDMultipliedxD + MandelbrotXxD);
-  DINAxD    <= std_logic_vector(MandelbrotITERxD);
+  DINAxD    <= "000000000000"WHEN MandelbrotITERxD = MAX_ITER ELSE
+            std_logic_vector(
+              MandelbrotITERxD(3*COLOR_BW-4 DOWNTO 2*COLOR_BW-2)&'0'&
+              MandelbrotITERxD(2*COLOR_BW-3 DOWNTO COLOR_BW-1)&'0'&
+              MandelbrotITERxD(COLOR_BW-2 DOWNTO 0)&'0'
+              );
 
 -- Port B
   ENBxS                <= '1';
@@ -345,7 +350,7 @@ BEGIN
       FramCounterxD <= (OTHERS => '0');
     ELSIF CLK75xC'event AND CLK75xC = '1' THEN  -- rising clock edge
       IF VSEdgexS = '1' THEN
-        IF FramCounterxD = 5 THEN
+        IF FramCounterxD = 10 THEN
           FramCounterxD <= (OTHERS => '0');
         ELSE
           FramCounterxD <= FramCounterxD+1;
@@ -356,7 +361,7 @@ BEGIN
   --frame new and rst
   ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
                   '0';
-  NextFramexS <= '1' WHEN FramCounterxD = 5 AND VSEdgexS = '1' ELSE '0';
+  NextFramexS <= '1' WHEN FramCounterxD = 10 AND VSEdgexS = '1' ELSE '0';
 
 
 END rtl;

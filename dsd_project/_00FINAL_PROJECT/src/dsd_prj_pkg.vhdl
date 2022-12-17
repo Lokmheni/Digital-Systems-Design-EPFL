@@ -69,11 +69,11 @@ PACKAGE dsd_prj_pkg IS
 
   -- Mandelbrot parameters
   CONSTANT N_INT  : natural := 2;       -- # Integer bits (minus sig-bit)
-  CONSTANT N_FRAC : natural := 15;      -- # Fractional bits
+  CONSTANT N_FRAC : natural := 16;      -- # Fractional bits
   CONSTANT N_BITS : natural := N_INT + N_FRAC;
 
   CONSTANT ITER_LIM : natural := 2**(2 + N_FRAC);  -- Represents 2^2 in Q3.15
-  CONSTANT MAX_ITER : natural := 100;  -- Maximum iteration number before stopping
+  CONSTANT MAX_ITER : natural := 200;  -- Maximum iteration number before stopping
 
   CONSTANT C_RE_0 : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(-2 * (2**N_FRAC), N_BITS + 1);  -- Q3.15
   CONSTANT C_IM_0 : signed(N_BITS + 1 - 1 DOWNTO 0) := to_signed(-1 * (2**N_FRAC), N_BITS + 1);  -- Q3.15
@@ -85,8 +85,8 @@ PACKAGE dsd_prj_pkg IS
 
 
   --zoom params
-  CONSTANT C_RE_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(100, N_BITS+1);  -- q3.15
-  CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(50, N_BITS+1);  -- q3.15
+  CONSTANT C_RE_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(30, N_BITS+1);  -- q3.15
+  CONSTANT C_IM_0_INCSTEP   : signed(N_BITS DOWNTO 0) := to_signed(30, N_BITS+1);  -- q3.15
   CONSTANT C_RE_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- q3.15
   CONSTANT C_IM_INC_INCSTEP : signed(N_BITS DOWNTO 0) := to_signed(-1, N_BITS+1);  -- Q3.15
 
