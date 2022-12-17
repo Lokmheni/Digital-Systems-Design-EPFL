@@ -191,7 +191,7 @@ BEGIN
 
   -- not very energy efficient but such is life
   BallPosYSetValxD <= "00"& VgaYxDI(COORD_BW-1 DOWNTO 2)+1;  -- upper quarter of screen
-  BallPosXSetValxD <= ("00"&VgaXxDI(COORD_BW-1 DOWNTO 2))+(HS_DISPLAY/4);  --middle half of screen TODO ACTUALLY DO IT PROPERLY
+  BallPosXSetValxD <= HS_DISPLAY-VgaXxDI;
   --set?
   SetCntrs         <= '1' WHEN GameActivexSN = '1' AND GameActivexSP = '0' ELSE
               '0';
@@ -220,7 +220,7 @@ BEGIN
     --ball bottom check
     IF BallDirectionUpxSP = '0' AND BallPosYxD >= VS_DISPLAY-BALL_HEIGHT - PLATE_HEIGHT THEN
       --bounce back check
-      IF BallPosXxD >= BarPosXxD AND BallPosXxD <= BarPosXxD+BALL_WIDTH + PLATE_WIDTH THEN
+      IF BallPosXxD >= BarPosXxD-BALL_WIDTH AND BallPosXxD <= BarPosXxD + PLATE_WIDTH+1 THEN
         BallDirectionUpxSN <= '1';      -- ball goes back up
       ELSIF BallPosYxD >= VS_DISPLAY-BALL_HEIGHT THEN
         GameActivexSN <= '0';           -- lose      
@@ -234,7 +234,7 @@ BEGIN
 
     --start game
     IF GameActivexSP = '0' AND LeftxSI = '1' AND RightxSI = '1' THEN
-      GameActivexSN <= '1';  -- this triggers set cnt which will set counters
+      GameActivexSN <= '1';  -- this triggers setcnt which will set counters
     END IF;
 
   END PROCESS BallDirectionEvaluation;
