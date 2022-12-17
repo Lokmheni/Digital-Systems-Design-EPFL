@@ -90,12 +90,13 @@ ARCHITECTURE rtl OF mandelbrot IS
   SIGNAL ImStartValxDP : signed(N_BITS DOWNTO 0);
   SIGNAL ImStartValxDN : signed(N_BITS DOWNTO 0);
 
-  SIGNAL ReIncxDP : signed(N_BITS DOWNTO 0);
-  SIGNAL ReIncxDN : signed(N_BITS DOWNTO 0);
-  SIGNAL ImIncxDP : signed(N_BITS DOWNTO 0);
-  SIGNAL ImIncxDN : signed(N_BITS DOWNTO 0);
-  SIGNAL ZoomEn   : std_logic;
-
+  SIGNAL ReIncxDP  : signed(N_BITS DOWNTO 0);
+  SIGNAL ReIncxDN  : signed(N_BITS DOWNTO 0);
+  SIGNAL ImIncxDP  : signed(N_BITS DOWNTO 0);
+  SIGNAL ImIncxDN  : signed(N_BITS DOWNTO 0);
+  SIGNAL ZoomEn    : std_logic;
+  SIGNAL ZoomInxSN : std_logic;  -- '1' when zooming in , '0' when zooming out
+  SIGNAL ZoomInxSP : std_logic;
 
 
 
@@ -186,6 +187,7 @@ BEGIN
       ImStartValxDP <= C_IM_0;
       ReIncxDP      <= C_RE_INC;
       ImIncxDP      <= C_IM_INC;
+      ZoomInxSP     <= '0';
     ELSIF CLKxCI'event AND CLKxCI = '1' THEN  -- rising clock edge
       Z_rexP        <= Z_rexN;
       Z_imxP        <= Z_imxN;
@@ -193,6 +195,7 @@ BEGIN
       ImStartValxDP <= ImStartValxDN;
       ReIncxDP      <= ReIncxDN;
       ImIncxDP      <= ImIncxDN;
+      ZoomInxSP     <= ZoomInxSN;
     END IF;
   END PROCESS z_reg_proc;
 
@@ -206,16 +209,33 @@ BEGIN
   -- zoom logic
   zoomlogic : PROCESS (ALL) IS
   BEGIN  -- PROCESS zoomlogic
+    --default
+    ReStartValxDN <= ReStartValxDP;
+    ImStartValxDN <= ImStartValxDP;
+    ReIncxDN      <= ReIncxDP;
+    ImIncxDN      <= ImIncxDP;
+    ZoomInxSN     <= ZoomInxSP;
+    --logic zoom diraction
+    IF ImIncxDP = 0 OR ReIncxDP = 0 THEN
+      ZoomInxSN <= '0';
+    ELSIF ReStartValxDP = C_RE_0 OR ImStartValxDP = C_IM_0 THEN
+      ZoomInxSN <= '1';
+    END IF;
+    --logic zoom factor
     IF ResetFramexSI = '1' THEN
       ReStartValxDN <= C_RE_0;
       ImStartValxDN <= C_IM_0;
       ReIncxDN      <= C_RE_INC;
       ImIncxDN      <= C_IM_INC;
     ELSIF NextFramexSI = '1' THEN
-      ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP;
-      ImStartValxDN <= ImStartValxDP + C_IM_0_INCSTEP;
-      ReIncxDN      <= ReIncxDP + C_RE_INC_INCSTEP;
-      ImIncxDN <= ImIncxDP + C_IM_INC_INCSTEP;
+      ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP WHEN ZoomInxSP = '1' ELSE
+                       ReStartValxDP - C_RE_0_INCSTEP;
+      ImStartValxDN <= ImStartValxDP + C_IM_0_INCSTEP WHEN ZoomInxSP = '1' ELSE
+                       ImStartValxDP - C_IM_0_INCSTEP;
+      ReIncxDN <= ReIncxDP + C_RE_INC_INCSTEP WHEN ZoomInxSP = '1' ELSE
+                  ReIncxDP - C_RE_INC_INCSTEP;
+      ImIncxDN <= ImIncxDP + C_IM_INC_INCSTEP WHEN ZoomInxSP = '1' ELSE
+                  ImIncxDP - C_IM_INC_INCSTEP;
     ELSE
       ReStartValxDN <= ReStartValxDP;
       ImStartValxDN <= ImStartValxDP;
