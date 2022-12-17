@@ -359,9 +359,10 @@ BEGIN
     END IF;
   END PROCESS newframecounter;
   --frame new and rst
-  ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
-                  '0';
-  NextFramexS <= '1' WHEN FramCounterxD = 10 AND VSEdgexS = '1' ELSE '0';
+--  ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
+--                  '0';
+  ResetFramexS <= '0';
+  NextFramexS  <= '1' WHEN FramCounterxD = 10 AND VSEdgexS = '1' ELSE '0';
 
 
 END rtl;
