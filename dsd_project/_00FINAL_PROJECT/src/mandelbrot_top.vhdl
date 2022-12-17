@@ -97,7 +97,7 @@ ARCHITECTURE rtl OF mandelbrot_top IS
 
   SIGNAL ResetFramexS  : std_logic;
   SIGNAL NextFramexS   : std_logic;
-  SIGNAL FramCounterxD : unsigned(4-1 DOWNTO 0);  -- frame counter
+  SIGNAL FramCounterxD : unsigned(8-1 DOWNTO 0);  -- frame counter
 --=============================================================================
 -- COMPONENT DECLARATIONS
 --=============================================================================
@@ -335,6 +335,7 @@ BEGIN
 
 
 
+
   -- purpose: count frames (max 10)
   -- type   : sequential
   -- inputs : CLK75xC, RSTxRI
@@ -343,17 +344,19 @@ BEGIN
     IF RSTxRI = '1' THEN                -- asynchronous reset (active high)
       FramCounterxD <= (OTHERS => '0');
     ELSIF CLK75xC'event AND CLK75xC = '1' THEN  -- rising clock edge
-      IF FramCounterxD = 5 THEN
-        FramCounterxD <= (OTHERS => '0');
-      ELSE
-        FramCounterxD <= FramCounterxD+1;
+      IF VSEdgexS = '1' THEN
+        IF FramCounterxD = 50 THEN
+          FramCounterxD <= (OTHERS => '0');
+        ELSE
+          FramCounterxD <= FramCounterxD+1;
+        END IF;
       END IF;
     END IF;
   END PROCESS newframecounter;
   --frame new and rst
   ResetFramexS <= '1' WHEN LeftxSI = '1' AND RightxSI = '1' ELSE
                   '0';
-  NextFramexS <= '1' WHEN FramCounterxD = 5 ELSE '0';
+  NextFramexS <= '1' WHEN FramCounterxD = 50 ELSE '0';
 
 
 END rtl;
