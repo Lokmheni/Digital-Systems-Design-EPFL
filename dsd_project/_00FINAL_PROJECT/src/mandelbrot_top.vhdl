@@ -95,6 +95,7 @@ ARCHITECTURE rtl OF mandelbrot_top IS
   SIGNAL XCoordShrunk               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
   SIGNAL YMandelCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
 
+  SIGNAL ResetFramexSI : std_logic;
 --=============================================================================
 -- COMPONENT DECLARATIONS
 --=============================================================================
@@ -174,8 +175,9 @@ ARCHITECTURE rtl OF mandelbrot_top IS
 
   COMPONENT mandelbrot IS
     PORT (
-      CLKxCI : IN std_logic;
-      RSTxRI : IN std_logic;
+      CLKxCI        : IN std_logic;
+      RSTxRI        : IN std_logic;
+      ResetFramexSI : IN std_logic;
 
       WExSO   : OUT std_logic;
       XxDO    : OUT unsigned(COORD_BW - 1 DOWNTO 0);
@@ -258,6 +260,8 @@ BEGIN
     PORT MAP (
       CLKxCI => CLK75xC,
       RSTxRI => RSTxRI,
+
+      ResetFramexSI => ResetFramsxS,
 
       WExSO   => MandelbrotWExS,
       XxDO    => MandelbrotXxD,

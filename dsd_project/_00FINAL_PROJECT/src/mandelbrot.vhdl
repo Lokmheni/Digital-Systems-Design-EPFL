@@ -23,8 +23,9 @@ USE work.dsd_prj_pkg.ALL;
 --=============================================================================
 ENTITY mandelbrot IS
   PORT (
-    CLKxCI : IN std_logic;
-    RSTxRI : IN std_logic;
+    CLKxCI        : IN std_logic;
+    RSTxRI        : IN std_logic;
+    ResetFramexSI : IN std_logic;
 
     WExSO   : OUT std_logic;  -- write enable (==1 when number of iterations approached)
     XxDO    : OUT unsigned(COORD_BW - 1 DOWNTO 0);
