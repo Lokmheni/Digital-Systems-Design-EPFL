@@ -26,6 +26,7 @@ ENTITY mandelbrot IS
     CLKxCI        : IN std_logic;
     RSTxRI        : IN std_logic;
     ResetFramexSI : IN std_logic;
+    NextFramexSI  : IN std_logic;
 
     WExSO   : OUT std_logic;  -- write enable (==1 when number of iterations approached)
     XxDO    : OUT unsigned(COORD_BW - 1 DOWNTO 0);
@@ -205,10 +206,27 @@ BEGIN
 
 
   -- zoom logic
-  ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP WHEN ResetFramexSI = '0' ELSE C_RE_0;
-  ImStartValxDN <= ImStartValxDp + C_IM_0_INCSTEP WHEN ResetFramexSI = '0' ELSE C_IM_0;
-  ReIncxDN      <= ReIncxDp +C_RE_INC_INCSTEP     WHEN ResetFramexSI = '0' ELSE C_RE_INC;
-  ImIncxDN      <= ImIncxDp + C_IM_INC_INCSTEP    WHEN ResetFramexSI = '0' ELSE C_IM_INC;
+  zoomlogic : PROCESS (ALL) IS
+  BEGIN  -- PROCESS zoomlogic
+    IF ResetFramexSI = '1' THEN
+      ReStartValxDN <= C_RE_0;
+      ImStartValxDN <= C_IM_0;
+      ReIncxDN      <= C_RE_INC;
+      ImIncxDN      <= C_IM_INC;
+    ELSIF NextFramexSI = '1' THEN
+      ReStartValxDN <= ReStartValxDP + C_RE_0_INCSTEP;
+      ImStartValxDN <= ImStartValxDP + C_IM_0_INCSTEP;
+      ReIncxDN      <= ReIncxDP + C_RE_INC_INCSTEP;
+      ImIncxDN      <= ImIncxDP + C_IM_INC_INCSTEP;
+    ELSE
+      ReStartValxDN <= ReStartValxDP;
+      ImStartValxDN <= ImStartValxDP;
+      ReIncxDN      <= ReIncxDP;
+      ImIncxDN      <= ImIncxDP;
+    END IF;
+  END PROCESS zoomlogic;
+
+
 
 
   --iteration logic:
@@ -238,7 +256,6 @@ BEGIN
 
 
 
---when done? --TODO MAYBE PRINT THIS OUTPUT TO COMPARE
   ZAbsSqrdxD_Q6_30 <= unsigned(z_rerexD_Q6_30+z_imimxD_Q6_30);
 
   IterDonexS <= '1' WHEN ZAbsSqrdxD_Q6_30(2*N_BITS+1 DOWNTO 30) > 4 OR IterCntxD = MAX_ITER ELSE
