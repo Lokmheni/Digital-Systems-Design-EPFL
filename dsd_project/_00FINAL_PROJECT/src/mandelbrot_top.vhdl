@@ -92,7 +92,7 @@ ARCHITECTURE rtl OF mandelbrot_top IS
   --SIGNAL YCoordxD             : unsigned(COORD_BW - 1 DOWNTO 0);
   SIGNAL YCoordxDMultipliedxD       : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
   SIGNAL YCoordShrunkxD             : unsigned(COORD_BW-1 DOWNTO 0);  -- divided by four
-  SIGNAL XCoordShrunk               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
+  SIGNAL XCoordShrunkxD               : unsigned(COORD_BW -1 DOWNTO 0);  -- divided by four
   SIGNAL YMandelCoordxDMultipliedxD : unsigned(MEM_ADDR_BW -1 DOWNTO 0);  -- YCoordxD * HS_DISPLAY
 
   SIGNAL ResetFramexS  : std_logic;
@@ -296,9 +296,9 @@ BEGIN
   ENBxS                <= '1';
   YCoordShrunkxD       <= "00"&YCoordxD(COORD_BW-1 DOWNTO 2);       -- get MSBs
   YCoordxDMultipliedxD <= YCoordShrunkxD(8-1 DOWNTO 0)&"00000000";  -- lsl 8
-  XCoordShrunk         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);      -- get MSBs
+  XCoordShrunkxD         <= "00"& XcoordxD(COORD_BW-1 DOWNTO 2);      -- get MSBs
 
-  RdAddrBxD <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunk);
+  RdAddrBxD <= std_logic_vector(YCoordxDMultipliedxD + XcoordShrunkxD);
 
   BGRedxS   <= DOUTBxD(3 * COLOR_BW - 1 DOWNTO 2 * COLOR_BW);
   BGGreenxS <= DOUTBxD(2 * COLOR_BW - 1 DOWNTO 1 * COLOR_BW);
