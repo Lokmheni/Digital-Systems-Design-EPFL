@@ -75,3 +75,7 @@ xvlog.*
 
 
 *.vhdl#
+
+dsd_project/presentation/presentation.synctex.gz
+
+dsd_project/presentation/presentation.pdf
