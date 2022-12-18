@@ -14,8 +14,9 @@
     keywordstyle=\color{blue},
     stringstyle=\color{red},
     title=\lstname,
-    basicstyle = \tiny
-}
+    basicstyle = \tiny,
+    breaklines=true,
+    }
 
 \usecolortheme{beaver}
 \setbeamertemplate{navigation symbols}{}
@@ -119,9 +120,39 @@
         \item Counter for X of plate
         \item Control signals for game state
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pong}
+    \framesubtitle{State control}
+    \begin{alertblock}{No FSM!?}
+        States are binary in nature, so we used binary signals to control the state:
+        \begin{itemize}
+            \item Direction left (not right)
+            \item Direction up (not down)
+            \item Game in progress (not paused)
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pong}
+    \framesubtitle{State control }
+    \begin{block}{Game logic}
+        Because our \emph{FSM} is only signals, boundry conditions mapped easily onto state transitions (change left-right/up-down or finish game).
+    \end{block}
+    \begin{block}{Random start position}
+        We use the VGA-counter position to calculate a random position in the top half of the screen, as well as the starting direction (left-right)
+    \end{block}
+\end{frame}
 
 
-
+\begin{frame}[fragile]
+    \frametitle{Pong}
+    \framesubtitle{Sprite logic}
+    We use a trivial process to overlay the ball onto the image by simple multiplexing the color output with logic:
+    \lstinputlisting[firstline=319,lastline=338]{../_00FINAL_PROJECT/src/mandelbrot_top.vhdl}
+    firstline=319, lastline=338
 \end{frame}
 
 
