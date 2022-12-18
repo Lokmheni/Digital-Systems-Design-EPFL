@@ -2,16 +2,13 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Wed Nov 16 11:04:55 2022
-# Process ID: 14868
-# Current directory: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19268 H:\My Drive\EPFL\Bachelor Semester 5\Digital systems design\Shared with Simon\digital-systems-design\lab04\project_1.xpr
-# Log file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04/vivado.log
-# Journal file: H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04\vivado.jou
+# Start of session at: Sun Dec  4 17:53:26 2022
+# Process ID: 16524
+# Current directory: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/lab04
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent20448 C:\Users\lokkm\OneDrive\Desktop\Shared with Simon\digital-systems-design\lab04\project_1.xpr
+# Log file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/lab04/vivado.log
+# Journal file: C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/lab04\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project {H:/My Drive/EPFL/Bachelor Semester 5/Digital systems design/Shared with Simon/digital-systems-design/lab04/project_1.xpr}
+open_project {C:/Users/lokkm/OneDrive/Desktop/Shared with Simon/digital-systems-design/dsd_project/lab06_memory/LAB8/LAB8.xpr}
 update_compile_order -fileset sources_1
-launch_runs synth_1 -jobs 4
-wait_on_run synth_1
-launch_simulation

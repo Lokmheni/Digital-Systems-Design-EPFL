@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="mandelbrot_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="dsd_prj_pkg" />
+            <top_module name="glbl" />
+            <top_module name="mandelbrot_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+<<<<<<< HEAD
+      <ZoomStartTime time="166666fs"></ZoomStartTime>
+      <ZoomEndTime time="1166667fs"></ZoomEndTime>
+=======
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="1247059fs"></ZoomEndTime>
+>>>>>>> Lab8
+      <Cursor1Time time="1000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="381"></NameColumnWidth>
+<<<<<<< HEAD
+      <ValueColumnWidth column_width="179"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="95" />
+=======
+      <ValueColumnWidth column_width="185"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="59" />
+>>>>>>> Lab8
+   <wvobject fp_name="/mandelbrot_tb/CLKxCI" type="logic">
+      <obj_property name="ElementShortName">CLKxCI</obj_property>
+      <obj_property name="ObjectShortName">CLKxCI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/RSTxRI" type="logic">
+      <obj_property name="ElementShortName">RSTxRI</obj_property>
+      <obj_property name="ObjectShortName">RSTxRI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/WExS" type="logic">
+      <obj_property name="ElementShortName">WExS</obj_property>
+      <obj_property name="ObjectShortName">WExS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/XxD" type="array">
+      <obj_property name="ElementShortName">XxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/YxD" type="array">
+      <obj_property name="ElementShortName">YxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/ITERxD" type="array">
+      <obj_property name="ElementShortName">ITERxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_HIGH" type="other">
+      <obj_property name="ElementShortName">CLK_HIGH</obj_property>
+      <obj_property name="ObjectShortName">CLK_HIGH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_LOW" type="other">
+      <obj_property name="ElementShortName">CLK_LOW</obj_property>
+      <obj_property name="ObjectShortName">CLK_LOW</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_PER" type="other">
+      <obj_property name="ElementShortName">CLK_PER</obj_property>
+      <obj_property name="ObjectShortName">CLK_PER</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_STIM" type="other">
+      <obj_property name="ElementShortName">CLK_STIM</obj_property>
+      <obj_property name="ObjectShortName">CLK_STIM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CLKxCI" type="logic">
+      <obj_property name="ElementShortName">CLKxCI</obj_property>
+      <obj_property name="ObjectShortName">CLKxCI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/RSTxRI" type="logic">
+      <obj_property name="ElementShortName">RSTxRI</obj_property>
+      <obj_property name="ObjectShortName">RSTxRI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/WExSO" type="logic">
+      <obj_property name="ElementShortName">WExSO</obj_property>
+      <obj_property name="ObjectShortName">WExSO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XxDO" type="array">
+      <obj_property name="ElementShortName">XxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YxDO" type="array">
+      <obj_property name="ElementShortName">YxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDO" type="array">
+      <obj_property name="ElementShortName">ITERxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XcounterxD" type="array">
+      <obj_property name="ElementShortName">XcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YcounterxD" type="array">
+      <obj_property name="ElementShortName">YcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnXxS" type="logic">
+      <obj_property name="ElementShortName">CntEnXxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnXxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnYxS" type="logic">
+      <obj_property name="ElementShortName">CntEnYxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnYxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnZxS" type="logic">
+      <obj_property name="ElementShortName">CntEnZxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnZxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxXxD" type="array">
+      <obj_property name="ElementShortName">CntMaxXxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxXxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxYxD" type="array">
+      <obj_property name="ElementShortName">CntMaxYxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxYxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountXOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountXOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountXOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountYOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountYOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountYOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexN" type="array">
+      <obj_property name="ElementShortName">Z_rexN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxN" type="array">
+      <obj_property name="ElementShortName">Z_imxN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexP" type="array">
+      <obj_property name="ElementShortName">Z_rexP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxP" type="array">
+      <obj_property name="ElementShortName">Z_imxP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_re" type="array">
+      <obj_property name="ElementShortName">Z_re[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_re[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_im" type="array">
+      <obj_property name="ElementShortName">Z_im[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_im[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDN" type="array">
+      <obj_property name="ElementShortName">ITERxDN[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDN[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDP" type="array">
+      <obj_property name="ElementShortName">ITERxDP[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDP[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CLKxCI" type="logic">
+      <obj_property name="ElementShortName">CLKxCI</obj_property>
+      <obj_property name="ObjectShortName">CLKxCI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/RSTxRI" type="logic">
+      <obj_property name="ElementShortName">RSTxRI</obj_property>
+      <obj_property name="ObjectShortName">RSTxRI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/WExSO" type="logic">
+      <obj_property name="ElementShortName">WExSO</obj_property>
+      <obj_property name="ObjectShortName">WExSO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XxDO" type="array">
+      <obj_property name="ElementShortName">XxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YxDO" type="array">
+      <obj_property name="ElementShortName">YxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDO" type="array">
+      <obj_property name="ElementShortName">ITERxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XcounterxD" type="array">
+      <obj_property name="ElementShortName">XcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YcounterxD" type="array">
+      <obj_property name="ElementShortName">YcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnXxS" type="logic">
+      <obj_property name="ElementShortName">CntEnXxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnXxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnYxS" type="logic">
+      <obj_property name="ElementShortName">CntEnYxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnYxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnZxS" type="logic">
+      <obj_property name="ElementShortName">CntEnZxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnZxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxXxD" type="array">
+      <obj_property name="ElementShortName">CntMaxXxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxXxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxYxD" type="array">
+      <obj_property name="ElementShortName">CntMaxYxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxYxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountXOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountXOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountXOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountYOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountYOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountYOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexN" type="array">
+      <obj_property name="ElementShortName">Z_rexN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxN" type="array">
+      <obj_property name="ElementShortName">Z_imxN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexP" type="array">
+      <obj_property name="ElementShortName">Z_rexP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxP" type="array">
+      <obj_property name="ElementShortName">Z_imxP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_re" type="array">
+      <obj_property name="ElementShortName">Z_re[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_re[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_im" type="array">
+      <obj_property name="ElementShortName">Z_im[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_im[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexInitial" type="array">
+      <obj_property name="ElementShortName">Z_rexInitial[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexInitial[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxInitial" type="array">
+      <obj_property name="ElementShortName">Z_imxInitial[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxInitial[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDN" type="array">
+      <obj_property name="ElementShortName">ITERxDN[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDN[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDP" type="array">
+      <obj_property name="ElementShortName">ITERxDP[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDP[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/FINISHED_W" type="logic">
+      <obj_property name="ElementShortName">FINISHED_W</obj_property>
+      <obj_property name="ObjectShortName">FINISHED_W</obj_property>
+   </wvobject>
+<<<<<<< HEAD
+   <wvobject fp_name="/mandelbrot_tb/CLKxCI" type="logic">
+      <obj_property name="ElementShortName">CLKxCI</obj_property>
+      <obj_property name="ObjectShortName">CLKxCI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/RSTxRI" type="logic">
+      <obj_property name="ElementShortName">RSTxRI</obj_property>
+      <obj_property name="ObjectShortName">RSTxRI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/WExS" type="logic">
+      <obj_property name="ElementShortName">WExS</obj_property>
+      <obj_property name="ObjectShortName">WExS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/XxD" type="array">
+      <obj_property name="ElementShortName">XxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/YxD" type="array">
+      <obj_property name="ElementShortName">YxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/ITERxD" type="array">
+      <obj_property name="ElementShortName">ITERxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_HIGH" type="other">
+      <obj_property name="ElementShortName">CLK_HIGH</obj_property>
+      <obj_property name="ObjectShortName">CLK_HIGH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_LOW" type="other">
+      <obj_property name="ElementShortName">CLK_LOW</obj_property>
+      <obj_property name="ObjectShortName">CLK_LOW</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_PER" type="other">
+      <obj_property name="ElementShortName">CLK_PER</obj_property>
+      <obj_property name="ObjectShortName">CLK_PER</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/CLK_STIM" type="other">
+      <obj_property name="ElementShortName">CLK_STIM</obj_property>
+      <obj_property name="ObjectShortName">CLK_STIM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CLKxCI" type="logic">
+      <obj_property name="ElementShortName">CLKxCI</obj_property>
+      <obj_property name="ObjectShortName">CLKxCI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/RSTxRI" type="logic">
+      <obj_property name="ElementShortName">RSTxRI</obj_property>
+      <obj_property name="ObjectShortName">RSTxRI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/WExSO" type="logic">
+      <obj_property name="ElementShortName">WExSO</obj_property>
+      <obj_property name="ObjectShortName">WExSO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XxDO" type="array">
+      <obj_property name="ElementShortName">XxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YxDO" type="array">
+      <obj_property name="ElementShortName">YxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDO" type="array">
+      <obj_property name="ElementShortName">ITERxDO[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDO[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/XcounterxD" type="array">
+      <obj_property name="ElementShortName">XcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">XcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/YcounterxD" type="array">
+      <obj_property name="ElementShortName">YcounterxD[11:0]</obj_property>
+      <obj_property name="ObjectShortName">YcounterxD[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnXxS" type="logic">
+      <obj_property name="ElementShortName">CntEnXxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnXxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnYxS" type="logic">
+      <obj_property name="ElementShortName">CntEnYxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnYxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntEnZxS" type="logic">
+      <obj_property name="ElementShortName">CntEnZxS</obj_property>
+      <obj_property name="ObjectShortName">CntEnZxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxXxD" type="array">
+      <obj_property name="ElementShortName">CntMaxXxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxXxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CntMaxYxD" type="array">
+      <obj_property name="ElementShortName">CntMaxYxD[12:0]</obj_property>
+      <obj_property name="ObjectShortName">CntMaxYxD[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountXOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountXOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountXOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/CountYOverflowxS" type="logic">
+      <obj_property name="ElementShortName">CountYOverflowxS</obj_property>
+      <obj_property name="ObjectShortName">CountYOverflowxS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexN" type="array">
+      <obj_property name="ElementShortName">Z_rexN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxN" type="array">
+      <obj_property name="ElementShortName">Z_imxN[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxN[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexP" type="array">
+      <obj_property name="ElementShortName">Z_rexP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxP" type="array">
+      <obj_property name="ElementShortName">Z_imxP[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxP[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_re" type="array">
+      <obj_property name="ElementShortName">Z_re[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_re[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_im" type="array">
+      <obj_property name="ElementShortName">Z_im[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_im[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_rexInitial" type="array">
+      <obj_property name="ElementShortName">Z_rexInitial[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_rexInitial[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/Z_imxInitial" type="array">
+      <obj_property name="ElementShortName">Z_imxInitial[12:0]</obj_property>
+      <obj_property name="ObjectShortName">Z_imxInitial[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDN" type="array">
+      <obj_property name="ElementShortName">ITERxDN[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDN[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/ITERxDP" type="array">
+      <obj_property name="ElementShortName">ITERxDP[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ITERxDP[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrot_tb/dut/FINISHED_W" type="logic">
+      <obj_property name="ElementShortName">FINISHED_W</obj_property>
+      <obj_property name="ObjectShortName">FINISHED_W</obj_property>
+   </wvobject>
+=======
+>>>>>>> Lab8
+</wave_config>

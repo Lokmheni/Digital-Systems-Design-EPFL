@@ -2,28 +2,13 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Sat Dec  3 23:08:34 2022
-# Process ID: 11852
+# Start of session at: Sun Dec 11 16:04:13 2022
+# Process ID: 5936
 # Current directory: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12200 C:\Users\thuer\Documents\School\2_EPFL5\digital_systems_design\digital-systems-design\dsd_project\DSD_PROJECT.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1464 C:\Users\thuer\Documents\School\2_EPFL5\digital_systems_design\digital-systems-design\dsd_project\DSD_PROJECT.xpr
 # Log file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/vivado.log
 # Journal file: C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.xpr
-INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
-Current project path is 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project'
-CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab05_vga/src/dsd_prj_pkg.vhdl'.
-CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab05_vga/src/vga_controller_top.vhdl'.
-CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab05_vga/src/vga_controller_tb.vhdl'.
-CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/lab06_memory/src/vga_controller.vhdl'.
-Scanning sources...
-Finished scanning sources
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
-WARNING: [IP_Flow 19-3664] IP 'blk_mem_gen_0' generated file not found 'c:/Users/thuer/Documents/School/2_EPFL5/digital_systems_design/digital-systems-design/dsd_project/DSD_PROJECT.gen/sources_1/ip/blk_mem_gen_0/summary.log'. Please regenerate to continue.
-open_project: Time (s): cpu = 00:00:23 ; elapsed = 00:00:10 . Memory (MB): peak = 1005.949 ; gain = 0.000
-update_compile_order -fileset sources_1
 exit
-INFO: [Common 17-206] Exiting Vivado at Sat Dec  3 23:09:30 2022...
+INFO: [Common 17-206] Exiting Vivado at Sun Dec 11 16:04:34 2022...
